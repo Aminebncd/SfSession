@@ -23,7 +23,7 @@ class Session
     private ?\DateTimeInterface $dateDebut = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $datefin = null;
+    private ?\DateTimeInterface $dateFin = null;
 
     #[ORM\Column]
     private ?int $nombrePlaces = null;
@@ -43,10 +43,14 @@ class Session
     #[ORM\ManyToOne(inversedBy: 'sessions')]
     private ?User $createur = null;
 
+    #[ORM\OneToMany(targetEntity: Programme::class, mappedBy: 'session')]
+    private Collection $programmes;
+
     public function __construct()
     {
         $this->modules = new ArrayCollection();
         $this->inscrits = new ArrayCollection();
+        $this->programmes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -71,6 +75,11 @@ class Session
         return $this->dateDebut;
     }
 
+    public function getDateDebutFR(): ?string
+    {
+        return $this->dateDebut->format('d.m.Y');
+    }
+
     public function setDateDebut(\DateTimeInterface $dateDebut): static
     {
         $this->dateDebut = $dateDebut;
@@ -78,14 +87,19 @@ class Session
         return $this;
     }
 
-    public function getDatefin(): ?\DateTimeInterface
+    public function getDateFin(): ?\DateTimeInterface
     {
-        return $this->datefin;
+        return $this->dateFin;
     }
 
-    public function setDatefin(\DateTimeInterface $datefin): static
+    public function getDateFinFR(): ?string
     {
-        $this->datefin = $datefin;
+        return $this->dateFin->format('d.m.Y');
+    }
+
+    public function setDateFin(\DateTimeInterface $dateFin): static
+    {
+        $this->dateFin = $dateFin;
 
         return $this;
     }
@@ -185,6 +199,40 @@ class Session
     public function setCreateur(?User $createur): static
     {
         $this->createur = $createur;
+
+        return $this;
+    }
+
+    public function __tostring(){
+        return $this->intitule_session;
+    }
+
+    /**
+     * @return Collection<int, Programme>
+     */
+    public function getProgrammes(): Collection
+    {
+        return $this->programmes;
+    }
+
+    public function addProgramme(Programme $programme): static
+    {
+        if (!$this->programmes->contains($programme)) {
+            $this->programmes->add($programme);
+            $programme->setSession($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgramme(Programme $programme): static
+    {
+        if ($this->programmes->removeElement($programme)) {
+            // set the owning side to null (unless already changed)
+            if ($programme->getSession() === $this) {
+                $programme->setSession(null);
+            }
+        }
 
         return $this;
     }

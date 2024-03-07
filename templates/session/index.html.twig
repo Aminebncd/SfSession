@@ -9,8 +9,35 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1> Liste des sessions</h1>
 
-  
+    {% if sessions %}
+
+      {% for session in sessions %}
+        
+
+      <table>
+        <thead>
+          <tr>
+            <th>{{ session }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>du {{ session.dateDebutFR }} au {{ session.dateFinFR }}</td>
+            <td>| {{ session.nombrePlaces }} places</td>
+          </tr>
+        </tbody>
+      </table>
+          {# {{ session }} <br>
+          {{ session.dateDebutFR }} <br>
+          {{ session.dateFinFR }} <br>
+          {{ session.nombrePlaces }} places
+         #}
+      {% endfor %}
+   
+    {% else %}
+      <p>Il semblerait qu'aucune session ne soit renseignée en base de données.</p>
+    {% endif %}
 </div>
 {% endblock %}
