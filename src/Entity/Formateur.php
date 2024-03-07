@@ -102,4 +102,9 @@ class Formateur
 
         return $this;
     }
+
+    public function __tostring()
+    {
+        return $this->getNom().' '.$this->getPrenom();
+    }
 }

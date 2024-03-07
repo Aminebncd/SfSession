@@ -72,4 +72,9 @@ class Formation
 
         return $this;
     }
+
+    public function __tostring()
+    {
+        return $this->titre ;
+    }
 }

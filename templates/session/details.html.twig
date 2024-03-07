@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SessionController!{% endblock %}
+{% block title %}Details de la session{% endblock %}
 
 {% block body %}
 <style>
@@ -9,21 +9,23 @@
 </style>
 
 <div class="example-wrapper">
-    <h1> Liste des sessions</h1>
+    <h1>Details de la session</h1>
 
-    {% if sessions %}
-
-      {% for session in sessions %}
-        
+    {% if session %}
 
       <table>
         <thead>
           <tr>
-            {# <a href="{{ path('show_entreprise', {'id': entreprise.id}) }}">{{ entreprise}}</a> #}
-            <th><a href="{{ path('details_session', {'id' : session.id}) }}">{{ session }}</a></th>
+            <th>{{ session }}</th>
           </tr>
         </thead>
         <tbody>
+          <tr>
+            formation : {{ session.formation }}
+          </tr>
+          <tr>
+            formateur référent : {{ session.formateur }}
+          </tr>
           <tr>
             <td>du {{ session.dateDebutFR }} au {{ session.dateFinFR }}</td>
             <td>| {{ session.nombrePlaces }} places</td>
@@ -35,10 +37,10 @@
           {{ session.dateFinFR }} <br>
           {{ session.nombrePlaces }} places
          #}
-      {% endfor %}
+      
    
     {% else %}
-      <p>Il semblerait qu'aucune session ne soit renseignée en base de données.</p>
+      <p>Il semblerait que cette session n'existe pas en base de données.</p>
     {% endif %}
 </div>
 {% endblock %}
