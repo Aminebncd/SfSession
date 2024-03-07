@@ -1,0 +1,29 @@
+
+
+
+QUELQUES NOTIONS :
+
+
+Algorithme de hashage utilisé par symfony : 
+"BCRYPT"->Eksblowfish
+
+
+Difference entre un algorithme de hashage dit 'fort' et 'faible' : 
+un algorithme de hashage est 
+considéré fort ou faible selon sa resistance aux collisions.
+
+algo -> sel de hashage , cost 
+algo -> sha ou md5 
+
+
+Les collisions: 
+Avec un nombre d'input possible infini et un output de hash de valeur finie, 
+certains input sont voués à avoir la même valeur une fois hashé, 
+c'est une collision ( hash(A) === hash(B) ), pour éviter ça, les algorithmes de hashage 
+sont conçus pour etre resistants à cette faille. Dans certains cas les outils utilisent même differents 
+algorithmes de hash par ordre hierarchique pour que si un input produit une collision avec un algo A, on puisse
+directement le hash avec un algo B.
+
+
+Définition de l'empreinte numerique :
+algo + cost + sel de hash + mot de passe hashé
