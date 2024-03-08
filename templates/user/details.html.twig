@@ -42,9 +42,12 @@
             <tr>
                 <td>email : {{ user.email }}</td>
             </tr>
+            {% if is_granted('ROLE_ADMIN') %}
             <tr>
                 <td>Role : {{ user.roles|join(', ') }}</td>
             </tr>
+            {% endif %}
+            
         </tbody>
       </table>
 
