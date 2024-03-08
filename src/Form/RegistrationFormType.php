@@ -10,8 +10,11 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -43,8 +46,16 @@ class RegistrationFormType extends AbstractType
         ])
         ->add('nom', TextType::class)
         ->add('prenom', TextType::class)
-        ->add('dateNaissance')
-        ->add('sexe', TextType::class)
+        ->add('dateNaissance', DateType::class, [
+            'widget' => 'single_text',
+        ])
+        ->add('sexe', ChoiceType::class, [
+            'choices' => [
+                 'homme' => 'homme',
+                 'femme' => 'femme',
+                 'autre'=> 'autre'
+            ]
+        ])
         ->add('ville', TextType::class)
         ->add('telephone', TextType::class)
         ->add('agreeTerms', CheckboxType::class, [

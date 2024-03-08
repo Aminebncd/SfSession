@@ -14,31 +14,50 @@
     {% if session %}
 
       <table>
+
         <thead>
-          <tr>
-            <th>{{ session }}</th>
-          </tr>
+            <tr>
+              <th><h2>{{ session }}</h2></th>
+            </tr>
         </thead>
         <tbody>
-          <tr>
-            formation : {{ session.formation }}
-          </tr>
-          <tr>
-            formateur référent : {{ session.formateur }}
-          </tr>
-          <tr>
-            <td>du {{ session.dateDebutFR }} au {{ session.dateFinFR }}</td>
-            <td>| {{ session.nombrePlaces }} places</td>
-          </tr>
+            <tr>
+              <td>formation : {{ session.formation }}</td>
+            </tr>
+            <tr>
+            <td> formateur référent : {{ session.formateur }}</td>
+            </tr>
+            <tr>
+              <td>du {{ session.dateDebutFR }} au {{ session.dateFinFR }}</td>
+            </tr>
+            <tr>
+              <td>{{ session.nombrePlaces }} places</td>
+            </tr>
         </tbody>
       </table>
-          {# {{ session }} <br>
-          {{ session.dateDebutFR }} <br>
-          {{ session.dateFinFR }} <br>
-          {{ session.nombrePlaces }} places
-         #}
-      
-   
+
+      <div>
+        <h2>Inscrits à cette session :</h2>
+        <div>
+          {% for inscrit in session.inscrits %}
+            <p>
+              {{ inscrit}}
+            </p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div>
+        <h2>Programme de cette session :</h2>
+        <div>
+          {% for programme in session.programmes %}
+            <p>
+              {{programme}}
+            </p>
+          {% endfor %}
+        </div>
+      </div>
+         
     {% else %}
       <p>Il semblerait que cette session n'existe pas en base de données.</p>
     {% endif %}

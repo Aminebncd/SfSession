@@ -34,9 +34,6 @@ class Session
     #[ORM\ManyToOne(inversedBy: 'sessions')]
     private ?Formateur $formateur = null;
 
-    #[ORM\ManyToMany(targetEntity: Module::class, mappedBy: 'session')]
-    private Collection $modules;
-
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'sessions')]
     private Collection $inscrits;
 
@@ -48,7 +45,6 @@ class Session
 
     public function __construct()
     {
-        $this->modules = new ArrayCollection();
         $this->inscrits = new ArrayCollection();
         $this->programmes = new ArrayCollection();
     }
@@ -136,33 +132,6 @@ class Session
     public function setFormateur(?Formateur $formateur): static
     {
         $this->formateur = $formateur;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Module>
-     */
-    public function getModules(): Collection
-    {
-        return $this->modules;
-    }
-
-    public function addModule(Module $module): static
-    {
-        if (!$this->modules->contains($module)) {
-            $this->modules->add($module);
-            $module->addSession($this);
-        }
-
-        return $this;
-    }
-
-    public function removeModule(Module $module): static
-    {
-        if ($this->modules->removeElement($module)) {
-            $module->removeSession($this);
-        }
 
         return $this;
     }

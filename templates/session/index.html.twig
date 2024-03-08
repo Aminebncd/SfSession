@@ -10,6 +10,7 @@
 
 <div class="example-wrapper">
     <h1> Liste des sessions</h1>
+    <a href="{{ path('new_session') }}">Ajouter une session</a>
 
     {% if sessions %}
 
@@ -27,6 +28,10 @@
           <tr>
             <td>du {{ session.dateDebutFR }} au {{ session.dateFinFR }}</td>
             <td>| {{ session.nombrePlaces }} places</td>
+            <tfoot>
+              <td><a class="btn btn-warning btn-sm" href="{{ path('edit_session', {'id' : session.id}) }}">edit</a></td>
+              {# <td><a class="btn btn-warning btn-sm" href="{{ path('delete_session', {'id' : session.id}) }}">delete</a></td> #}
+            </tfoot>
           </tr>
         </tbody>
       </table>

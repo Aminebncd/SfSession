@@ -21,15 +21,11 @@ class Module
     #[ORM\ManyToOne(inversedBy: 'modules')]
     private ?Categorie $categorie = null;
 
-    #[ORM\ManyToMany(targetEntity: Session::class, inversedBy: 'modules')]
-    private Collection $session;
-
     #[ORM\OneToMany(targetEntity: Programme::class, mappedBy: 'module')]
     private Collection $programmes;
 
     public function __construct()
     {
-        $this->session = new ArrayCollection();
         $this->programmes = new ArrayCollection();
     }
 
@@ -63,30 +59,6 @@ class Module
     }
 
     /**
-     * @return Collection<int, Session>
-     */
-    public function getSession(): Collection
-    {
-        return $this->session;
-    }
-
-    public function addSession(Session $session): static
-    {
-        if (!$this->session->contains($session)) {
-            $this->session->add($session);
-        }
-
-        return $this;
-    }
-
-    public function removeSession(Session $session): static
-    {
-        $this->session->removeElement($session);
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Programme>
      */
     public function getProgrammes(): Collection
@@ -114,5 +86,9 @@ class Module
         }
 
         return $this;
+    }
+
+    public function __toString(){
+        return $this->intitule_module;
     }
 }
