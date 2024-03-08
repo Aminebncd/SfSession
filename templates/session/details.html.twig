@@ -13,51 +13,53 @@
 
     {% if session %}
 
-      <table>
-
-        <thead>
-            <tr>
-              <th><h2>{{ session }}</h2></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-              <td>formation : {{ session.formation }}</td>
-            </tr>
-            <tr>
-            <td> formateur référent : {{ session.formateur }}</td>
-            </tr>
-            <tr>
-              <td>du {{ session.dateDebutFR }} au {{ session.dateFinFR }}</td>
-            </tr>
-            <tr>
-              <td>{{ session.nombrePlaces }} places</td>
-            </tr>
-        </tbody>
-      </table>
+      <div>
+        {{ session }} <br>
+        formation : {{ session.formation }} <br>
+        formateur référent : {{ session.formateur }} <br>
+        du {{ session.dateDebutFR }} au {{ session.dateFinFR }} <br>
+        {{ session.nombrePlaces }} places
+      </div>
+      
 
       <div>
-        <h2>Inscrits à cette session :</h2>
-        <div>
-          {% for inscrit in session.inscrits %}
-            <p>
-              {{ inscrit}}
-            </p>
-          {% endfor %}
-        </div>
+        <h2>Inscrits à cette session : </h2>
+          <div>
+            {% for inscrit in session.inscrits %}
+              <p>
+                {{ inscrit}} 
+                {# <a href="{{ path('removeUser_session', {'id_session' : session.id, 'id_user' : inscrit.id}) }}">desinscrire</a> #}
+              </p>
+            {% endfor %}
+          </div>
       </div>
 
       <div>
         <h2>Programme de cette session :</h2>
-        <div>
-          {% for programme in session.programmes %}
-            <p>
-              {{programme}}
-            </p>
-          {% endfor %}
-        </div>
+          <div>
+            {% for programme in session.programmes %}
+              <p>
+                {{programme}}
+              </p>
+            {% endfor %}
+          </div>
+
       </div>
-         
+      
+      <div>
+        <h2>stagiaires non inscrits :</h2>
+          <div>
+            {% for nonInscrit in nonInscrits %}
+              <p>
+                {{nonInscrit}} <a href="{{ path('addUser_session', {'session' : session.id, 'user' : nonInscrit.id}) }}">inscrire</a>
+              </p>
+
+              {{dump(session)}} 
+              {{dump(nonInscrit)}} 
+            {% endfor %}
+          </div>
+      </div>
+     
     {% else %}
       <p>Il semblerait que cette session n'existe pas en base de données.</p>
     {% endif %}
