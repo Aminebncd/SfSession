@@ -105,6 +105,6 @@ class Formateur
 
     public function __tostring()
     {
-        return $this->getNom().' '.$this->getPrenom();
+        return $this->nom.' '.$this->prenom;
     }
 }

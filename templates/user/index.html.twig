@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %} Liste des Users{% endblock %}
 
 {% block body %}
 <style>
@@ -9,6 +9,22 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1> Liste des Users</h1>
+
+    {% if users %}
+
+      {% for user in users %}
+        {# lien vers une oage detaillant les infos du user #}
+      <a href="{{ path('details_user', {'id': user.id}) }}">{{user}}</a>
+          
+    
+
+      
+        
+      {% endfor %}
+   
+    {% else %}
+      <p>Il semblerait qu'aucun user ne soit renseigné en base de données.</p>
+    {% endif %}
 </div>
 {% endblock %}

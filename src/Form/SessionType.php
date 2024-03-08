@@ -11,6 +11,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class SessionType extends AbstractType
@@ -18,36 +21,23 @@ class SessionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('intitule_session')
-            ->add('dateDebut', null, [
+            ->add('intitule_session', TextType::class)
+            ->add('dateDebut', DateType::class, [
                 'widget' => 'single_text',
             ])
-            ->add('dateFin', null, [
+            ->add('dateFin', DateType::class, [
                 'widget' => 'single_text',
             ])
-            ->add('nombrePlaces')
+            ->add('nombrePlaces', NumberType::class)
             ->add('formation', EntityType::class, [
-                'class' => Formation::class,
-                'choice_label' => 'id',
+                'class' => Formation::class
+                
             ])
             ->add('formateur', EntityType::class, [
-                'class' => Formateur::class,
-                'choice_label' => 'id',
+                'class' => Formateur::class
+                
             ])
-            ->add('modules', EntityType::class, [
-                'class' => Module::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-            ])
-            ->add('inscrits', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-            ])
-            ->add('createur', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
+            
             ->add('valider', SubmitType::class, [
                 'attr' => [
                     // 'class' => 'btn btn-primary mt-3'

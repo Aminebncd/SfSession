@@ -9,8 +9,8 @@
         <h1>Ajoutez une nouvelle session</h1>
     {% endif %}
 
-
     {{ form_start(formAddSession) }}
+    {# {% form_theme form 'foundation_5_layout.html.twig' %} #}
 
     <div>
         <div>
@@ -28,8 +28,6 @@
         </div>
         <div>
             {{form_row(formAddSession.nombrePlaces)}}
-            {{form_row(formAddSession.modules)}}
-            {{form_row(formAddSession.inscrits)}}
         </div>
     </div>
     

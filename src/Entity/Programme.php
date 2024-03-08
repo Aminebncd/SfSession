@@ -62,4 +62,8 @@ class Programme
 
         return $this;
     }
+
+    public function __tostring() {
+        return $this->module.' '.$this->duree.' j';
+    }
 }

@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Details du stagiaire{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Details du stagiaire</h1>
+
+
+    {# si le user existe en BDD #}
+    {% if user %}
+
+    {# affichage de ses infos #}
+      <table>
+
+        <thead>
+            <tr>
+              <th><h2>Fiche stagiaire</h2></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Nom : {{ user.nom }}</td>
+            </tr>
+            <tr>
+                <td>Prenom : {{ user.prenom }}</td>
+            </tr>
+            <tr>
+                <td>civilité : {{ user.sexe }}</td>
+            </tr>
+            <tr>
+                <td>Ville : {{ user.ville }}</td>
+            </tr>
+            <tr>
+                <td>Telephone : {{ user.telephone }}</td>
+            </tr>
+            <tr>
+                <td>email : {{ user.email }}</td>
+            </tr>
+            <tr>
+                <td>Role : {{ user.roles|join(', ') }}</td>
+            </tr>
+        </tbody>
+      </table>
+
+      <div>
+        <h2>Inscrit à ces session :</h2>
+        <div>
+          {% for inscrit in user.sessions %}
+            <p>
+              {{ inscrit}}
+            </p>
+          {% endfor %}
+        </div>
+      </div>
+
+     
+         
+    {% else %}
+      <p>Il semblerait que ce stagiaire n'existe pas en base de données.</p>
+    {% endif %}
+</div>
+{% endblock %}

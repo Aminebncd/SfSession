@@ -16,9 +16,13 @@ class SessionController extends AbstractController
     #[Route('/session', name: 'app_session')]
     public function index(SessionRepository $sessionRepository): Response
     {
+        // je recupere toutes les sessions en BDD
         $sessions = $sessionRepository->findAll();
+
+        // je retourne la vue avec la fonction symfony render()
         return $this->render('session/index.html.twig', [
             'controller_name' => 'SessionController',
+            // je transmets les infos recupérées plus haut
             'sessions' => $sessions
         ]);
     }
@@ -26,7 +30,7 @@ class SessionController extends AbstractController
     #[Route('/session/{id}/details', name: 'details_session')]
     public function details(Session $session=null): Response
     {
-        // $session = $sessionRepository-find($id);
+        // $session = $sessionRepository->find($id);
         return $this->render('session/details.html.twig', [
             'controller_name' => 'SessionController', 
             'session' => $session
@@ -44,7 +48,8 @@ class SessionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+            $user = $this->getUser();
+            $session->setCreateur($user);
             $session = $form->getData();
             $entityManager->persist($session);
             $entityManager->flush();
