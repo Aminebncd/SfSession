@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajoutez une nouvelle session{% endblock %}
+
+{% block body %}
+    {% if edit %}
+        <h1>Editer une session existante</h1>
+    {% else %}
+        <h1>Ajoutez une nouvelle session</h1>
+    {% endif %}
+
+
+    {{ form_start(formAddSession) }}
+
+    <div>
+        <div>
+            {{form_row(formAddSession.intitule_session)}}
+        </div>
+        <div>
+            {{form_row(formAddSession.formateur)}}
+        </div>
+        <div>
+            {{form_row(formAddSession.formation)}}
+        </div>
+        <div>
+            {{form_row(formAddSession.dateDebut)}}
+            {{form_row(formAddSession.dateFin)}}
+        </div>
+        <div>
+            {{form_row(formAddSession.nombrePlaces)}}
+            {{form_row(formAddSession.modules)}}
+            {{form_row(formAddSession.inscrits)}}
+        </div>
+    </div>
+    
+            {{form_row(formAddSession.valider)}}
+
+    {{ form_end(formAddSession) }}
+
+{% endblock %}

@@ -14,31 +14,28 @@
     {% if session %}
 
       <table>
+
         <thead>
-          <tr>
-            <th>{{ session }}</th>
-          </tr>
+            <tr>
+              <th>{{ session }}</th>
+            </tr>
         </thead>
         <tbody>
-          <tr>
-            formation : {{ session.formation }}
-          </tr>
-          <tr>
-            formateur référent : {{ session.formateur }}
-          </tr>
-          <tr>
-            <td>du {{ session.dateDebutFR }} au {{ session.dateFinFR }}</td>
-            <td>| {{ session.nombrePlaces }} places</td>
-          </tr>
+            <tr>
+              <td>formation : {{ session.formation }}</td>
+            </tr>
+            <tr>
+            <td> formateur référent : {{ session.formateur }}</td>
+            </tr>
+            <tr>
+              <td>du {{ session.dateDebutFR }} au {{ session.dateFinFR }}</td>
+            </tr>
+            <tr>
+              <td>{{ session.nombrePlaces }} places</td>
+            </tr>
         </tbody>
       </table>
-          {# {{ session }} <br>
-          {{ session.dateDebutFR }} <br>
-          {{ session.dateFinFR }} <br>
-          {{ session.nombrePlaces }} places
-         #}
-      
-   
+         
     {% else %}
       <p>Il semblerait que cette session n'existe pas en base de données.</p>
     {% endif %}
