@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Session;
+use App\Entity\User;
 use App\Form\SessionType;
+use App\Repository\UserRepository;
 use App\Repository\SessionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,20 +28,50 @@ class SessionController extends AbstractController
             'sessions' => $sessions
         ]);
     }
+
+
     
     #[Route('/session/{id}/details', name: 'details_session')]
-    public function details(Session $session=null): Response
+    public function details(Session $session=null, 
+                            SessionRepository $sessionRepository): Response
     {
+        $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
         // $session = $sessionRepository->find($id);
+        
         return $this->render('session/details.html.twig', [
             'controller_name' => 'SessionController', 
+            'nonInscrits' => $nonInscrits,
             'session' => $session
         ]);
     }
 
+
+
+    #[Route('/session/{session}/{user}/inscrire', name: 'addUser_session')]
+    public function addUser(Session $session=null, 
+                            User $user=null,
+                            SessionRepository $sessionRepository, 
+                            UserRepository $userRepository,
+                            EntityManagerInterface $entityManager, 
+                            Request $request)
+    {
+        // $session = $entityManager->find($id_session);
+        // $session = $sessionRepository->find($id_session);
+        // $user = $userRepository->find($id_session);
+        // $user = $userRepository;
+
+        dd($user);
+        // ->addInscrit($user);
+        return $this->redirectToRoute('details_session');
+    }
+
+
+
     #[Route('/session/new', name: 'new_session')]
     #[Route('/session/{id}/edit', name: 'edit_session')]
-    public function new_edit(Session $session = null, Request $request, EntityManagerInterface $entityManager): Response
+    public function new_edit(Session $session = null, 
+                             Request $request, 
+                             EntityManagerInterface $entityManager): Response
     {
         if (!$session) {
             $session = new Session();
@@ -62,4 +94,7 @@ class SessionController extends AbstractController
             'edit' => $session->getId()
         ]);
     }
+
+
+
 }

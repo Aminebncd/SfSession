@@ -11,6 +11,11 @@
 <div class="example-wrapper">
     <h1>Details du stagiaire</h1>
 
+    {# tester les infos qu'on reçoit du user #}
+
+        {# {% for session in user.sessions %}
+            {{ dump(session) }}
+        {% endfor %} #}
 
     {# si le user existe en BDD #}
     {% if user %}
@@ -52,14 +57,18 @@
       </table>
 
       <div>
-        <h2>Inscrit à ces session :</h2>
-        <div>
-          {% for inscrit in user.sessions %}
-            <p>
-              {{ inscrit}}
-            </p>
-          {% endfor %}
-        </div>
+        {% if user.sessions |length == 0  %} 
+            <h2>pas encore inscrit à une session.</h2>
+        {% else %}
+            <h2>Inscrit à ces session :</h2>
+            <div>
+            {% for session in user.sessions %}
+                <p>
+                {{ session}}
+                </p>
+            {% endfor %}
+            </div>
+        {% endif %}
       </div>
 
      
