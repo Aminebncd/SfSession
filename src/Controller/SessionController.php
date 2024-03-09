@@ -47,6 +47,7 @@ class SessionController extends AbstractController
 
 
 
+    
     #[Route('/session/{session}/{user}/inscrire', name: 'addUser_session')]
     public function addUser(Session $session=null, 
                             User $user=null,
@@ -67,18 +68,23 @@ class SessionController extends AbstractController
 
 
 
+    // fonction permettant de creer/modifier une session
     #[Route('/session/new', name: 'new_session')]
     #[Route('/session/{id}/edit', name: 'edit_session')]
     public function new_edit(Session $session = null, 
                              Request $request, 
                              EntityManagerInterface $entityManager): Response
     {
+        // si session inexistante, crée un nouvel objet session
         if (!$session) {
             $session = new Session();
         }
+
+        // crée un nouveau formulaire associé $session
         $form = $this->createForm(SessionType::class, $session);
         $form->handleRequest($request);
 
+        // si soumis et validé, attribue à session.createur l'id du user connecté, reccupere les données du formulaire, et transmet à la BDD
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getUser();
             $session->setCreateur($user);
@@ -86,6 +92,7 @@ class SessionController extends AbstractController
             $entityManager->persist($session);
             $entityManager->flush();
 
+            // redirige vers la page des sessions
             return $this->redirectToRoute('app_session');
         }
 

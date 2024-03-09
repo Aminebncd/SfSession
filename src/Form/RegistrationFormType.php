@@ -38,6 +38,9 @@ class RegistrationFormType extends AbstractType
             'second_options' => ['label' => 'Repeat Password'],
             'constraints' => [
                 new NotBlank(),
+                // je laisse la regex pour plus tard le temps de faire mes tests, 
+                // une fois activée elle necessitera des 12 caracteres minimum,
+                // 1 minuscule, 1 majuscule, 1 chiffre et 1 caractere special comme le recommande la CNIL
                 // new Regex([
                 //     'match' => true,
                 //     'pattern' => '/^(?=.+[$&+,:;=?@#|<>.-^*()%!])(?=.+[0-9])(?=.+[a-z])(?=.+[A-Z]).{12,}$/',
@@ -62,7 +65,7 @@ class RegistrationFormType extends AbstractType
             'mapped' => false,
             'constraints' => [
                 new IsTrue([
-                    'message' => 'You should agree to our terms.',
+                    'message' => 'Agree or consequences.',
                 ]),
             ],
         ]);
