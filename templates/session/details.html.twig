@@ -28,7 +28,7 @@
             {% for inscrit in session.inscrits %}
               <p>
                 {{ inscrit}} 
-                {# <a href="{{ path('removeUser_session', {'id_session' : session.id, 'id_user' : inscrit.id}) }}">desinscrire</a> #}
+                <a href="{{ path('removeUser_session', {'session' : session.id, 'user' : inscrit.id}) }}">desinscrire</a>
               </p>
             {% endfor %}
           </div>

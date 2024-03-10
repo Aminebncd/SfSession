@@ -53,7 +53,7 @@ class SessionController extends AbstractController
                             User $user=null,
                             SessionRepository $sessionRepository, 
                             UserRepository $userRepository,
-                            EntityManagerInterface $entityManager, 
+                            EntityManagerInterface $entityManager,
                             Request $request)
     {
         // $session = $entityManager->find($id_session);
@@ -61,9 +61,43 @@ class SessionController extends AbstractController
         // $user = $userRepository->find($id_session);
         // $user = $userRepository;
 
-        dd($user);
-        // ->addInscrit($user);
-        return $this->redirectToRoute('details_session');
+        // dd($user);
+        $session->addInscrit($user);
+        $entityManager->persist($session);
+        $entityManager->flush();
+        // return $this->redirectToRoute('details_session');
+        $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
+        return $this->render('session/details.html.twig', [
+            'controller_name' => 'SessionController', 
+            'nonInscrits' => $nonInscrits,
+            'session' => $session
+        ]);
+    }
+
+    #[Route('/session/{session}/{user}/desinscrire', name: 'removeUser_session')]
+    public function removeUser(Session $session=null, 
+                            User $user=null,
+                            SessionRepository $sessionRepository, 
+                            UserRepository $userRepository,
+                            EntityManagerInterface $entityManager,
+                            Request $request)
+    {
+        // $session = $entityManager->find($id_session);
+        // $session = $sessionRepository->find($id_session);
+        // $user = $userRepository->find($id_session);
+        // $user = $userRepository;
+
+        // dd($user);
+        $session->removeInscrit($user);
+        $entityManager->persist($session);
+        $entityManager->flush();
+        // return $this->redirectToRoute('details_session');
+        $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
+        return $this->render('session/details.html.twig', [
+            'controller_name' => 'SessionController', 
+            'nonInscrits' => $nonInscrits,
+            'session' => $session
+        ]);
     }
 
 
