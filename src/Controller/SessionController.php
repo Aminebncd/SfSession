@@ -56,16 +56,16 @@ class SessionController extends AbstractController
                             EntityManagerInterface $entityManager,
                             Request $request)
     {
-        // $session = $entityManager->find($id_session);
-        // $session = $sessionRepository->find($id_session);
-        // $user = $userRepository->find($id_session);
-        // $user = $userRepository;
-
+        
         // dd($user);
+        // je rajoute le user dont j'ai recupéré l'id à la liste des inscrits
         $session->addInscrit($user);
+
+        // j'envoie les données à ma BDD
         $entityManager->persist($session);
         $entityManager->flush();
-        // return $this->redirectToRoute('details_session');
+
+        // Je retourne la vue des details de la session
         $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
         return $this->render('session/details.html.twig', [
             'controller_name' => 'SessionController', 
@@ -82,16 +82,11 @@ class SessionController extends AbstractController
                             EntityManagerInterface $entityManager,
                             Request $request)
     {
-        // $session = $entityManager->find($id_session);
-        // $session = $sessionRepository->find($id_session);
-        // $user = $userRepository->find($id_session);
-        // $user = $userRepository;
-
-        // dd($user);
+      
         $session->removeInscrit($user);
         $entityManager->persist($session);
         $entityManager->flush();
-        // return $this->redirectToRoute('details_session');
+        
         $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
         return $this->render('session/details.html.twig', [
             'controller_name' => 'SessionController', 
