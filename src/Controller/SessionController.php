@@ -2,11 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Session;
 use App\Entity\User;
-// use App\Controller;
+use App\Entity\Module;
+use App\Entity\Session;
 use App\Form\SessionType;
 use App\Repository\UserRepository;
+use App\Repository\ModuleRepository;
 use App\Repository\SessionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,12 +38,14 @@ class SessionController extends AbstractController
                             SessionRepository $sessionRepository): Response
     {
         $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
+        $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());
         // $session = $sessionRepository->find($id);
         
         return $this->render('session/details.html.twig', [
             'controller_name' => 'SessionController', 
             'nonInscrits' => $nonInscrits,
             'session' => $session,
+            'nonProgrammes' => $nonProgrammes,
             'message' => ""
         ]);
     }
@@ -56,9 +59,10 @@ class SessionController extends AbstractController
                             SessionRepository $sessionRepository, 
                             UserRepository $userRepository,
                             EntityManagerInterface $entityManager,
-                            Request $request) : Response
+                            Request $request) 
     {
         $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
+        $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());
         // dd(count($session->getInscrits()));
         if (count($session->getInscrits()) < $session->getNombrePlaces()) {
             // je rajoute le user dont j'ai recupéré l'id à la liste des inscrits
@@ -74,6 +78,7 @@ class SessionController extends AbstractController
                 'controller_name' => 'SessionController', 
                 'nonInscrits' => $nonInscrits,
                 'session' => $session,
+                'nonProgrammes' => $nonProgrammes,
                 'message' => "Stagiaire ajouté avec succès."
             ]);
         } else {
@@ -81,9 +86,47 @@ class SessionController extends AbstractController
                 'controller_name' => 'SessionController', 
                 'nonInscrits' => $nonInscrits,
                 'session' => $session,
+                'nonProgrammes' => $nonProgrammes,
                 'message' => "Session pleine."
             ]);
         }
+    }
+
+    #[Route('/admin/{session}/{programme}/{dureeProgramme}/programmer', name: 'addModule_session')]
+    public function addModule(Session $session=null, 
+                              Module $module=null,
+                              SessionRepository $sessionRepository, 
+                              ModuleRepository $moduleRepository,
+                              EntityManagerInterface $entityManager,
+                              Request $request) : Response
+    {
+        $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
+        $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());
+       
+        dd($module);
+            $session->addProgramme($module);
+    
+            // j'envoie les données à ma BDD
+            $entityManager->persist($session);
+            $entityManager->flush();
+    
+            // Je retourne la vue des details de la session
+            
+            return $this->render('session/details.html.twig', [
+                'controller_name' => 'SessionController', 
+                'nonInscrits' => $nonInscrits,
+                'session' => $session,
+                'nonProgrammes' => $nonProgrammes,
+                'message' => "Module ajouté avec succès."
+            ]);
+        // } else {
+        //     return $this->render('session/details.html.twig', [
+        //         'controller_name' => 'SessionController', 
+        //         'nonInscrits' => $nonProgrammes,
+        //         'session' => $session,
+        //         'message' => "Session pleine."
+        //     ]);
+        // }
     }
 
     #[Route('/admin/{session}/{user}/desinscrire', name: 'removeUser_session')]
@@ -100,10 +143,12 @@ class SessionController extends AbstractController
         $entityManager->flush();
         
         $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
+        $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());
         return $this->render('session/details.html.twig', [
             'controller_name' => 'SessionController', 
             'nonInscrits' => $nonInscrits,
             'session' => $session,
+            'nonProgrammes' => $nonProgrammes,
             'message' => "Stagiaire supprimé avec succès."
         ]);
     }
@@ -126,7 +171,7 @@ class SessionController extends AbstractController
         $form = $this->createForm(SessionType::class, $session);
         $form->handleRequest($request);
 
-        // si soumis et validé, attribue à session.createur l'id du user connecté, reccupere les données du formulaire, et transmet à la BDD
+        // si soumis et validé, attribue à session.createur l'id du user connecté, récupère les données du formulaire, et transmet à la BDD
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getUser();
             $session->setCreateur($user);

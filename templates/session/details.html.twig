@@ -10,7 +10,13 @@
 
 <div class="example-wrapper">
     <h1>Details de la session</h1>
+    {{ dump(nonProgrammes) }}
+    {% for module in nonProgrammes %}
+                  <option value="{{module.id}}">{{module}}</option>
+    {% endfor %}
+   
 
+    
     {% if session %}
 
       <div>
@@ -21,6 +27,42 @@
         {{ session.nombrePlaces }} place(s)
       </div>
       
+
+      
+      <div>
+
+        <h2>Programme de cette session :</h2>
+          <div>
+            {% for programme in session.programmes %}
+            <p>
+                  {{programme}} 
+                  {# <a href="{{ path('addModule_session', {'session' : session.id, 'module' : programme.id}) }}">déprogrammer</a> #}
+            </p>
+            {% endfor %}
+          </div>
+
+        <div>
+          <h3>rajouter un module :</h3>
+            <form id="form-content" action="{{ path('addModule_session', {'session' : session.id, 'module' : module.id, 'dureeProgramme' : dureeProgramme}) }}" method="post">
+
+              <select name="programme" id="programme">
+                
+                {# {% for module in nonProgrammes %}
+                  <option value="{{module.id}}">{{module}}</option>
+                {% endfor %} #}
+              </select>
+
+              <label for="dureeProgramme">durée</label>
+              <input type="int" id="dureeProgramme" name="dureeProgramme">
+
+              <button type="submit" name="submit">Programmer</button>
+            </form>
+        </div>
+
+      </div>
+          
+
+
 
       <div>
         <h2>Inscrits à cette session : </h2>
@@ -34,18 +76,8 @@
           </div>
       </div>
 
-      <div>
-        <h2>Programme de cette session :</h2>
-          <div>
-            {% for programme in session.programmes %}
-              <p>
-                {{programme}}
-              </p>
-            {% endfor %}
-          </div>
 
-      </div>
-      
+
       <div>
         <h2>stagiaires non inscrits :</h2>
           <div>
@@ -53,13 +85,20 @@
               <p>
                 {{nonInscrit}} <a href="{{ path('addUser_session', {'session' : session.id, 'user' : nonInscrit.id}) }}">inscrire</a>
               </p>
-              
-
-              {# {{dump(session)}} 
-              {{dump(nonInscrit)}}  #}
             {% endfor %}
           </div>
       </div>
+
+      {# <div>
+        <h2>Modules non programmés :</h2>
+          <div>
+            {% for nonProgramme in nonProgrammes %}
+              <p>
+                {{nonProgramme}} <a href="{{ path('addModule_session', {'session' : session.id, 'module' : nonProgramme.id}) }}">programmer</a>
+              </p>
+            {% endfor %}
+          </div>
+      </div> #}
      
     {% else %}
       <p>Il semblerait que cette session n'existe pas en base de données.</p>
