@@ -56,7 +56,7 @@ class SessionRepository extends ServiceEntityRepository
     // afficher les stagiaires non inscrits dans une session
     public function findNonProgrammes($session_id)
     {
-        $em = $this->getEntityManager();
+        $SessionRepository = $this->getEntityManager();
         $sub = $em->createQueryBuilder();
         
         $qb = $sub;
