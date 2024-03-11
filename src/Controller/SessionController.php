@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Session;
 use App\Entity\User;
+// use App\Controller;
 use App\Form\SessionType;
 use App\Repository\UserRepository;
 use App\Repository\SessionRepository;
@@ -41,40 +42,51 @@ class SessionController extends AbstractController
         return $this->render('session/details.html.twig', [
             'controller_name' => 'SessionController', 
             'nonInscrits' => $nonInscrits,
-            'session' => $session
+            'session' => $session,
+            'message' => ""
         ]);
     }
 
 
 
     
-    #[Route('/session/{session}/{user}/inscrire', name: 'addUser_session')]
+    #[Route('/admin/{session}/{user}/inscrire', name: 'addUser_session')]
     public function addUser(Session $session=null, 
                             User $user=null,
                             SessionRepository $sessionRepository, 
                             UserRepository $userRepository,
                             EntityManagerInterface $entityManager,
-                            Request $request)
+                            Request $request) : Response
     {
-        
-        // dd($user);
-        // je rajoute le user dont j'ai recupéré l'id à la liste des inscrits
-        $session->addInscrit($user);
-
-        // j'envoie les données à ma BDD
-        $entityManager->persist($session);
-        $entityManager->flush();
-
-        // Je retourne la vue des details de la session
         $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
-        return $this->render('session/details.html.twig', [
-            'controller_name' => 'SessionController', 
-            'nonInscrits' => $nonInscrits,
-            'session' => $session
-        ]);
+        // dd(count($session->getInscrits()));
+        if (count($session->getInscrits()) < $session->getNombrePlaces()) {
+            // je rajoute le user dont j'ai recupéré l'id à la liste des inscrits
+            $session->addInscrit($user);
+    
+            // j'envoie les données à ma BDD
+            $entityManager->persist($session);
+            $entityManager->flush();
+    
+            // Je retourne la vue des details de la session
+            
+            return $this->render('session/details.html.twig', [
+                'controller_name' => 'SessionController', 
+                'nonInscrits' => $nonInscrits,
+                'session' => $session,
+                'message' => "Stagiaire ajouté avec succès."
+            ]);
+        } else {
+            return $this->render('session/details.html.twig', [
+                'controller_name' => 'SessionController', 
+                'nonInscrits' => $nonInscrits,
+                'session' => $session,
+                'message' => "Session pleine."
+            ]);
+        }
     }
 
-    #[Route('/session/{session}/{user}/desinscrire', name: 'removeUser_session')]
+    #[Route('/admin/{session}/{user}/desinscrire', name: 'removeUser_session')]
     public function removeUser(Session $session=null, 
                             User $user=null,
                             SessionRepository $sessionRepository, 
@@ -91,7 +103,8 @@ class SessionController extends AbstractController
         return $this->render('session/details.html.twig', [
             'controller_name' => 'SessionController', 
             'nonInscrits' => $nonInscrits,
-            'session' => $session
+            'session' => $session,
+            'message' => "Stagiaire supprimé avec succès."
         ]);
     }
 

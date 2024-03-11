@@ -15,10 +15,10 @@
 
       <div>
         {{ session }} <br>
-        formation : {{ session.formation }} <br>
-        formateur référent : {{ session.formateur }} <br>
+        Formation : {{ session.formation }} <br>
+        Formateur référent : {{ session.formateur }} <br>
         du {{ session.dateDebutFR }} au {{ session.dateFinFR }} <br>
-        {{ session.nombrePlaces }} places
+        {{ session.nombrePlaces }} place(s)
       </div>
       
 
@@ -53,9 +53,10 @@
               <p>
                 {{nonInscrit}} <a href="{{ path('addUser_session', {'session' : session.id, 'user' : nonInscrit.id}) }}">inscrire</a>
               </p>
+              
 
-              {{dump(session)}} 
-              {{dump(nonInscrit)}} 
+              {# {{dump(session)}} 
+              {{dump(nonInscrit)}}  #}
             {% endfor %}
           </div>
       </div>
