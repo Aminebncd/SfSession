@@ -57,12 +57,13 @@ class ProgrammeType extends AbstractType
                    'choice_value' => 'id',
                    'choice_label' => 'intitule_module',
                     ])
+                ->add('valider', SubmitType::class, [
+                    'attr' => [
+                        // 'class' => 'btn btn-primary mt-3'
+                        ]
+                    ])
                       
-            ->add('valider', SubmitType::class, [
-                'attr' => [
-                    // 'class' => 'btn btn-primary mt-3'
-                    ]
-                ])
+            
         ;
     }
 

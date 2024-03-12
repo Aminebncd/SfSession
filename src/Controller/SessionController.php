@@ -37,156 +37,12 @@ class SessionController extends AbstractController
     
 
 
-
-    #[Route('/session/{id}/details', name: 'details_session')]
-    public function details(Session $session=null, 
-                            Request $request,
-                            SessionRepository $sessionRepository, 
-                            Programme $programme = null): Response
-    {
-        $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
-        // $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());
-        $form = $this->createForm(ProgrammeType::class, $programme, ['session'=>$session]);
-        $form->handleRequest($request);
-        // $session = $sessionRepository->find($id);
-        
-        return $this->render('session/details.html.twig', [
-            'controller_name' => 'SessionController', 
-            'nonInscrits' => $nonInscrits,
-            'session' => $session,
-            'formAddProgramme' => $form,
-            // 'nonProgrammes' => $nonProgrammes,
-            'message' => ""
-        ]);
-    }
-
-
-
-
-
-
-    
-    #[Route('/admin/{session}/{user}/inscrire', name: 'addUser_session')]
-    public function addUser(Session $session=null, 
-                            User $user=null,
-                            SessionRepository $sessionRepository, 
-                            UserRepository $userRepository,
-                            EntityManagerInterface $entityManager,
-                            Request $request) 
-    {
-        $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
-        $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());
-        $form = $this->createForm(ProgrammeType::class, $programme, ['session'=>$session]);
-        $form->handleRequest($request);
-        // dd(count($session->getInscrits()));
-        if (count($session->getInscrits()) < $session->getNombrePlaces()) {
-            // je rajoute le user dont j'ai recupéré l'id à la liste des inscrits
-            $session->addInscrit($user);
-    
-            // j'envoie les données à ma BDD
-            $entityManager->persist($session);
-            $entityManager->flush();
-    
-            // Je retourne la vue des details de la session
-            
-            return $this->render('session/details.html.twig', [
-                'controller_name' => 'SessionController', 
-                'nonInscrits' => $nonInscrits,
-                'session' => $session,
-                'nonProgrammes' => $nonProgrammes,
-                'formAddProgramme' => $form,
-                'message' => "Stagiaire ajouté avec succès."
-            ]);
-        } 
-        // else {
-        //     return $this->render('session/details.html.twig', [
-        //         'controller_name' => 'SessionController', 
-        //         'nonInscrits' => $nonInscrits,
-        //         'session' => $session,
-        //         'nonProgrammes' => $nonProgrammes,
-        //         'message' => "Session pleine."
-        //     ]);
-        // }
-    }
-
-
-
-
-
-
-
-    #[Route('/admin/{session}/programmer', name: 'addModule_session')]
-    public function addModule(Session $session=null, 
-                              Module $module=null,
-                              SessionRepository $sessionRepository, 
-                              ModuleRepository $moduleRepository,
-                              EntityManagerInterface $entityManager,
-                              Request $request) : Response
-    {
-        $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
-        
-        $form = $this->createForm(SessionType::class, $programme, ['session' => $session,]);
-        $form->handleRequest($request);
-
-         if ($form->isSubmitted() && $form->isValid()) {
-             
-            $session->addProgramme($programme);
-            $session = $form->getData();
-            $entityManager->persist($session);
-            $entityManager->flush();
-
-            return $this->render('session/details.html.twig', [
-                    'controller_name' => 'SessionController', 
-                    'formAddProgramme' => $form,
-                    'nonInscrits' => $nonInscrits,
-                    'session' => $session,
-                    'nonProgrammes' => $nonProgrammes,
-                    'message' => "Module ajouté avec succès."
-                ]);
-        }
-    }
-
-
-
-
-
-
-
-    #[Route('/admin/{session}/{user}/desinscrire', name: 'removeUser_session')]
-    public function removeUser(Session $session=null, 
-                            User $user=null,
-                            SessionRepository $sessionRepository, 
-                            UserRepository $userRepository,
-                            EntityManagerInterface $entityManager,
-                            Request $request)
-    {
-      
-        $session->removeInscrit($user);
-        $entityManager->persist($session);
-        $entityManager->flush();
-        
-        $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
-        $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());
-        return $this->render('session/details.html.twig', [
-            'controller_name' => 'SessionController', 
-            'nonInscrits' => $nonInscrits,
-            'session' => $session,
-            'nonProgrammes' => $nonProgrammes,
-            'message' => "Stagiaire supprimé avec succès."
-        ]);
-    }
-
-
-
-
-
-
-    // fonction permettant de creer/modifier une session
+    // CREATION/MODIFICATION D'UNE SESSION
     #[Route('/session/new', name: 'new_session')]
     #[Route('/session/{id}/edit', name: 'edit_session')]
     public function new_edit(Session $session = null, 
-                             Request $request, 
-                             EntityManagerInterface $entityManager): Response
+                            Request $request, 
+                            EntityManagerInterface $entityManager): Response
     {
         // si session inexistante, crée un nouvel objet session
         if (!$session) {
@@ -214,4 +70,159 @@ class SessionController extends AbstractController
             'edit' => $session->getId()
         ]);
     }
+
+
+
+
+
+    // AFFICHAGE DES DETAILS D'UNE SESSION
+    #[Route('/session/{id}/details', name: 'details_session')]
+    public function details(Session $session=null, 
+                            Request $request,
+                            SessionRepository $sessionRepository, 
+                            Programme $programme = null
+                            ): Response
+    {
+        $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
+        // $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());
+        $form = $this->createForm(ProgrammeType::class, $programme, ['session'=>$session]);
+        $form->handleRequest($request);
+        // $session = $sessionRepository->find($id);
+        
+        return $this->render('session/details.html.twig', [
+            'controller_name' => 'SessionController', 
+            'nonInscrits' => $nonInscrits,
+            'session' => $session,
+            'formAddProgramme' => $form,
+            // 'nonProgrammes' => $nonProgrammes,
+            'message' => ""
+        ]);
+    }
+
+
+
+    
+    // AJOUT D'UN STAGIAIRE A UNE SESSION
+    #[Route('/admin/{session}/{user}/inscrire', name: 'addUser_session')]
+    public function addUser(Session $session=null, 
+                            User $user=null,
+                            Programme $programme = null,
+                            SessionRepository $sessionRepository, 
+                            UserRepository $userRepository,
+                            EntityManagerInterface $entityManager,
+                            Request $request) 
+    {
+        $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
+        $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());
+
+        $form = $this->createForm(ProgrammeType::class, $programme, ['session' => $session,]);
+        $form->handleRequest($request);
+        // dd(count($session->getInscrits()));
+        // je m'assure qu'il y a assez de place dans la session
+        if (count($session->getInscrits()) < $session->getNombrePlaces()) {
+            // je rajoute le user dont j'ai recupéré l'id à la liste des inscrits
+            $session->addInscrit($user);
+    
+            // j'envoie les données à ma BDD
+            $entityManager->persist($session);
+            $entityManager->flush();
+    
+            // Je retourne la vue des details de la session
+            return $this->render('session/details.html.twig', [
+                'controller_name' => 'SessionController', 
+                'nonInscrits' => $nonInscrits,
+                'session' => $session,
+                'nonProgrammes' => $nonProgrammes,
+                'formAddProgramme' => $form,
+                'message' => "Stagiaire ajouté avec succès."
+            ]);
+        } else {
+            return $this->render('session/details.html.twig', [
+                'controller_name' => 'SessionController', 
+                'nonInscrits' => $nonInscrits,
+                'formAddProgramme' => $form,
+                'session' => $session,
+                'message' => "Session pleine."
+            ]);
+        }
+       
+    }
+
+
+
+
+
+    // AJOUT D'UN MODULE A UNE SESSION
+    #[Route('/admin/{session}/programmer', name: 'addModule_session')]
+    public function addModule(Session $session=null, 
+                              Module $module=null,
+                              Programme $programme = null,
+                              SessionRepository $sessionRepository, 
+                            //   ModuleRepository $moduleRepository,
+                              EntityManagerInterface $entityManager,
+                              Request $request) : Response
+    {
+        $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
+        $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());
+        
+        $programme = new Programme();
+        $form = $this->createForm(ProgrammeType::class, $programme, ['session' => $session,]);
+        $form->handleRequest($request);
+
+        // dd($programme); 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $programme->setSesion($session);
+            $programme = $form->getData();
+            // $session->addProgramme($programme);
+            $entityManager->persist($programme);
+            $entityManager->flush();
+
+            return $this->render('session/index.html.twig', [
+                    'controller_name' => 'SessionController', 
+                    'formAddProgramme' => $form,
+                    'nonInscrits' => $nonInscrits,
+                    'session' => $session,
+                    'nonProgrammes' => $nonProgrammes,
+                    'message' => "Module ajouté avec succès."
+                ]);
+        }
+    }
+
+
+
+
+
+
+    // SUPPRESSION D'UN STAGIAIRE D'UNE SESSION
+    #[Route('/admin/{session}/{user}/desinscrire', name: 'removeUser_session')]
+    public function removeUser(Session $session=null, 
+                            User $user=null,
+                            Programme $programme = null,
+                            SessionRepository $sessionRepository, 
+                            UserRepository $userRepository,
+                            EntityManagerInterface $entityManager,
+                            Request $request)
+    {
+      
+        $session->removeInscrit($user);
+        $entityManager->persist($session);
+        $entityManager->flush();
+        
+        $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
+        $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());
+
+        $form = $this->createForm(ProgrammeType::class, $programme, ['session' => $session,]);
+        $form->handleRequest($request);
+
+        return $this->render('session/details.html.twig', [
+            'controller_name' => 'SessionController',
+            'formAddProgramme' => $form, 
+            'nonInscrits' => $nonInscrits,
+            'session' => $session,
+            'nonProgrammes' => $nonProgrammes,
+            'message' => "Stagiaire supprimé avec succès."
+        ]);
+    }
+
+
 }

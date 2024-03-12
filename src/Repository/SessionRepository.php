@@ -28,6 +28,7 @@ class SessionRepository extends ServiceEntityRepository
         $em = $this->getEntityManager();
         $sub = $em->createQueryBuilder();
         
+        
         $qb = $sub;
         
         // selectionner tous les stagiaires d'une session dont l'id est passé en parametre
@@ -56,7 +57,7 @@ class SessionRepository extends ServiceEntityRepository
     // afficher les stagiaires non inscrits dans une session
     public function findNonProgrammes($session_id)
     {
-        $SessionRepository = $this->getEntityManager();
+        $em = $this->getEntityManager();
         $sub = $em->createQueryBuilder();
         
         $qb = $sub;
