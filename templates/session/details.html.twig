@@ -10,17 +10,54 @@
 
 <div class="example-wrapper">
     <h1>Details de la session</h1>
+    
 
+    
     {% if session %}
 
       <div>
         {{ session }} <br>
-        formation : {{ session.formation }} <br>
-        formateur référent : {{ session.formateur }} <br>
+        Formation : {{ session.formation }} <br>
+        Formateur référent : {{ session.formateur }} <br>
         du {{ session.dateDebutFR }} au {{ session.dateFinFR }} <br>
-        {{ session.nombrePlaces }} places
+        {{ session.nombrePlaces }} place(s)
       </div>
       
+
+      
+      <div>
+
+        <h2>Programme de cette session :</h2>
+          <div>
+            {% for programme in session.programmes %}
+            <p>
+                  {{programme}} 
+                  {# <a href="{{ path('addModule_session', {'session' : session.id, 'module' : programme.id}) }}">déprogrammer</a> #}
+            </p>
+            {% endfor %}
+          </div>
+
+        <div>
+          <h3>rajouter un module :</h3>
+            {{ form_start(formAddProgramme) }}
+        
+            <div>
+                <div>
+                    {{form_row(formAddProgramme.module)}}
+                </div>
+                <div>
+                    {{form_row(formAddProgramme.duree)}}
+                </div>
+            </div>
+            
+              {{form_row(formAddProgramme.valider)}}
+        
+            {{ form_end(formAddProgramme) }}
+        </div>
+
+      </div>
+          
+
 
       <div>
         <h2>Inscrits à cette session : </h2>
@@ -34,18 +71,8 @@
           </div>
       </div>
 
-      <div>
-        <h2>Programme de cette session :</h2>
-          <div>
-            {% for programme in session.programmes %}
-              <p>
-                {{programme}}
-              </p>
-            {% endfor %}
-          </div>
 
-      </div>
-      
+
       <div>
         <h2>stagiaires non inscrits :</h2>
           <div>
@@ -53,13 +80,10 @@
               <p>
                 {{nonInscrit}} <a href="{{ path('addUser_session', {'session' : session.id, 'user' : nonInscrit.id}) }}">inscrire</a>
               </p>
-
-              {{dump(session)}} 
-              {{dump(nonInscrit)}} 
             {% endfor %}
           </div>
       </div>
-     
+
     {% else %}
       <p>Il semblerait que cette session n'existe pas en base de données.</p>
     {% endif %}
