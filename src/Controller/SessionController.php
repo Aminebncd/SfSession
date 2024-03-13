@@ -87,6 +87,7 @@ class SessionController extends AbstractController
         // $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());
         $form = $this->createForm(ProgrammeType::class, $programme, ['session'=>$session]);
         $form->handleRequest($request);
+        // dd(count($session->getInscrits()));
         // $session = $sessionRepository->find($id);
         
 
@@ -119,7 +120,6 @@ class SessionController extends AbstractController
 
         $form = $this->createForm(ProgrammeType::class, $programme, ['session' => $session,]);
         $form->handleRequest($request);
-        // dd(count($session->getInscrits()));
         // je m'assure qu'il y a assez de place dans la session
         if (count($session->getInscrits()) < $session->getNombrePlaces()) {
             // je rajoute le user dont j'ai recupéré l'id à la liste des inscrits
@@ -150,46 +150,6 @@ class SessionController extends AbstractController
             // ]);
         }
        
-    }
-
-
-
-
-
-    // AJOUT D'UN MODULE A UNE SESSION
-    #[Route('/admin/{session}/programmer', name: 'addModule_session')]
-    public function addModule(Session $session=null, 
-                              Module $module=null,
-                              Programme $programme = null,
-                              SessionRepository $sessionRepository, 
-                            //   ModuleRepository $moduleRepository,
-                              EntityManagerInterface $entityManager,
-                              Request $request) : Response
-    {
-        $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
-        $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());
-        
-        $programme = new Programme();
-        $form = $this->createForm(ProgrammeType::class, $programme, ['session' => $session,]);
-        $form->handleRequest($request);
-
-        // dd($programme); 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $programme->setSesion($session);
-            $programme = $form->getData();
-            // $session->addProgramme($programme);
-            $entityManager->persist($programme);
-            $entityManager->flush();
-
-            return $this->render('session/index.html.twig', [
-                    'controller_name' => 'SessionController', 
-                    'formAddProgramme' => $form,
-                    'nonInscrits' => $nonInscrits,
-                    'session' => $session,
-                    'nonProgrammes' => $nonProgrammes,
-                    'message' => "Module ajouté avec succès."
-                ]);
-        }
     }
 
 
@@ -229,6 +189,47 @@ class SessionController extends AbstractController
         //     'message' => "Stagiaire supprimé avec succès."
         // ]);
     }
+
+
+
+
+    // AJOUT D'UN MODULE A UNE SESSION
+    #[Route('/admin/{session}/programmer', name: 'addModule_session')]
+    public function addModule(Session $session=null, 
+                              Module $module=null,
+                              Programme $programme = null,
+                              SessionRepository $sessionRepository, 
+                              ProgrammeRepository $programmeRepository,
+                              ModuleRepository $moduleRepository,
+                              EntityManagerInterface $entityManager,
+                              Request $request) : Response
+    {
+        $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
+        $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());
+        
+        $programme = new Programme();
+        $form = $this->createForm(ProgrammeType::class, $programme, ['session' => $session,]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            dd($programme); 
+            $programme->setSesion($session);
+            $programme = $form->getData();
+            // $session->addProgramme($programme);
+            $entityManager->persist($programme);
+            $entityManager->flush();
+
+            return $this->render('session/index.html.twig', [
+                    'controller_name' => 'SessionController', 
+                    'formAddProgramme' => $form,
+                    'nonInscrits' => $nonInscrits,
+                    'session' => $session,
+                    'nonProgrammes' => $nonProgrammes,
+                    'message' => "Module ajouté avec succès."
+                ]);
+        }
+    }
+
 
 
 }

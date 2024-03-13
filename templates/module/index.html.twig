@@ -11,26 +11,12 @@
 
     {% for categorie in categories %}
 
-      {{categorie}} <a href="{{ path('edit_categorie', {'id' : categorie.id}) }}">edit</a>  <a href="{{ path('delete_categorie', {'id' : categorie.id}) }}">delete</a><br>
+    <a href="{{ path('details_categorie', {'id': categorie.id}) }}">{{categorie}}</a> 
+    <a href="{{ path('edit_categorie', {'id' : categorie.id}) }}">edit</a>
+    <a href="{{ path('delete_categorie', {'id' : categorie.id}) }}">delete</a><br>
       
     {% endfor %}
 
-    <h1> Liste des module</h1>
-    <a href="{{ path('new_module') }}">Ajouter un module</a><br><br>
-
     
-    {% if modules %}
-
-      {% for module in modules %}
-        
-      <a href="{{ path('details_module', {'id': module.id}) }}">{{module}}  ({{module.categorie}})</a>
-      <a href="{{ path('edit_module', {'id' : module.id}) }}">edit</a>  <a href="{{ path('delete_module', {'id' : module.id}) }}">delete</a><br>
-    {# {{categorie.modules}} <br> #}
-         
-      {% endfor %}
-   
-    {% else %}
-      <p>Il semblerait qu'aucune session ne soit renseignée en base de données.</p>
-    {% endif %}
 </div>
 {% endblock %}

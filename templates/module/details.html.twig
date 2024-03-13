@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ModuleController!{% endblock %}
+
+{% block body %}
+
+
+<h1> Liste des modules dans la categorie : {{categorie}}</h1>
+    <a href="{{ path('new_module') }}">Ajouter un module</a><br><br>
+
+    
+    {% if modules %}
+
+      {% for module in modules %}
+        {{module}}
+        <a href="{{ path('edit_module', {'id' : module.id}) }}">edit</a>
+        <a href="{{ path('delete_module', {'id' : module.id}) }}">delete</a><br>
+      {% endfor %}
+   
+    {% else %}
+      <p>Il semblerait qu'aucune session ne soit renseignée en base de données.</p>
+    {% endif %}
+
+{% endblock %}

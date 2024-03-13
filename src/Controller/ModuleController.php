@@ -112,14 +112,17 @@ class ModuleController extends AbstractController
 
 
 
-    #[Route('/module/{id}/details', name: 'details_module')]
-    public function details(Module $module=null): Response
+    #[Route('/module/{id}/details', name: 'details_categorie')]
+    public function details(Categorie $categorie = null, 
+                            Module $modules=null,
+                            Request $request): Response
     {
-        // pas besoin de faire  $module = $moduleRepository->find($id); car symfony le fait tout seul
-        // dd($module->get)
+        
+        $modules = $categorie->getModules();
         return $this->render('module/details.html.twig', [
             'controller_name' => 'moduleController', 
-            'module' => $module
+            'categorie' => $categorie,
+            'modules' => $modules
         ]);
     }
     
