@@ -11,6 +11,7 @@ use App\Form\ProgrammeType;
 use App\Repository\UserRepository;
 use App\Repository\ModuleRepository;
 use App\Repository\SessionRepository;
+use App\Repository\ProgrammeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -78,20 +79,31 @@ class SessionController extends AbstractController
     // AFFICHAGE DES DETAILS D'UNE SESSION
     #[Route('/session/{id}/details', name: 'details_session')]
     public function details(Session $session=null, 
+                            // Programme $programme=null,
                             Request $request,
-                            SessionRepository $sessionRepository, 
-                            Programme $programme = null
+                            SessionRepository $sessionRepository,
+                            EntityManagerInterface $entityManager
                             ): Response
     {
         $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
-        // $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());
+        $programme = new Programme();
+
         $form = $this->createForm(ProgrammeType::class, $programme, ['session'=>$session]);
         $form->handleRequest($request);
-        // dd(count($session->getInscrits()));
-        // $session = $sessionRepository->find($id);
-        
 
-        // return $this->redirectToRoute('details_session', ['id' => $session->getId()]);
+        // for (i = 0; i < count())
+        // dd($session->getProgrammes(1));
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+        
+            $programme = $form->getData();
+            $programme->setSession($session);
+            $entityManager->persist($programme);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('details_session', ['id' => $session->getId()]);
+        }
+    
         return $this->render('session/details.html.twig', [
             'controller_name' => 'SessionController', 
             'nonInscrits' => $nonInscrits,
@@ -131,23 +143,9 @@ class SessionController extends AbstractController
     
             // Je retourne la vue des details de la session
             return $this->redirectToRoute('details_session', ['id' => $session->getId()]);
-            // return $this->render('session/details.html.twig', [
-            //     'controller_name' => 'SessionController', 
-            //     'nonInscrits' => $nonInscrits,
-            //     'session' => $session,
-            //     'nonProgrammes' => $nonProgrammes,
-            //     'formAddProgramme' => $form,
-            //     'message' => "Stagiaire ajouté avec succès."
-            // ]);
+
         } else {
             return $this->redirectToRoute('details_session', ['id' => $session->getId()]);
-            // return $this->render('session/details.html.twig', [
-            //     'controller_name' => 'SessionController', 
-            //     'nonInscrits' => $nonInscrits,
-            //     'formAddProgramme' => $form,
-            //     'session' => $session,
-            //     'message' => "Session pleine."
-            // ]);
         }
        
     }
@@ -180,55 +178,37 @@ class SessionController extends AbstractController
 
         return $this->redirectToRoute('details_session', ['id' => $session->getId()]);
 
-        // return $this->render('session/details.html.twig', [
-        //     'controller_name' => 'SessionController',
-        //     'formAddProgramme' => $form, 
-        //     'nonInscrits' => $nonInscrits,
-        //     'session' => $session,
-        //     'nonProgrammes' => $nonProgrammes,
-        //     'message' => "Stagiaire supprimé avec succès."
-        // ]);
     }
 
 
 
 
-    // AJOUT D'UN MODULE A UNE SESSION
-    #[Route('/admin/{session}/programmer', name: 'addModule_session')]
-    public function addModule(Session $session=null, 
-                              Module $module=null,
-                              Programme $programme = null,
-                              SessionRepository $sessionRepository, 
-                              ProgrammeRepository $programmeRepository,
-                              ModuleRepository $moduleRepository,
-                              EntityManagerInterface $entityManager,
-                              Request $request) : Response
+    // SUPPRESSION D'UN MODULE D'UNE SESSION
+    #[Route('/admin/{session}/{programme}/deprogrammer', name: 'removeProgramme_session')]
+    public function removeModule(Session $session=null, 
+                            Programme $programme=null,
+                            SessionRepository $sessionRepository, 
+                            ProgrammeRepository $programmeRepository,
+                            EntityManagerInterface $entityManager,
+                            Request $request)
     {
-        $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
-        $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());
+      
+        $session->removeProgramme($programme);
+        $entityManager->persist($session);
+        $entityManager->flush();
         
-        $programme = new Programme();
+        $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
+
         $form = $this->createForm(ProgrammeType::class, $programme, ['session' => $session,]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            dd($programme); 
-            $programme->setSesion($session);
-            $programme = $form->getData();
-            // $session->addProgramme($programme);
-            $entityManager->persist($programme);
-            $entityManager->flush();
+        return $this->redirectToRoute('details_session', ['id' => $session->getId()]);
 
-            return $this->render('session/index.html.twig', [
-                    'controller_name' => 'SessionController', 
-                    'formAddProgramme' => $form,
-                    'nonInscrits' => $nonInscrits,
-                    'session' => $session,
-                    'nonProgrammes' => $nonProgrammes,
-                    'message' => "Module ajouté avec succès."
-                ]);
-        }
     }
+
+
+
+
 
 
 

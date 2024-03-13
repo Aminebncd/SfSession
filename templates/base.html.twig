@@ -22,9 +22,10 @@
                 <li><a href="{{path ('app_home')}}">home</a></li>
                 <li><a href="{{path ('app_session')}}">sessions</a></li>
                 <li><a href="{{path ('app_module')}}">modules</a></li>
+                <li><a href="{{path ('app_formation')}}">formations</a></li>
                 
                 {% if is_granted('ROLE_ADMIN') %}
-                <li><a href="#">Panneau admin</a></li>
+                {# <li><a href="#">Panneau admin</a></li> #}
                 <li><a href="{{path ('app_user')}}">users</a></li>
                 {% endif %}
                 

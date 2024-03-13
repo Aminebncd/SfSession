@@ -73,7 +73,8 @@ class Session
 
     public function getDateDebutFR(): ?string
     {
-        return $this->dateDebut->format('d.m.Y');
+        $this->dateDebutFR = $this->dateDebut->format('d.m.Y');
+        return $this->dateDebutFR;
     }
 
     public function setDateDebut(\DateTimeInterface $dateDebut): static
@@ -90,7 +91,14 @@ class Session
 
     public function getDateFinFR(): ?string
     {
-        return $this->dateFin->format('d.m.Y');
+        $this->dateFinFR = $this->dateFin->format('d.m.Y');
+        return $this->dateFinFR;
+    }
+
+    public function getDureeSession(): ?int
+    {
+        $this->dureeSession = strtotime($this->dateFinFR) - strtotime($this->dateDebutFR);
+        return round($this->dureeSession / (60 * 60 * 24));
     }
 
     public function setDateFin(\DateTimeInterface $dateFin): static

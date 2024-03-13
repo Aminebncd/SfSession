@@ -24,7 +24,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ModuleController extends AbstractController
 {
     #[Route('/module', name: 'app_module')]
-    public function index(ModuleRepository $moduleRepository, CategorieRepository $categorieRepository): Response
+    public function index(ModuleRepository $moduleRepository, 
+                          CategorieRepository $categorieRepository): Response
     {
         // je recupere toutes les Modules en BDD
         $modules = $moduleRepository->findBy([], ['categorie' => 'ASC']);
@@ -130,8 +131,9 @@ class ModuleController extends AbstractController
     
     
     // SUPPRESSION D'UN MODULE
-    #[Route('/module/{id}/deleteModule', name: 'delete_module')]
-    public function deleteModule(Module $module = null, EntityManagerInterface $em)
+    #[Route('/admin/{id}/deleteModule', name: 'delete_module')]
+    public function deleteModule(Module $module = null, 
+                                 EntityManagerInterface $em)
     {
         if ($module) {
            $em->remove($module);
@@ -144,7 +146,8 @@ class ModuleController extends AbstractController
     
     // SUPPRESSION D'UNE CATEGORIE
     #[Route('/module/{id}/deleteCategorie', name: 'delete_categorie')]
-    public function deleteCategorie(Categorie $categorie = null, EntityManagerInterface $em)
+    public function deleteCategorie(Categorie $categorie = null, 
+                                    EntityManagerInterface $em)
     {
         if ($categorie) {
            $em->remove($categorie);

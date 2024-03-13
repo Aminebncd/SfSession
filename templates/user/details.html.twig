@@ -10,14 +10,10 @@
 
 <div class="example-wrapper">
     <h1>Details du stagiaire</h1>
+    <a href="{{ path('edit_user', {'id' : user.id}) }}">edit</a><br>
+    <a href="{{ path('delete_user', {'id' : user.id}) }}">delete</a>
+    
 
-    {# tester les infos qu'on reçoit du user #}
-
-        {# {% for session in user.sessions %}
-            {{ dump(session) }}
-        {% endfor %} #}
-
-    {# si le user existe en BDD #}
     {% if user %}
 
     {# affichage de ses infos #}

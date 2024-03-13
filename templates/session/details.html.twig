@@ -20,7 +20,8 @@
         Formation : {{ session.formation }} <br>
         Formateur référent : {{ session.formateur }} <br>
         du {{ session.dateDebutFR }} au {{ session.dateFinFR }} <br>
-        {{ session.nombrePlaces }} place(s)
+        {{ session.nombrePlaces }} place(s) <br>
+        {{ session.dureeSession }} 
       </div>
       
 
@@ -32,7 +33,7 @@
             {% for programme in session.programmes %}
             <p>
                   {{programme}} 
-                  {# <a href="{{ path('addModule_session', {'session' : session.id, 'module' : programme.id}) }}">déprogrammer</a> #}
+                  <a href="{{ path('removeProgramme_session', {'session' : session.id, 'programme' : programme.id}) }}">déprogrammer</a>
             </p>
             {% endfor %}
           </div>
@@ -44,8 +45,7 @@
             <div>
                 <div>
                     {{form_row(formAddProgramme.module)}}
-                </div>
-                <div>
+                
                     {{form_row(formAddProgramme.duree)}}
                 </div>
             </div>
