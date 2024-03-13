@@ -14,7 +14,8 @@
     {% if formations %}
     <h1>Liste des formations</h1>
         {% for formation in formations %}
-            {{formation}} <br>
+        <a href="{{ path('details_formation', {'id': formation.id}) }}">{{formation}}</a><br>
+          
         {% endfor %}
     {% endif %}
 
@@ -22,7 +23,8 @@
     {% if formateurs %}
     <h1>Liste des formateurs</h1>
         {% for formateur in formateurs %}
-            {{formateur}} <br>
+        <a href="{{ path('details_formateur', {'id': formateur.id}) }}">{{formateur}}</a><br>
+        
         {% endfor %}
     {% endif %}
     

@@ -19,9 +19,9 @@
         {{ session }} <br>
         Formation : {{ session.formation }} <br>
         Formateur référent : {{ session.formateur }} <br>
-        du {{ session.dateDebutFR }} au {{ session.dateFinFR }} <br>
+        du {{ session.dateDebutFR }} au {{ session.dateFinFR }} ({{ session.dureeSession }} jours)<br>
         {{ session.nombrePlaces }} place(s) <br>
-        {{ session.dureeSession }} 
+         
       </div>
       
 
@@ -58,7 +58,7 @@
       </div>
           
 
-      {% if session.inscrits %}
+      {% if session.inscrits| length > 0 %}
       <div>
         <h2>Inscrits à cette session : </h2>
           <div>

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ModuleController!{% endblock %}
+
+{% block body %}
+
+
+<h1> Details du du formateur :</h1>
+<h2>{{formateur}} <br> contact : {{formateur.email}}</h2>
+   
+
+    
+
+    {% if sessions| length > 0 %}
+        <h3>session prévues : </h3>
+      {% for session in sessions %}
+      <a href="{{ path('details_session', {'id' : session.id}) }}">{{session}}</a> (du {{ session.dateDebutFR }} au {{ session.dateFinFR }})
+        <a href="{{ path('edit_session', {'id' : session.id}) }}">edit</a> <br>
+        {# <a href="{{ path('delete_session', {'id' : session.id}) }}">delete</a><br> #}
+      {% endfor %}
+   
+    {% else %}
+      <p>Il semblerait qu'aucune session ne soit attribuée à ce formateur.</p>
+    {% endif %}
+
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Session;
+use App\Entity\Formateur;
 use App\Entity\Formation;
 use App\Repository\FormateurRepository;
 use App\Repository\FormationRepository;
@@ -33,10 +34,25 @@ class FormationController extends AbstractController
                                      Session $session=null,
                                      Request $request): Response
     {
-        $sessions = $formation->getsessions();
-        return $this->render('module/details.html.twig', [
+        $sessions = $formation->getSession();
+        return $this->render('formation/detailsFormation.html.twig', [
             'controller_name' => 'moduleController', 
             'formation' => $formation,
+            'sessions' => $sessions
+        ]);
+    }
+
+
+    #[Route('/formation/{id}/detailsFormateur', name: 'details_formateur')]
+    public function detailsFormateur(Formateur $formateur = null, 
+                                     Session $session=null,
+                                     Request $request): Response
+    {
+        $sessions = $formateur->getSessions();
+        // dd($sessions);
+        return $this->render('formation/detailsFormateur.html.twig', [
+            'controller_name' => 'moduleController', 
+            'formateur' => $formateur,
             'sessions' => $sessions
         ]);
     }

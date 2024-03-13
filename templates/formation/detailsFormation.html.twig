@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ModuleController!{% endblock %}
+
+{% block body %}
+
+
+<h1> Liste des sessions dans la formation : <br> {{formation}}</h1>
+   
+
+    
+    {% if sessions %}
+
+      {% for session in sessions %}
+      <a href="{{ path('details_session', {'id' : session.id}) }}">{{session}}</a> (du {{ session.dateDebutFR }} au {{ session.dateFinFR }})
+        <a href="{{ path('edit_session', {'id' : session.id}) }}">edit</a> <br>
+        {# <a href="{{ path('delete_session', {'id' : session.id}) }}">delete</a><br> #}
+      {% endfor %}
+   
+    {% else %}
+      <p>Il semblerait qu'aucune session ne soit attribuée à cette session.</p>
+    {% endif %}
+
+{% endblock %}

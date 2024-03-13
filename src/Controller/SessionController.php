@@ -79,28 +79,36 @@ class SessionController extends AbstractController
     // AFFICHAGE DES DETAILS D'UNE SESSION
     #[Route('/session/{id}/details', name: 'details_session')]
     public function details(Session $session=null, 
-                            // Programme $programme=null,
+                            Programme $programme=null,
                             Request $request,
                             SessionRepository $sessionRepository,
+                            ProgrammeRepository $programmeRepository,
                             EntityManagerInterface $entityManager
                             ): Response
     {
         $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
         $programme = new Programme();
+        $temp = $programmeRepository->findBy(['session']);
+        $tempsModules = $temp->getDuree();
+        dd($tempsModules);
 
-        $form = $this->createForm(ProgrammeType::class, $programme, ['session'=>$session]);
+
+        $form = $this->createForm(ProgrammeType::class, $programme, ['session' => $session]);
         $form->handleRequest($request);
 
         // for (i = 0; i < count())
         // dd($session->getProgrammes(1));
         
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() 
+            && $form->isValid()
+                && ($tempsModules < $session->getDureeSession())) {
         
             $programme = $form->getData();
+            $tempsModules += ($form->getData()->getDuree());
             $programme->setSession($session);
             $entityManager->persist($programme);
             $entityManager->flush();
-
+                    
             return $this->redirectToRoute('details_session', ['id' => $session->getId()]);
         }
     
