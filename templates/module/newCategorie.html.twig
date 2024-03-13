@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajoutez une nouvelle ccategorie{% endblock %}
+
+{% block body %}
+    {% if edit %}
+        <h1>Editer une session existante</h1>
+    {% else %}
+        <h1>Ajoutez une nouvelle session</h1>
+    {% endif %}
+
+    {{ form_start(formAddCategorie) }}
+    
+        {{form_row(formAddCategorie.label)}}          
+       
+        {{form_row(formAddCategorie.valider)}}
+
+    {{ form_end(formAddCategorie) }}
+
+{% endblock %}

@@ -18,7 +18,7 @@ class Categorie
     #[ORM\Column(length: 255)]
     private ?string $label = null;
 
-    #[ORM\OneToMany(targetEntity: Module::class, mappedBy: 'categorie')]
+    #[ORM\OneToMany(targetEntity: Module::class, mappedBy: 'categorie', cascade: ['persist', 'remove'])]
     private Collection $modules;
 
     public function __construct()

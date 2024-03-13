@@ -89,6 +89,8 @@ class SessionController extends AbstractController
         $form->handleRequest($request);
         // $session = $sessionRepository->find($id);
         
+
+        // return $this->redirectToRoute('details_session', ['id' => $session->getId()]);
         return $this->render('session/details.html.twig', [
             'controller_name' => 'SessionController', 
             'nonInscrits' => $nonInscrits,
@@ -128,22 +130,24 @@ class SessionController extends AbstractController
             $entityManager->flush();
     
             // Je retourne la vue des details de la session
-            return $this->render('session/details.html.twig', [
-                'controller_name' => 'SessionController', 
-                'nonInscrits' => $nonInscrits,
-                'session' => $session,
-                'nonProgrammes' => $nonProgrammes,
-                'formAddProgramme' => $form,
-                'message' => "Stagiaire ajouté avec succès."
-            ]);
+            return $this->redirectToRoute('details_session', ['id' => $session->getId()]);
+            // return $this->render('session/details.html.twig', [
+            //     'controller_name' => 'SessionController', 
+            //     'nonInscrits' => $nonInscrits,
+            //     'session' => $session,
+            //     'nonProgrammes' => $nonProgrammes,
+            //     'formAddProgramme' => $form,
+            //     'message' => "Stagiaire ajouté avec succès."
+            // ]);
         } else {
-            return $this->render('session/details.html.twig', [
-                'controller_name' => 'SessionController', 
-                'nonInscrits' => $nonInscrits,
-                'formAddProgramme' => $form,
-                'session' => $session,
-                'message' => "Session pleine."
-            ]);
+            return $this->redirectToRoute('details_session', ['id' => $session->getId()]);
+            // return $this->render('session/details.html.twig', [
+            //     'controller_name' => 'SessionController', 
+            //     'nonInscrits' => $nonInscrits,
+            //     'formAddProgramme' => $form,
+            //     'session' => $session,
+            //     'message' => "Session pleine."
+            // ]);
         }
        
     }
@@ -214,14 +218,16 @@ class SessionController extends AbstractController
         $form = $this->createForm(ProgrammeType::class, $programme, ['session' => $session,]);
         $form->handleRequest($request);
 
-        return $this->render('session/details.html.twig', [
-            'controller_name' => 'SessionController',
-            'formAddProgramme' => $form, 
-            'nonInscrits' => $nonInscrits,
-            'session' => $session,
-            'nonProgrammes' => $nonProgrammes,
-            'message' => "Stagiaire supprimé avec succès."
-        ]);
+        return $this->redirectToRoute('details_session', ['id' => $session->getId()]);
+
+        // return $this->render('session/details.html.twig', [
+        //     'controller_name' => 'SessionController',
+        //     'formAddProgramme' => $form, 
+        //     'nonInscrits' => $nonInscrits,
+        //     'session' => $session,
+        //     'nonProgrammes' => $nonProgrammes,
+        //     'message' => "Stagiaire supprimé avec succès."
+        // ]);
     }
 
 

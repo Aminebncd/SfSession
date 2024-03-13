@@ -21,7 +21,7 @@ class Module
     #[ORM\ManyToOne(inversedBy: 'modules')]
     private ?Categorie $categorie = null;
 
-    #[ORM\OneToMany(targetEntity: Programme::class, mappedBy: 'module')]
+    #[ORM\OneToMany(targetEntity: Programme::class, mappedBy: 'module', cascade: ['persist', 'remove'])]
     private Collection $programmes;
 
     public function __construct()

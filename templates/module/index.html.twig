@@ -5,14 +5,26 @@
 {% block body %}
 
 <div class="example-wrapper">
+
+    <h1>Liste des categories</h1>
+    <a href="{{ path('new_categorie') }}">Ajouter une categorie</a> <br> <br>
+
+    {% for categorie in categories %}
+
+      {{categorie}} <a href="{{ path('edit_categorie', {'id' : categorie.id}) }}">edit</a>  <a href="{{ path('delete_categorie', {'id' : categorie.id}) }}">delete</a><br>
+      
+    {% endfor %}
+
     <h1> Liste des module</h1>
     <a href="{{ path('new_module') }}">Ajouter un module</a><br><br>
 
+    
     {% if modules %}
 
       {% for module in modules %}
         
-      <a href="{{ path('details_module', {'id': module.id}) }}">{{module}}  {{module.categorie}}</a> <a href="{{ path('edit_module', {'id' : module.id}) }}">edit</a><br>
+      <a href="{{ path('details_module', {'id': module.id}) }}">{{module}}  ({{module.categorie}})</a>
+      <a href="{{ path('edit_module', {'id' : module.id}) }}">edit</a>  <a href="{{ path('delete_module', {'id' : module.id}) }}">delete</a><br>
     {# {{categorie.modules}} <br> #}
          
       {% endfor %}
