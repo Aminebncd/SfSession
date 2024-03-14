@@ -3,6 +3,7 @@
 {% block title %}Ajoutez un nouveau module{% endblock %}
 
 {% block body %}
+<div class="content">
     {% if edit %}
         <h1>Editer une session existante</h1>
     {% else %}
@@ -22,5 +23,6 @@
         {{form_row(formAddModule.valider)}}
 
     {{ form_end(formAddModule) }}
+</div>
 
 {% endblock %}

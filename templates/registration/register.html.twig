@@ -3,6 +3,7 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+<div class="content">
     <h1>Register</h1>
 
     {{ form_errors(registrationForm) }}
@@ -25,4 +26,5 @@
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
+</div>
 {% endblock %}

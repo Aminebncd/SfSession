@@ -3,6 +3,7 @@
 {% block title %}Ajoutez une nouveau formateur{% endblock %}
 
 {% block body %}
+<div class="content">
     {% if edit %}
         <h1>Editer un formateur existante</h1>
     {% else %}
@@ -12,5 +13,6 @@
     {{ form_start(formAddFormateur) }}
     
     {{ form_end(formAddFormateur) }}
+</div>
 
 {% endblock %}

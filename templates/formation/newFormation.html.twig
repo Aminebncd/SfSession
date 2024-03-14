@@ -3,6 +3,8 @@
 {% block title %}Ajoutez une nouvelle formation{% endblock %}
 
 {% block body %}
+
+<div class="content">
     {% if edit %}
         <h1>Editer une formation existante</h1>
     {% else %}
@@ -12,5 +14,6 @@
     {{ form_start(formAddFormation) }}
 
     {{ form_end(formAddFormation) }}
+</div>
 
 {% endblock %}

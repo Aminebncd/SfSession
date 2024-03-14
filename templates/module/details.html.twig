@@ -4,23 +4,24 @@
 
 {% block body %}
 
-
-<h1> Liste des modules dans la categorie : {{categorie}}</h1>
-   
-
-    
-    {% if modules %}
-
-      {% for module in modules %}
-        {{module}} <br>
-        {% if is_granted('ROLE_ADMIN')  %}   
-        <a href="{{ path('edit_module', {'id' : module.id}) }}">edit</a>
-        <a href="{{ path('delete_module', {'id' : module.id}) }}">delete</a><br> <br>
-        {% endif %}
-      {% endfor %}
-   
-    {% else %}
-      <p>Il semblerait qu'aucune session ne soit renseignée en base de données.</p>
-    {% endif %}
+<div class="content">
+  <h1> Liste des modules dans la categorie : {{categorie}}</h1>
+     
+  
+      
+      {% if modules %}
+  
+        {% for module in modules %}
+          {{module}} <br>
+          {% if is_granted('ROLE_ADMIN')  %}   
+          <a href="{{ path('edit_module', {'id' : module.id}) }}">edit</a>
+          <a href="{{ path('delete_module', {'id' : module.id}) }}">delete</a><br> <br>
+          {% endif %}
+        {% endfor %}
+     
+      {% else %}
+        <p>Il semblerait qu'aucune session ne soit renseignée en base de données.</p>
+      {% endif %}
+</div>
 
 {% endblock %}

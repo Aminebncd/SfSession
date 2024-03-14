@@ -27,8 +27,11 @@ class ProgrammeType extends AbstractType
         $session = $options['session'];
         // dd($session);
         $builder
-            ->add('duree', NumberType::class)
-
+            ->add('duree', NumberType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('module', EntityType::class, [
                   'class' => Module::class,
                   'query_builder' => function() use ($session): QueryBuilder
@@ -56,15 +59,15 @@ class ProgrammeType extends AbstractType
                   },
                    'choice_value' => 'id',
                    'choice_label' => 'intitule_module',
-                    ])
+                   'attr' => [
+                        'class' => 'form-control'
+                    ]
+                ])
                 ->add('valider', SubmitType::class, [
                     'attr' => [
-                        // 'class' => 'btn btn-primary mt-3'
-                        ]
-                    ])
-                      
-            
-        ;
+                        'class' => 'btn btn-primary'
+                    ]
+                ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

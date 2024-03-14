@@ -4,24 +4,25 @@
 
 {% block body %}
 
-
-<h1> Liste des sessions dans la formation : <br> {{formation}}</h1>
-   
-
-    
-    {% if sessions %}
-
-      {% for session in sessions %}
-      <a href="{{ path('details_session', {'id' : session.id}) }}">{{session}}</a> (du {{ session.dateDebutFR }} au {{ session.dateFinFR }}) <br>
-      {% if is_granted('ROLE_ADMIN')  %}
-      <a href="{{ path('edit_session', {'id' : session.id}) }}">edit</a> 
-      {# <a href="{{ path('delete_session', {'id' : session.id}) }}">delete</a><br> #}
-      <br><br>
+<div class="content">
+  <h1> Liste des sessions dans la formation : <br> {{formation}}</h1>
+     
+  
+      
+      {% if sessions %}
+  
+        {% for session in sessions %}
+        <a href="{{ path('details_session', {'id' : session.id}) }}">{{session}}</a> (du {{ session.dateDebutFR }} au {{ session.dateFinFR }}) <br>
+        {% if is_granted('ROLE_ADMIN')  %}
+        <a href="{{ path('edit_session', {'id' : session.id}) }}">edit</a> 
+        {# <a href="{{ path('delete_session', {'id' : session.id}) }}">delete</a><br> #}
+        <br><br>
+        {% endif %}
+        {% endfor %}
+     
+      {% else %}
+        <p>Il semblerait qu'aucune session ne soit attribuée à cette session.</p>
       {% endif %}
-      {% endfor %}
-   
-    {% else %}
-      <p>Il semblerait qu'aucune session ne soit attribuée à cette session.</p>
-    {% endif %}
+</div>
 
 {% endblock %}

@@ -4,23 +4,22 @@
 
 {% block body %}
 
-<div class="example-wrapper">
-
+<div class="content">
     <a href="{{ path('new_categorie') }}">Ajouter une categorie</a><br>
     <a href="{{ path('new_module') }}">Ajouter un module</a><br><br>
     <h1>Liste des categories</h1>
-
+    
     {% for categorie in categories %}
-
+    
     <a href="{{ path('details_categorie', {'id': categorie.id}) }}">{{categorie}}</a> <br>
-
+    
     {% if is_granted('ROLE_ADMIN')  %} 
     <a href="{{ path('edit_categorie', {'id' : categorie.id}) }}">edit</a>
     <a href="{{ path('delete_categorie', {'id' : categorie.id}) }}">delete</a><br> <br>
     {% endif %}
       
     {% endfor %}
-
-    
 </div>
+
+
 {% endblock %}

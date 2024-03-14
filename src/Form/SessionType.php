@@ -21,29 +21,45 @@ class SessionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('intitule_session', TextType::class)
+            ->add('intitule_session', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('dateDebut', DateType::class, [
                 'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('dateFin', DateType::class, [
                 'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
-            ->add('nombrePlaces', NumberType::class)
+            ->add('nombrePlaces', NumberType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('formation', EntityType::class, [
-                'class' => Formation::class
-                
+                'class' => Formation::class,
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('formateur', EntityType::class, [
-                'class' => Formateur::class
-                
+                'class' => Formateur::class,
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
-            
             ->add('valider', SubmitType::class, [
                 'attr' => [
-                    // 'class' => 'btn btn-primary mt-3'
-                    ]
-                ])
-        ;
+                    'class' => 'btn btn-primary mt-3'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -53,3 +69,4 @@ class SessionType extends AbstractType
         ]);
     }
 }
+

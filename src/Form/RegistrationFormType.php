@@ -25,7 +25,10 @@ class RegistrationFormType extends AbstractType
     {
         $builder
         
-        ->add('email', EmailType::class)
+        ->add('email', EmailType::class, [
+            'attr' => ['class' => 'form-control'],
+        ])
+
         ->add('plainPassword', RepeatedType::class, [
             // instead of being set onto the object directly,
             // this is read and encoded in the controller
@@ -46,21 +49,35 @@ class RegistrationFormType extends AbstractType
                 //     'pattern' => '/^(?=.+[$&+,:;=?@#|<>.-^*()%!])(?=.+[0-9])(?=.+[a-z])(?=.+[A-Z]).{12,}$/',
                 // ]),
             ],
+            'attr' => ['class' => 'form-control'],
         ])
-        ->add('nom', TextType::class)
-        ->add('prenom', TextType::class)
+
+        ->add('nom', TextType::class, [
+            'attr' => ['class' => 'form-control'],
+        ])
+
+        ->add('prenom', TextType::class, [
+            'attr' => ['class' => 'form-control'],
+        ])
+
         ->add('dateNaissance', DateType::class, [
             'widget' => 'single_text',
+            'attr' => ['class' => 'form-control'],
         ])
         ->add('sexe', ChoiceType::class, [
             'choices' => [
                  'homme' => 'homme',
                  'femme' => 'femme',
                  'autre'=> 'autre'
-            ]
+            ],
+            'attr' => ['class' => 'form-control'],
         ])
-        ->add('ville', TextType::class)
-        ->add('telephone', TextType::class)
+        ->add('ville', TextType::class, [
+            'attr' => ['class' => 'form-control'],
+        ])
+        ->add('telephone', TextType::class, [
+            'attr' => ['class' => 'form-control'],
+        ])
         ->add('agreeTerms', CheckboxType::class, [
             'mapped' => false,
             'constraints' => [
@@ -68,6 +85,7 @@ class RegistrationFormType extends AbstractType
                     'message' => 'Agree or consequences.',
                 ]),
             ],
+            'attr' => ['class' => 'form-control'],
         ]);
     }
 

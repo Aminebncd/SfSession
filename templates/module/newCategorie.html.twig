@@ -3,6 +3,7 @@
 {% block title %}Ajoutez une nouvelle ccategorie{% endblock %}
 
 {% block body %}
+<div class="content">
     {% if edit %}
         <h1>Editer une session existante</h1>
     {% else %}
@@ -16,5 +17,6 @@
         {{form_row(formAddCategorie.valider)}}
 
     {{ form_end(formAddCategorie) }}
+</div>
 
 {% endblock %}

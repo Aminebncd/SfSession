@@ -3,6 +3,8 @@
 {% block title %}Ajoutez une nouvelle session{% endblock %}
 
 {% block body %}
+
+<div class="content">
     {% if edit %}
         <h1>Editer une session existante</h1>
     {% else %}
@@ -34,5 +36,5 @@
             {{form_row(formAddSession.valider)}}
 
     {{ form_end(formAddSession) }}
-
+</div>
 {% endblock %}
