@@ -45,8 +45,8 @@ class ModuleController extends AbstractController
 
 
     // CREATION/MODIFICATION D'UNE CATEGORIE
-    #[Route('/module/newCategorie', name: 'new_categorie')]
-    #[Route('/module/{id}/editCategorie', name: 'edit_categorie')]
+    #[Route('/admin/newCategorie', name: 'new_categorie')]
+    #[Route('/admin/{id}/editCategorie', name: 'edit_categorie')]
     public function new_edit_categorie(Categorie $categorie = null, 
                             Request $request, 
                             EntityManagerInterface $entityManager): Response
@@ -61,7 +61,8 @@ class ModuleController extends AbstractController
         $form->handleRequest($request);
 
         // si soumis et validé, attribue à categorie.createur l'id du user connecté, récupère les données du formulaire, et transmet à la BDD
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() 
+            && $form->isValid()) {
             $categorie = $form->getData();
             $entityManager->persist($categorie);
             $entityManager->flush();
@@ -79,8 +80,8 @@ class ModuleController extends AbstractController
 
 
     // CREATION/MODIFICATION D'UN MODULE
-    #[Route('/module/newModule', name: 'new_module')]
-    #[Route('/module/{id}/editModule', name: 'edit_module')]
+    #[Route('/admin/newModule', name: 'new_module')]
+    #[Route('/admin/{id}/editModule', name: 'edit_module')]
     public function new_edit_module(Module $module = null, 
                             Request $request, 
                             EntityManagerInterface $entityManager): Response
@@ -145,7 +146,7 @@ class ModuleController extends AbstractController
     }
     
     // SUPPRESSION D'UNE CATEGORIE
-    #[Route('/module/{id}/deleteCategorie', name: 'delete_categorie')]
+    #[Route('/admin/{id}/deleteCategorie', name: 'delete_categorie')]
     public function deleteCategorie(Categorie $categorie = null, 
                                     EntityManagerInterface $em)
     {

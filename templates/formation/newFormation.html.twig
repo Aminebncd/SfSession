@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajoutez une nouvelle formation{% endblock %}
+
+{% block body %}
+    {% if edit %}
+        <h1>Editer une formation existante</h1>
+    {% else %}
+        <h1>Ajoutez une nouvelle formation</h1>
+    {% endif %}
+
+    {{ form_start(formAddFormation) }}
+
+    {{ form_end(formAddFormation) }}
+
+{% endblock %}

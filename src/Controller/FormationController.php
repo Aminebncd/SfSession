@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Session;
 use App\Entity\Formateur;
 use App\Entity\Formation;
+use App\Form\FormateurType;
+use App\Form\FormationType;
 use App\Repository\FormateurRepository;
 use App\Repository\FormationRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,4 +58,71 @@ class FormationController extends AbstractController
             'sessions' => $sessions
         ]);
     }
+
+    // CREATION/MODIFICATION D'UN MODULE
+    #[Route('/admin/newFormation', name: 'new_formation')]
+    #[Route('/admin/{id}/editFormation', name: 'edit_formation')]
+    public function new_edit_formation(Formation $formation = null, 
+                            Request $request, 
+                            EntityManagerInterface $entityManager): Response
+    {
+        // si formation inexistante, crée un nouvel objet formation
+        if (!$formation) {
+            $formation = new Formation();
+        }
+
+        // crée un nouveau formulaire associé $formation
+        $form = $this->createForm(FormationType::class, $formation);
+        $form->handleRequest($request);
+
+        // si soumis et validé, attribue à formation.createur l'id du user connecté, récupère les données du formulaire, et transmet à la BDD
+        if ($form->isSubmitted() && $form->isValid()) {
+            $formation = $form->getData();
+            $entityManager->persist($formation);
+            $entityManager->flush();
+
+            // redirige vers la page des formations
+            return $this->redirectToRoute('app_formation');
+        }
+
+        return $this->render('formation/newFormation.html.twig' , [
+            'formAddFormation' => $form,
+            'edit' => $formation->getId()
+        ]);
+    }
+
+
+    // CREATION/MODIFICATION D'UN MODULE
+    #[Route('/admin/newFormateur', name: 'new_formateur')]
+    #[Route('/admin/{id}/editFormateur', name: 'edit_formateur')]
+    public function new_edit_formateur(Formateur $formateur = null, 
+                            Request $request, 
+                            EntityManagerInterface $entityManager): Response
+    {
+        // si formateur inexistante, crée un nouvel objet formateur
+        if (!$formateur) {
+            $formateur = new Formateur();
+        }
+
+        // crée un nouveau formulaire associé $formateur
+        $form = $this->createForm(FormateurType::class, $formateur);
+        $form->handleRequest($request);
+
+        // si soumis et validé, attribue à formateur.createur l'id du user connecté, récupère les données du formulaire, et transmet à la BDD
+        if ($form->isSubmitted() && $form->isValid()) {
+            $formateur = $form->getData();
+            $entityManager->persist($formateur);
+            $entityManager->flush();
+
+            // redirige vers la page des formateurs
+            return $this->redirectToRoute('app_formation');
+        }
+
+        return $this->render('formateur/newFormateur.html.twig' , [
+            'formAddFormateur' => $form,
+            'edit' => $formateur->getId()
+        ]);
+    }
+
+
 }

@@ -16,12 +16,19 @@ class UserController extends AbstractController
     #[Route('/user', name: 'app_user')]
     public function index(UserRepository $userRepository): Response
     {
-        // trouve tous les users en BDD pour les afficher
-        $users = $userRepository->findAll();
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-            'users' => $users
-        ]);
+        // on verifie que le user dispose de droits admin
+        if(in_array("ROLE_ADMIN", $this->getUser()->getRoles())){
+            // trouve tous les users en BDD pour les afficher
+            $users = $userRepository->findAll();
+            return $this->render('user/index.html.twig', [
+                'controller_name' => 'UserController',
+                'users' => $users
+            ]);
+        } else {
+            return $this->render('home/index.html.twig', [
+                'controller_name' => 'HomeController',
+            ]);
+        }
     }
 
 
@@ -29,11 +36,12 @@ class UserController extends AbstractController
     public function details(User $user=null): Response
     {
         // pas besoin de faire  $user = $userRepository->find($id); car symfony le fait tout seul
-        
-        return $this->render('user/details.html.twig', [
-            'controller_name' => 'UserController', 
-            'user' => $user
-        ]);
+        if ($user = $this->getUser()){
+            return $this->render('user/details.html.twig', [
+                'controller_name' => 'UserController', 
+                'user' => $user
+            ]);
+        }
     }
 
 
@@ -48,7 +56,9 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         // si soumis et validé, attribue à categorie.createur l'id du user connecté, récupère les données du formulaire, et transmet à la BDD
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() 
+            && $form->isValid()
+                && (($user = $this->getUser()) || in_array("ROLE_ADMIN", $this->getUser()->getRoles()))) {
             $user = $form->getData();
             $entityManager->persist($user);
             $entityManager->flush();

@@ -12,9 +12,12 @@
 
     {% for categorie in categories %}
 
-    <a href="{{ path('details_categorie', {'id': categorie.id}) }}">{{categorie}}</a> 
+    <a href="{{ path('details_categorie', {'id': categorie.id}) }}">{{categorie}}</a> <br>
+
+    {% if is_granted('ROLE_ADMIN')  %} 
     <a href="{{ path('edit_categorie', {'id' : categorie.id}) }}">edit</a>
-    <a href="{{ path('delete_categorie', {'id' : categorie.id}) }}">delete</a><br>
+    <a href="{{ path('delete_categorie', {'id' : categorie.id}) }}">delete</a><br> <br>
+    {% endif %}
       
     {% endfor %}
 

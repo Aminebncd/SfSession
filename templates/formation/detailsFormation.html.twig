@@ -12,9 +12,12 @@
     {% if sessions %}
 
       {% for session in sessions %}
-      <a href="{{ path('details_session', {'id' : session.id}) }}">{{session}}</a> (du {{ session.dateDebutFR }} au {{ session.dateFinFR }})
-        <a href="{{ path('edit_session', {'id' : session.id}) }}">edit</a> <br>
-        {# <a href="{{ path('delete_session', {'id' : session.id}) }}">delete</a><br> #}
+      <a href="{{ path('details_session', {'id' : session.id}) }}">{{session}}</a> (du {{ session.dateDebutFR }} au {{ session.dateFinFR }}) <br>
+      {% if is_granted('ROLE_ADMIN')  %}
+      <a href="{{ path('edit_session', {'id' : session.id}) }}">edit</a> 
+      {# <a href="{{ path('delete_session', {'id' : session.id}) }}">delete</a><br> #}
+      <br><br>
+      {% endif %}
       {% endfor %}
    
     {% else %}

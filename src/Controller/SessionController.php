@@ -39,8 +39,8 @@ class SessionController extends AbstractController
 
 
     // CREATION/MODIFICATION D'UNE SESSION
-    #[Route('/session/new', name: 'new_session')]
-    #[Route('/session/{id}/edit', name: 'edit_session')]
+    #[Route('/admin/new', name: 'new_session')]
+    #[Route('/admin/{id}/edit', name: 'edit_session')]
     public function new_edit(Session $session = null, 
                             Request $request, 
                             EntityManagerInterface $entityManager): Response
@@ -86,25 +86,30 @@ class SessionController extends AbstractController
                             EntityManagerInterface $entityManager
                             ): Response
     {
+        // on affiche la liste des non-inscrits
         $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
+        // on instancie un nouvel objet programme
         $programme = new Programme();
-        $temp = $programmeRepository->findBy(['session']);
-        $tempsModules = $temp->getDuree();
-        dd($tempsModules);
 
-
+        // on additionne les durées des modules
+        $tempsTotal = 0;
+        $programmes = $session->getProgrammes();
+        foreach ($programmes as $prog){
+            $tempsTotal += $prog->getDuree();
+        }
+      
+        // on crée le formulaire de creation de programme auquel on passe en options les informations de la session
         $form = $this->createForm(ProgrammeType::class, $programme, ['session' => $session]);
         $form->handleRequest($request);
 
-        // for (i = 0; i < count())
-        // dd($session->getProgrammes(1));
-        
+        // si validation, on persiste l'objet en base de donnée
         if ($form->isSubmitted() 
             && $form->isValid()
-                && ($tempsModules < $session->getDureeSession())) {
+                && (($tempsTotal + $form->getData()->getDuree()) <= $session->getDureeSession())
+                    && in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
         
             $programme = $form->getData();
-            $tempsModules += ($form->getData()->getDuree());
+            // $tempsModules += ($form->getData()->getDuree());
             $programme->setSession($session);
             $entityManager->persist($programme);
             $entityManager->flush();
@@ -173,10 +178,10 @@ class SessionController extends AbstractController
                             EntityManagerInterface $entityManager,
                             Request $request)
     {
-      
-        $session->removeInscrit($user);
-        $entityManager->persist($session);
-        $entityManager->flush();
+  
+          $session->removeInscrit($user);
+          $entityManager->persist($session);
+          $entityManager->flush();
         
         $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
         $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());

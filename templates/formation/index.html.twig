@@ -9,7 +9,10 @@
 </style>
 
 <div class="example-wrapper">
-  
+    {% if is_granted('ROLE_ADMIN')  %}   
+    <a href="{{ path('new_formation') }}">Ajouter une formation</a><br>
+    <a href="{{ path('new_formateur') }}">Ajouter un formateur</a><br><br>
+    {% endif %}
 
     {% if formations %}
     <h1>Liste des formations</h1>

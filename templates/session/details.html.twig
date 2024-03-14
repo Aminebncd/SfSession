@@ -33,27 +33,32 @@
             {% for programme in session.programmes %}
             <p>
                   {{programme}} 
+                  {% if is_granted('ROLE_ADMIN')  %}
                   <a href="{{ path('removeProgramme_session', {'session' : session.id, 'programme' : programme.id}) }}">déprogrammer</a>
+                  {% endif %}
             </p>
             {% endfor %}
           </div>
 
-        <div>
-          <h3>rajouter un module :</h3>
-            {{ form_start(formAddProgramme) }}
-        
-            <div>
-                <div>
-                    {{form_row(formAddProgramme.module)}}
-                
-                    {{form_row(formAddProgramme.duree)}}
-                </div>
-            </div>
-            
-              {{form_row(formAddProgramme.valider)}}
-        
-            {{ form_end(formAddProgramme) }}
-        </div>
+
+          {% if is_granted('ROLE_ADMIN')  %}
+          <div>
+            <h3>rajouter un module :</h3>
+              {{ form_start(formAddProgramme) }}
+          
+              <div>
+                  <div>
+                      {{form_row(formAddProgramme.module)}}
+                  
+                      {{form_row(formAddProgramme.duree)}}
+                  </div>
+              </div>
+              
+                {{form_row(formAddProgramme.valider)}}
+          
+              {{ form_end(formAddProgramme) }}
+          </div>
+          {% endif %}
 
       </div>
           
@@ -65,7 +70,9 @@
             {% for inscrit in session.inscrits %}
               <p>
                 {{ inscrit}} 
+                {% if is_granted('ROLE_ADMIN')  %}
                 <a href="{{ path('removeUser_session', {'session' : session.id, 'user' : inscrit.id}) }}">desinscrire</a>
+                {% endif %}
               </p>
             {% endfor %}
           </div>
@@ -73,7 +80,7 @@
       {% endif %}
 
 
-    {% if nonInscrits %} 
+    {% if nonInscrits and is_granted('ROLE_ADMIN')  %} 
     <div>
       <h2>stagiaires non inscrits :</h2>
         <div>

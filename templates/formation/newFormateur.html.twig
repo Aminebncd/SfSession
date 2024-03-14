@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajoutez une nouveau formateur{% endblock %}
+
+{% block body %}
+    {% if edit %}
+        <h1>Editer un formateur existante</h1>
+    {% else %}
+        <h1>Ajoutez un nouveau formateur</h1>
+    {% endif %}
+
+    {{ form_start(formAddFormateur) }}
+    
+    {{ form_end(formAddFormateur) }}
+
+{% endblock %}
