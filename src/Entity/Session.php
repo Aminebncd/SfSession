@@ -40,7 +40,7 @@ class Session
     #[ORM\ManyToOne(inversedBy: 'sessions')]
     private ?User $createur = null;
 
-    #[ORM\OneToMany(targetEntity: Programme::class, mappedBy: 'session')]
+    #[ORM\OneToMany(targetEntity: Programme::class, mappedBy: 'session', cascade: ['persist', 'remove'])]
     private Collection $programmes;
 
     public function __construct()

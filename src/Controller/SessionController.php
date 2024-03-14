@@ -54,7 +54,8 @@ class SessionController extends AbstractController
         $form = $this->createForm(SessionType::class, $session);
         $form->handleRequest($request);
 
-        // si soumis et validé, attribue à session.createur l'id du user connecté, récupère les données du formulaire, et transmet à la BDD
+        // si soumis et validé, attribue à session.createur l'id du user connecté, 
+        // récupère les données du formulaire, et transmet à la BDD
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getUser();
             $session->setCreateur($user);
@@ -217,6 +218,22 @@ class SessionController extends AbstractController
 
         return $this->redirectToRoute('details_session', ['id' => $session->getId()]);
 
+    }
+
+
+
+
+    // SUPPRESSION D'UNE SESSION
+    #[Route('/admin/{session}/supprimer', name: 'delete_session')]
+    public function removeSession(Session $session=null, 
+                            EntityManagerInterface $entityManager,
+                            Request $request)
+    {
+      
+        $entityManager->remove($session);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_session');
     }
 
 
