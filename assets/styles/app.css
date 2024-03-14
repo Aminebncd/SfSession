@@ -3,13 +3,10 @@
 * {
     margin: 0;
     padding: 0;
-    /* box-sizing: border-box; */
-    /* color: aliceblue; */
     font-size: 20px;
     font-family: 'dm sans';
     text-decoration: none;
     text-transform: none;
-    
 }
 
 :root {
@@ -19,20 +16,52 @@
     --third-color: #ABA9BC;
 }
 
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px; /* Largeur de la navbar */
+    height: 100vh;
+    background-color: #45486A;
+    z-index: 1000; /* Assure que la navbar est au-dessus des autres éléments */
+}
+
+.navbar ul {
+    margin-top: 20%;
+    list-style-type: none;
+    padding: 0;
+}
+
+.navbar li {
+    padding: 10px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    display: block;
+}
+
+.navbar a:hover {
+    background-color: #ABA9BC;
+}
+
+.content {
+    margin-top: 10%;
+    margin-left: 250px; 
+    padding: 20px; 
+}
+
 .session-list-title {
     margin-left: 10%;
-    h1 {
-        font-size: 30px;
-        margin-bottom: 30px;
-    }
 }
 
 .table {
     width: 80%;
     margin: 0 auto;
     border-collapse: collapse;
-    border-radius: 15px 15px 0 0; /* Coins supérieurs arrondis */
-    overflow: hidden; /* Masquer le contenu qui dépasse les coins arrondis */
+    border-radius: 15px 15px 0 0;
+    overflow: hidden;
 }
 
 .table th,
@@ -48,27 +77,29 @@
     color: white;
 }
 
+tbody tr:nth-child(odd) {
+    background-color: var(--third-color);
+}
+
 .btn {
     display: inline-block;
-    padding: 8px 18px;
-    margin-bottom: 10px;
     font-size: 20px;
     font-weight: 400;
     line-height: 1.42857143;
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
     cursor: pointer;
     border: 1px solid transparent;
-    border-radius:10px;
+    border-radius: 10px;
 }
 
 .btn-primary {
     color: rgb(255, 255, 255);
     background-color: var(--first-color);
     border-color: var(--first-color);
+    padding: 8px 18px;
+    margin-bottom: 10px;
 }
 
 .btn-warning {

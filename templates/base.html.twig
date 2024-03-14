@@ -12,27 +12,27 @@
     <body>
 
         {# liens vers mes differentes vues #}
-        <nav>
+        <nav class="navbar">
             <ul>
                 {% if app.user %}
-                <li><a href="{{path ('details_user', {'id': app.user.id}) }}">mon profil</a></li>
-                <li><a href="{{path ('app_logout')}}">logout</a></li>
+                <li><a href="{{path ('details_user', {'id': app.user.id}) }}"><i class="fa-regular fa-user"></i> Mon profil</a></li>
+                <li><a href="{{path ('app_logout')}}"><i class="fa-solid fa-right-from-bracket"></i>  Déconnexion</a></li>
 
             
-                <li><a href="{{path ('app_home')}}">home</a></li>
-                <li><a href="{{path ('app_session')}}">sessions</a></li>
-                <li><a href="{{path ('app_module')}}">modules</a></li>
-                <li><a href="{{path ('app_formation')}}">formations</a></li>
+                <li><a href="{{path ('app_home')}}"><i class="fa-solid fa-house"></i> Page d'accueil</a></li>
+                <li><a href="{{path ('app_session')}}"><i class="fa-solid fa-chalkboard-user"></i> Sessions</a></li>
+                <li><a href="{{path ('app_module')}}"><i class="fa-solid fa-cubes"></i> Modules</a></li>
+                <li><a href="{{path ('app_formation')}}"><i class="fa-solid fa-school"></i> Formations</a></li>
                 
                 {% if is_granted('ROLE_ADMIN') %}
                 {# <li><a href="#">Panneau admin</a></li> #}
-                <li><a href="{{path ('app_user')}}">users</a></li>
+                <li><a href="{{path ('app_user')}}"><i class="fa-solid fa-users"></i> Liste des Utilisateurs</a></li>
                 {% endif %}
                 
                 {% else %}
 
-                <li><a href="{{path ('app_register')}}">register</a></li>
-                <li><a href="{{path ('app_login')}}">login</a></li>
+                <li><a href="{{path ('app_register')}}"><i class="fa-regular fa-address-card"></i> Inscription</a></li>
+                <li><a href="{{path ('app_login')}}"><i class="fa-solid fa-right-to-bracket"></i> Connexion</a></li>
                 {% endif %}
 
                 
