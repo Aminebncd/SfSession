@@ -9,6 +9,7 @@ use App\Form\FormateurType;
 use App\Form\FormationType;
 use App\Repository\FormateurRepository;
 use App\Repository\FormationRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -75,7 +76,8 @@ class FormationController extends AbstractController
         $form = $this->createForm(FormationType::class, $formation);
         $form->handleRequest($request);
 
-        // si soumis et validé, attribue à formation.createur l'id du user connecté, récupère les données du formulaire, et transmet à la BDD
+        // si soumis et validé,
+        // récupère les données du formulaire, et transmet à la BDD
         if ($form->isSubmitted() && $form->isValid()) {
             $formation = $form->getData();
             $entityManager->persist($formation);
@@ -108,7 +110,6 @@ class FormationController extends AbstractController
         $form = $this->createForm(FormateurType::class, $formateur);
         $form->handleRequest($request);
 
-        // si soumis et validé, attribue à formateur.createur l'id du user connecté, récupère les données du formulaire, et transmet à la BDD
         if ($form->isSubmitted() && $form->isValid()) {
             $formateur = $form->getData();
             $entityManager->persist($formateur);
@@ -118,7 +119,7 @@ class FormationController extends AbstractController
             return $this->redirectToRoute('app_formation');
         }
 
-        return $this->render('formateur/newFormateur.html.twig' , [
+        return $this->render('formation/newFormateur.html.twig' , [
             'formAddFormateur' => $form,
             'edit' => $formateur->getId()
         ]);

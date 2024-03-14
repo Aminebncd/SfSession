@@ -31,12 +31,14 @@ class UserController extends AbstractController
         }
     }
 
-
+    // || in_array("ROLE_ADMIN", $this->getUser()->getRoles()) 
     #[Route('/user/{id}/details', name: 'details_user')]
     public function details(User $user=null): Response
     {
         // pas besoin de faire  $user = $userRepository->find($id); car symfony le fait tout seul
-        if ($user = $this->getUser()){
+
+        // la fiche d'un stagiaire ne peut être consultée que par un admin ou le stagiaire lui même
+        if ($user == $this->getUser() || in_array("ROLE_ADMIN", $this->getUser()->getRoles()) ){
             return $this->render('user/details.html.twig', [
                 'controller_name' => 'UserController', 
                 'user' => $user
@@ -55,7 +57,8 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        // si soumis et validé, attribue à categorie.createur l'id du user connecté, récupère les données du formulaire, et transmet à la BDD
+        // si soumis et validé, 
+        // récupère les données du formulaire, et transmet à la BDD
         if ($form->isSubmitted() 
             && $form->isValid()
                 && (($user = $this->getUser()) || in_array("ROLE_ADMIN", $this->getUser()->getRoles()))) {
