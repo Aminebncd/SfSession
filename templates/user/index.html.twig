@@ -16,7 +16,7 @@
 
       {% for user in users %}
         {# lien vers une oage detaillant les infos du user #}
-      <a href="{{ path('details_user', {'id': user.id}) }}">{{user}}</a> <br>
+      <a class="btn btn-primary" href="{{ path('details_user', {'id': user.id}) }}">{{user}}</a> <br>
           
     
 

@@ -8,8 +8,8 @@
 
     <h1>Details du stagiaire</h1>
     <div class="action-links">
-        <a href="{{ path('edit_user', {'id' : user.id}) }}">edit</a>
-        <a href="{{ path('delete_user', {'id' : user.id}) }}">delete</a>
+        <a class="" href="{{ path('edit_user', {'id' : user.id}) }}">edit</a>
+        <a class="" href="{{ path('delete_user', {'id' : user.id}) }}">delete</a>
     </div>
 
     {% if user %}
@@ -53,7 +53,7 @@
         </tbody>
       </table> #}
 
-      <div class="user-card">
+      <div class="card">
         <h1>Fiche stagiaire</h1>
         <div class="user-info">
             Nom : {{ user.nom }} <br>
@@ -65,14 +65,14 @@
         </div>
       </div>
 
-      <div class="user-card">
+      <div class="card">
         {% if user.sessions |length == 0  %} 
             <h2>Pas encore inscrit à une session.</h2>
         {% else %}
             <h2>Inscrit à ces sessions :</h2>
             <div class="user-sessions">
                 {% for session in user.sessions %}
-                <a href="{{ path('details_session', {'id' : session.id}) }}">{{ session }} (du {{ session.dateDebutFR }} au {{ session.dateFinFR }})</a>
+                <a href="{{ path('details_session', {'id' : session.id}) }}">{{ session }} (du {{ session.dateDebutFR }} au {{ session.dateFinFR }})</a> <br>
                 {% endfor %}
             </div>
         {% endif %}

@@ -11,29 +11,51 @@
     
     {% if session %}
 
-      <div>
-        {{ session }} <br>
-        Formation : {{ session.formation }} <br>
-        Formateur référent : {{ session.formateur }} <br>
-        du {{ session.dateDebutFR }} au {{ session.dateFinFR }} ({{ session.dureeSession }} jours)<br>
-        {{ session.nombrePlaces }} place(s) <br>
-         
+      <div class="card">
+        <h1>
+          {{ session }}
+        </h1>
+        <div class="session-info">
+          Formation : {{ session.formation }} <br>
+          Formateur référent : {{ session.formateur }} <br>
+          du {{ session.dateDebutFR }} au {{ session.dateFinFR }} ({{ session.dureeSession }} jours)<br>
+          {{ session.nombrePlaces }} place(s) <br>
+        </div>
       </div>
-      
 
-      
       <div>
-
         <h2>Programme de cette session :</h2>
-          <div>
-            {% for programme in session.programmes %}
-            <p>
-                  {{programme}} 
-                  {% if is_granted('ROLE_ADMIN')  %}
-                  <a href="{{ path('removeProgramme_session', {'session' : session.id, 'programme' : programme.id}) }}">déprogrammer</a>
-                  {% endif %}
-            </p>
-            {% endfor %}
+        <table class="table">
+          <thead>
+              <tr>
+                  <th>Module</th>
+                  <th>Durée</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for programme in session.programmes %}
+                  <tr>
+                      <td class="table-module">
+                        
+                          {{ programme.module }} 
+  
+                          {% if is_granted('ROLE_ADMIN') %}
+                          <a class="btn-warning" href="{{ path('removeProgramme_session', {'session' : session.id, 'programme' : programme.id}) }}"><i class="fa-solid fa-trash"></i></a>
+                          {% endif %}
+                      
+
+                      </td>
+                      <td>{{ programme.duree }} jours</td>
+                     
+                  </tr>
+              {% else %}
+                  <tr>
+                      <td colspan="3">Aucun programme trouvé.</td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+      
           </div>
 
 
