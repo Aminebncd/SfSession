@@ -12,11 +12,14 @@
       {% if modules %}
   
         {% for module in modules %}
-          {{module}} <br>
-          {% if is_granted('ROLE_ADMIN')  %}   
-          <a href="{{ path('edit_module', {'id' : module.id}) }}">edit</a>
-          <a href="{{ path('delete_module', {'id' : module.id}) }}">delete</a><br> <br>
-          {% endif %}
+        {{module}} <br>
+        {% if is_granted('ROLE_ADMIN')  %}   
+          <div class="action-links">
+
+            <a href="{{ path('edit_module', {'id' : module.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+            <a href="{{ path('delete_module', {'id' : module.id}) }}"><i class="fa-solid fa-trash"></i></a><br> <br>
+            </div>
+            {% endif %}
         {% endfor %}
      
       {% else %}

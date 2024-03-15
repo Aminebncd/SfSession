@@ -102,7 +102,7 @@
     }
 }
 .table {
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
     border-collapse: collapse;
     border-radius: 15px 15px 0 0;
@@ -151,4 +151,58 @@ tbody tr:nth-child(odd) {
     color: rgb(0, 0, 0);
     background-color: var(--second-color);
     border-color: var(--second-color);
+}
+
+.category-list {
+    display: flex;
+    height: 500px;
+}
+
+.category-link {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.category-link:hover {
+    text-decoration: underline;
+}
+
+.action-links {
+    margin-top: 5px;
+}
+
+.action-links a {
+    margin-right: 10px;
+    color: #555;
+    text-decoration: none;
+}
+
+.action-links a:hover {
+    text-decoration: underline;
+}
+
+
+.user-card {
+    h1,h2 {
+        color: #F0EDFF;
+    }
+    
+    background-color: var( --first-color);
+    padding: 20px 20px 5px 20px ;
+    width: fit-content;
+    border-radius: 15px;
+}
+
+.user-info {
+    background-color: var(--second-color);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.user-sessions {
+    background-color: var(--second-color);
+    padding: 10px;
+    border-radius: 10px;
 }

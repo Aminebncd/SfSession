@@ -7,64 +7,76 @@
 <div class="content">
 
     <h1>Details du stagiaire</h1>
-    <a href="{{ path('edit_user', {'id' : user.id}) }}">edit</a><br>
-    <a href="{{ path('delete_user', {'id' : user.id}) }}">delete</a>
-    
+    <div class="action-links">
+        <a href="{{ path('edit_user', {'id' : user.id}) }}">edit</a>
+        <a href="{{ path('delete_user', {'id' : user.id}) }}">delete</a>
+    </div>
 
     {% if user %}
-
-    {# affichage de ses infos #}
-      <table>
-
+      {# <table class="table">
         <thead>
             <tr>
-              <th><h2>Fiche stagiaire</h2></th>
+                <th colspan="2"><h2>Fiche stagiaire</h2></th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>Nom : {{ user.nom }}</td>
+                <th>Nom :</th>
+                <td>{{ user.nom }}</td>
             </tr>
             <tr>
-                <td>Prenom : {{ user.prenom }}</td>
+                <th>Prénom :</th>
+                <td>{{ user.prenom }}</td>
             </tr>
             <tr>
-                <td>civilité : {{ user.sexe }}</td>
+                <th>Civilité :</th>
+                <td>{{ user.sexe }}</td>
             </tr>
             <tr>
-                <td>Ville : {{ user.ville }}</td>
+                <th>Ville :</th>
+                <td>{{ user.ville }}</td>
             </tr>
             <tr>
-                <td>Telephone : {{ user.telephone }}</td>
+                <th>Téléphone :</th>
+                <td>{{ user.telephone }}</td>
             </tr>
             <tr>
-                <td>email : {{ user.email }}</td>
+                <th>Email :</th>
+                <td>{{ user.email }}</td>
             </tr>
             {% if is_granted('ROLE_ADMIN') %}
             <tr>
-                <td>Role : {{ user.roles|join(', ') }}</td>
+                <th>Rôle :</th>
+                <td>{{ user.roles|join(', ') }}</td>
             </tr>
             {% endif %}
-            
         </tbody>
-      </table>
+      </table> #}
 
-      <div>
+      <div class="user-card">
+        <h1>Fiche stagiaire</h1>
+        <div class="user-info">
+            Nom : {{ user.nom }} <br>
+            Prenom : {{ user.prenom }} <br>
+            Civilité : {{ user.sexe }} <br>
+            Ville : {{ user.ville }} <br>
+            email : {{ user.email }} <br>
+           
+        </div>
+      </div>
+
+      <div class="user-card">
         {% if user.sessions |length == 0  %} 
-            <h2>pas encore inscrit à une session.</h2>
+            <h2>Pas encore inscrit à une session.</h2>
         {% else %}
-            <h2>Inscrit à ces session :</h2>
-            <div>
-            {% for session in user.sessions %}
-                <p>
-                {{ session}}
-                </p>
-            {% endfor %}
+            <h2>Inscrit à ces sessions :</h2>
+            <div class="user-sessions">
+                {% for session in user.sessions %}
+                <a href="{{ path('details_session', {'id' : session.id}) }}">{{ session }} (du {{ session.dateDebutFR }} au {{ session.dateFinFR }})</a>
+                {% endfor %}
             </div>
         {% endif %}
       </div>
-
-     
          
     {% else %}
       <p>Il semblerait que ce stagiaire n'existe pas en base de données.</p>
