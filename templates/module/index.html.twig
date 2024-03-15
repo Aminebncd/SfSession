@@ -10,19 +10,17 @@
     <h1>Liste des catégories</h1>
     
     <div class="category-list">
-        {% for categorie in categories %}
-        
-        <a class="category-link" href="{{ path('details_categorie', {'id': categorie.id}) }}">{{ categorie }}</a>
-        
-        {% if is_granted('ROLE_ADMIN')  %} 
-        <div class="action-links">
 
-        <a href="{{ path('edit_categorie', {'id' : categorie.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-        <a href="{{ path('delete_categorie', {'id' : categorie.id}) }}"><i class="fa-solid fa-trash"></i></a>
-        
-        </div>
-        {% endif %}
-          
+        {% for categorie in categories %}
+        <div class="category">
+            <a class="category-link" href="{{ path('details_categorie', {'id': categorie.id}) }}">{{ categorie }}</a>
+                {% if is_granted('ROLE_ADMIN')  %} 
+                    <div class="action-links">
+                        <a href="{{ path('edit_categorie', {'id' : categorie.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="{{ path('delete_categorie', {'id' : categorie.id}) }}"><i class="fa-solid fa-trash"></i></a>
+                    </div>
+                {% endif %}
+            </div>
         {% endfor %}
     </div>
 </div>

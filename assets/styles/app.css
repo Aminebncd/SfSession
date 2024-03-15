@@ -24,6 +24,7 @@
     height: 100vh;
     background-color: #45486A;
     z-index: 1000; /* Assure que la navbar est au-dessus des autres éléments */
+    border-radius: 0 50px 50px 0;
 }
 
 .navbar ul {
@@ -161,7 +162,22 @@ tbody tr:nth-child(odd) {
 
 .category-list {
     display: flex;
-    height: 500px;
+    width: fit-content;
+    padding: 50px;
+    background-color: var(--first-color);
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.category {
+    background-color: var(--second-color);
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+   
 }
 
 .category-link {
@@ -181,7 +197,7 @@ tbody tr:nth-child(odd) {
 
 .action-links a {
     margin-right: 10px;
-    color: #555;
+    color: var(--third-color);
     text-decoration: none;
 }
 
