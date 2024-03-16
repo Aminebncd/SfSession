@@ -53,10 +53,15 @@ class SessionController extends AbstractController
         // crée un nouveau formulaire associé $session
         $form = $this->createForm(SessionType::class, $session);
         $form->handleRequest($request);
+        $now = new \DateTime;
 
         // si soumis et validé, attribue à session.createur l'id du user connecté, 
         // récupère les données du formulaire, et transmet à la BDD
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() 
+            && $form->isValid()
+                && ($form->getData()->getDateDebut() < $form->getData()->getDateFin())
+                    && ($form->getData()->getDateDebut() > $now)) {
+            // dd($form->getData()->getDateDebut() < $form->getData()->getDateFin());
             $user = $this->getUser();
             $session->setCreateur($user);
             $session = $form->getData();

@@ -45,7 +45,7 @@
                       
 
                       </td>
-                      <td>{{ programme.duree }} jours</td>
+                      <td>{{ programme.duree }} j</td>
                      
                   </tr>
               {% else %}
@@ -60,7 +60,7 @@
 
 
           {% if is_granted('ROLE_ADMIN')  %}
-          <div>
+          <div class="mb-3">
             <h3>rajouter un module :</h3>
               {{ form_start(formAddProgramme) }}
           
@@ -89,7 +89,7 @@
               <p>
                 {{ inscrit}} 
                 {% if is_granted('ROLE_ADMIN')  %}
-                <a href="{{ path('removeUser_session', {'session' : session.id, 'user' : inscrit.id}) }}">desinscrire</a>
+                <a href="{{ path('removeUser_session', {'session' : session.id, 'user' : inscrit.id}) }}">| desinscrire</a>
                 {% endif %}
               </p>
             {% endfor %}
@@ -104,7 +104,7 @@
         <div>
           {% for nonInscrit in nonInscrits %}
             <p>
-              {{nonInscrit}} <a href="{{ path('addUser_session', {'session' : session.id, 'user' : nonInscrit.id}) }}">inscrire</a>
+              {{nonInscrit}} <a href="{{ path('addUser_session', {'session' : session.id, 'user' : nonInscrit.id}) }}">| inscrire</a>
             </p>
           {% endfor %}
         </div>
