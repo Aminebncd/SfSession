@@ -10,26 +10,30 @@
 
 <div class="content">
     {% if is_granted('ROLE_ADMIN')  %}   
-    <a href="{{ path('new_formation') }}">Ajouter une formation</a><br>
-    <a href="{{ path('new_formateur') }}">Ajouter un formateur</a><br><br>
+    <a class="btn btn-primary" href="{{ path('new_formation') }}">Ajouter une formation</a><br>
+    <a class="btn btn-primary" href="{{ path('new_formateur') }}">Ajouter un formateur</a><br><br>
     {% endif %}
 
     {% if formations %}
-    <h1>Liste des formations</h1>
-        {% for formation in formations %}
-        <a href="{{ path('details_formation', {'id': formation.id}) }}">{{formation}}</a><br>
-          
-        {% endfor %}
+    <div class="card">
+        <h1>Liste des formations</h1>
+            {% for formation in formations %}
+            <a href="{{ path('details_formation', {'id': formation.id}) }}">{{formation}}</a><br>
+              
+            {% endfor %}
+    </div>
     {% endif %}
 
 
     {% if formateurs %}
-    <h1>Liste des formateurs</h1>
-        {% for formateur in formateurs %}
-        <a href="{{ path('details_formateur', {'id': formateur.id}) }}">{{formateur}}</a><br>
-        
-        {% endfor %}
-    {% endif %}
+    <div class="card">
+        <h1>Liste des formateurs</h1>
+            {% for formateur in formateurs %}
+            <a href="{{ path('details_formateur', {'id': formateur.id}) }}">{{formateur}}</a><br>
+            
+            {% endfor %}
+        {% endif %}
+    </div>
 </div>
 
 {% endblock %}

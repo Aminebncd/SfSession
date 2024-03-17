@@ -96,6 +96,14 @@
     color: var(--third-color);
 }
 
+.card a {
+    color: var(--second-color);
+}
+
+.card a:hover {
+    color: var(--third-color);
+}
+
 .session-list-title {
     margin-left: 10%;
     h1 {
