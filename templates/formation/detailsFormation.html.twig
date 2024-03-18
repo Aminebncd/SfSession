@@ -21,6 +21,11 @@
             </div>
           {% endfor %}
         </div>
+
+        <div class="card actions"> 
+          <a class="action" href="{{ path('edit_formation', {'id' : formation.id}) }}">Modifier la formation</a>
+          <a class="action" href="{{ path('delete_formation', {'id' : formation.id}) }}">Supprimer la formation</a>
+        </div>
      
       {% else %}
         <p>Il semblerait qu'aucune session ne soit attribuée à cette formation.</p>

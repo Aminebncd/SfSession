@@ -125,5 +125,31 @@ class FormationController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/{id}/deleteFormation', name: 'delete_formation')]
+    public function deleteFormation(Formation $formation,
+                                    EntityManagerInterface $em)
+    {
+        if ($formation) {
+            $em->remove($formation);
+            $em->flush();
+            return $this->redirectToRoute('app_formation');
+         } else {
+             return $this->redirectToRoute('app_formation');
+         }
+    }
+
+    #[Route('/admin/{id}/deleteFormateur', name: 'delete_formateur')]
+    public function deleteFormateur(Formateur $formateur,
+                                    EntityManagerInterface $em)
+    {
+        if ($formateur) {
+            $em->remove($formateur);
+            $em->flush();
+            return $this->redirectToRoute('app_formation');
+         } else {
+             return $this->redirectToRoute('app_formation');
+         }
+    }
+
 
 }

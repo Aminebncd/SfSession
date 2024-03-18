@@ -5,17 +5,16 @@
 {% block body %}
 <div class="content">
     {% if edit %}
-        <h1>Editer une session existante</h1>
+        <h1>Editer une categorie existante</h1>
     {% else %}
-        <h1>Ajoutez une nouvelle session</h1>
+        <h1>Ajoutez une nouvelle categorie</h1>
     {% endif %}
 
     {{ form_start(formAddCategorie) }}
-    
-        {{form_row(formAddCategorie.label)}}          
-       
+        <div class="card form-module">
+            {{form_row(formAddCategorie.label)}}          
+        </div>
         {{form_row(formAddCategorie.valider)}}
-
     {{ form_end(formAddCategorie) }}
 </div>
 

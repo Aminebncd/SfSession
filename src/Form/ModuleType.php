@@ -18,14 +18,14 @@ class ModuleType extends AbstractType
         $builder
             ->add('intitule_module', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control column'
                 ]
             ])
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
                 'choice_label' => 'label',
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control column'
                 ]
             ])
             ->add('valider', SubmitType::class, [

@@ -29,11 +29,12 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 250px; /* Largeur de la navbar */
+    width: 250px; 
     height: 100vh;
     background-color: #45486A;
-    z-index: 1000; /* Assure que la navbar est au-dessus des autres éléments */
+    z-index: 1000; 
     border-radius: 0 50px 50px 0;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 .navbar ul {
@@ -132,6 +133,10 @@
     color: #6788FF;
 }
 
+.actions {
+    text-align: center;
+}
+
 
 .content {
     margin-top: 10%;
@@ -142,13 +147,14 @@
 .column {
     display: flex;
     flex-direction: column;
-    width: 300px;
+    /* width: 300px; */
     margin-top: 8px;
     margin-bottom: 15px;
 }
 
 .form-control {
-    width: fit-content;
+    display: flex;
+    width: 80%;
     /* color: var(--second-color); */
     padding: 10px;
     font-size: 16px;
@@ -156,6 +162,7 @@
     border-radius: 5px; 
     /* margin-bottom: 25px; */
 }
+
 
 .programm-form {
     /* margin-top: 40px; */
@@ -183,7 +190,7 @@
 .card {
     background-color: var( --first-color);
     padding: 20px;
-    /* width: fit-content; */
+    width: 80%;
     border-radius: 15px;
     margin-top: 35px;
     margin-bottom: 20px;
@@ -219,7 +226,8 @@
     padding: 20px;
     margin: 20px;
     border-radius: 10px;
-    a {
+    
+    .action, a {
         color: #333;
     }
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
@@ -363,5 +371,7 @@ label {
 }
 
 .stagiaires {
+    /* width: 100%; */
+    color: var(--second-color);
     text-align: center;
 }

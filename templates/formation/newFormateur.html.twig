@@ -5,14 +5,18 @@
 {% block body %}
 <div class="content">
     {% if edit %}
-        <h1>Editer un formateur existante</h1>
+        <h1>Editer un formateur existant</h1>
     {% else %}
         <h1>Ajoutez un nouveau formateur</h1>
     {% endif %}
 
-    {{ form_start(formAddFormateur) }}
-    
-    {{ form_end(formAddFormateur) }}
+    <div class="card">
+        {{ form_start(formAddFormateur) }}
+
+        
+        
+        {{ form_end(formAddFormateur) }}
+    </div>
 </div>
 
 {% endblock %}

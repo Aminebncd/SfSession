@@ -14,10 +14,14 @@ class FormationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titre', TextType::class)
+            ->add('titre', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control column'
+                ]
+            ])
             ->add('valider', SubmitType::class, [
                 'attr' => [
-                    // 'class' => 'btn btn-primary mt-3'
+                    'class' => 'btn btn-primary'
                     ]
                 ])
         ;

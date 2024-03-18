@@ -23,6 +23,10 @@
         </div>
       {% endfor %}
     </div>
+    <div class="card actions"> 
+      <a class="action" href="{{ path('edit_formateur', {'id' : formateur.id}) }}">Modifier le formateur</a>
+      <a class="action" href="{{ path('delete_formateur', {'id' : formateur.id}) }}">Supprimer le formateur</a>
+    </div>
       
     {% else %}
       <h2>Il semblerait qu'aucune session ne soit attribuée à ce formateur.</h2>
