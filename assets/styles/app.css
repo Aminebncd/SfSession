@@ -47,9 +47,25 @@
     background-color: #ABA9BC;
 }
 
+.btn-actions {
+    display: flex;
+    margin-left: 50px;
+    margin-top: 20px;
+    justify-content: space-evenly;
+}
+
+.category-actions {
+    display: flex;
+    justify-content: space-evenly;
+}
+.category-actions .action {
+    /* display: flex; */
+    /* text-align: center; */
+    /* margin-left: 5px; */
+    color: #333;
+}
 .action {
-    margin-left: 5px;
-    color: var(--second-color);
+    color: #333;
 }
 
 .action:hover {
@@ -91,7 +107,7 @@
 
 .content h1 {
     font-size: 30px;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 
@@ -105,11 +121,19 @@
 }
 
 .card a {
-    color: var(--second-color);
+    color: var(--first-color);
 }
 
 .card a:hover {
     color: var(--third-color);
+}
+
+.card .action {
+    color: #333;
+}
+
+.card .action:hover {
+    color: #6788FF;
 }
 
 /* .card p {
@@ -193,6 +217,16 @@ tbody tr:nth-child(odd) {
     border-radius: 10px;
 }
 
+.list {
+    background-color: var(--second-color);
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    a {
+        color: #333;
+    }
+}
+
 .category {
     background-color: var(--second-color);
     padding: 20px;
@@ -239,6 +273,7 @@ tbody tr:nth-child(odd) {
     padding: 20px;
     width: fit-content;
     border-radius: 15px;
+    margin-top: 35px;
     margin-bottom: 20px;
     h1,h2 {
         color: #F0EDFF;

@@ -5,24 +5,28 @@
 {% block body %}
 
 <div class="content">
-  <h1> Details du du formateur :</h1>
-  <h2>{{formateur}} <br> contact : {{formateur.email}}</h2>
-     
-  
+  <div class="card">
+    <h1> Details du du formateur :</h1> <br>
+    <h2>{{formateur}} <br> contact : {{formateur.email}}</h2>
+  </div>
+    
+  {% if sessions | length > 0 %}
+    <h1>Liste des session prévues :</h1>
+    <div class="card">
+      {% for session in sessions %}
+        <div class="list">
+          <a href="{{ path('details_session', {'id' : session.id}) }}">{{session}}</a> (du {{ session.dateDebutFR }} au {{ session.dateFinFR }})
+          {% if is_granted('ROLE_ADMIN')  %}
+          <a class="action" href="{{ path('edit_session', {'id' : session.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a> 
+          <a class="action" href="{{ path('delete_session', {'session' : session.id}) }}"><i class="fa-solid fa-trash"></i></a><br>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
       
-  
-      {% if sessions| length > 0 %}
-          <h3>session prévues : </h3>
-        {% for session in sessions %}
-        <a href="{{ path('details_session', {'id' : session.id}) }}">{{session}}</a> (du {{ session.dateDebutFR }} au {{ session.dateFinFR }})
-          <a href="{{ path('edit_session', {'id' : session.id}) }}">edit</a>
-          {# <a href="{{ path('delete_session', {'id' : session.id}) }}">delete</a><br> #}
-          <br><br>
-        {% endfor %}
-     
-      {% else %}
-        <p>Il semblerait qu'aucune session ne soit attribuée à ce formateur.</p>
-      {% endif %}
+    {% else %}
+      <h2>Il semblerait qu'aucune session ne soit attribuée à ce formateur.</h2>
+  {% endif %}
 </div>
 
 {% endblock %}

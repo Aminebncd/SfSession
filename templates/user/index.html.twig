@@ -12,18 +12,15 @@
   <div class="content">
     <h1> Liste des Users</h1>
 
-    {% if users %}
-
-      {% for user in users %}
-        {# lien vers une oage detaillant les infos du user #}
-      <a class="btn btn-primary" href="{{ path('details_user', {'id': user.id}) }}">{{user}}</a> <br>
-          
     
-
-      
-        
-      {% endfor %}
-   
+    {% if users %}
+      <div class="card">
+        {% for user in users %}
+        <div class="list">
+          <a class="" href="{{ path('details_user', {'id': user.id}) }}">{{user}}</a> <br>
+        </div>
+        {% endfor %}
+      </div>
     {% else %}
       <p>Il semblerait qu'aucun user ne soit renseigné en base de données.</p>
     {% endif %}

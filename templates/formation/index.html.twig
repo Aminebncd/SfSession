@@ -18,7 +18,9 @@
     <div class="card">
         <h1>Liste des formations</h1>
             {% for formation in formations %}
-            <a href="{{ path('details_formation', {'id': formation.id}) }}">{{formation}}</a><br>
+            <div class="list">
+                <a href="{{ path('details_formation', {'id': formation.id}) }}">{{formation}}</a>
+            </div>
               
             {% endfor %}
     </div>
@@ -29,7 +31,9 @@
     <div class="card">
         <h1>Liste des formateurs</h1>
             {% for formateur in formateurs %}
-            <a href="{{ path('details_formateur', {'id': formateur.id}) }}">{{formateur}}</a><br>
+            <div class="list">
+                <a href="{{ path('details_formateur', {'id': formateur.id}) }}">{{formateur}}</a>
+            </div>
             
             {% endfor %}
         {% endif %}
