@@ -9,6 +9,9 @@
     
 
     
+    <div>
+
+    
     {% if session %}
 
       <div class="card">
@@ -25,15 +28,17 @@
 
       <div>
         <h2>Programme de cette session :</h2>
-        <table class="table">
-          <thead>
-              <tr>
-                  <th>Module</th>
-                  <th>Durée</th>
-              </tr>
-          </thead>
-          <tbody>
-              {% for programme in session.programmes %}
+          <table class="table">
+
+            <thead>
+                <tr>
+                    <th>Module</th>
+                    <th>Durée</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for programme in session.programmes %}
                   <tr>
                       <td class="table-module">
                         
@@ -42,74 +47,79 @@
                           {% if is_granted('ROLE_ADMIN') %}
                           <a class="btn-warning" href="{{ path('removeProgramme_session', {'session' : session.id, 'programme' : programme.id}) }}"><i class="fa-solid fa-trash"></i></a>
                           {% endif %}
-                      
-
                       </td>
                       <td>{{ programme.duree }} j</td>
-                     
                   </tr>
-              {% else %}
+                {% else %}
                   <tr>
                       <td colspan="3">Aucun programme trouvé.</td>
                   </tr>
-              {% endfor %}
-          </tbody>
-      </table>
+                {% endfor %}
+            </tbody>
+            
+        </table>
+      </div>
+
+    
+    
+
+      {% if is_granted('ROLE_ADMIN')  %}
+      <div class="card form-module">
+        <h2 class="programm-form">rajouter un module :</h2>
+          {{ form_start(formAddProgramme) }}
       
-          </div>
-
-
-          {% if is_granted('ROLE_ADMIN')  %}
-          <div >
-            <h3 class="programm-form">rajouter un module :</h3>
-              {{ form_start(formAddProgramme) }}
-          
+          <div>
               <div>
-                  <div>
-                      {{form_row(formAddProgramme.module)}}
-                  
-                      {{form_row(formAddProgramme.duree)}}
-                  </div>
-              </div>
+                  {{form_row(formAddProgramme.module)}}
               
-                {{form_row(formAddProgramme.valider)}}
-          
-              {{ form_end(formAddProgramme) }}
+                  {{form_row(formAddProgramme.duree)}}
+              </div>
           </div>
-          {% endif %}
+          
+            {{form_row(formAddProgramme.valider)}}
+      
+          {{ form_end(formAddProgramme) }}
+      </div>
+      {% endif %}
 
      
           
 
       {% if session.inscrits| length > 0 %}
-      <div>
+      <div class="card">
         <h2>Inscrits à cette session : </h2>
           <div>
             {% for inscrit in session.inscrits %}
+            <div class="stagiaires">
               <p>
-                {{ inscrit}} 
+                {{ inscrit}}   |
                 {% if is_granted('ROLE_ADMIN')  %}
-                <a href="{{ path('removeUser_session', {'session' : session.id, 'user' : inscrit.id}) }}">| desinscrire</a>
+                <a class="action" href="{{ path('removeUser_session', {'session' : session.id, 'user' : inscrit.id}) }}">desinscrire</a>
                 {% endif %}
               </p>
+            </div>
             {% endfor %}
           </div>
       </div>
       {% endif %}
 
 
-    {% if nonInscrits and is_granted('ROLE_ADMIN')  %} 
-    <div>
-      <h2>stagiaires non inscrits :</h2>
-        <div>
-          {% for nonInscrit in nonInscrits %}
-            <p>
-              {{nonInscrit}} <a href="{{ path('addUser_session', {'session' : session.id, 'user' : nonInscrit.id}) }}">| inscrire</a>
-            </p>
-          {% endfor %}
-        </div>
-    </div>
-    {% endif %}
+
+
+      {% if nonInscrits and is_granted('ROLE_ADMIN')  %} 
+      <div class="card">
+        <h2>stagiaires non inscrits :</h2>
+          <div>
+            {% for nonInscrit in nonInscrits %}
+            <div class="stagiaires">
+              <p>
+                {{nonInscrit}} <a class="action" href="{{ path('addUser_session', {'session' : session.id, 'user' : nonInscrit.id}) }}">| inscrire</a>
+              </p>
+            </div>
+            {% endfor %}
+          </div>
+      </div>
+      {% endif %}
 
     {% else %}
       <p>Il semblerait que cette session n'existe pas en base de données.</p>

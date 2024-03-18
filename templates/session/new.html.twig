@@ -14,22 +14,18 @@
     {{ form_start(formAddSession) }}
     {# {% form_theme form 'foundation_5_layout.html.twig' %} #}
 
-    <div>
+    <div class="card form-session">
         <div>
             {{form_row(formAddSession.intitule_session)}}
+            {{form_row(formAddSession.nombrePlaces)}}
         </div>
         <div>
             {{form_row(formAddSession.formateur)}}
-        </div>
-        <div>
             {{form_row(formAddSession.formation)}}
         </div>
         <div>
             {{form_row(formAddSession.dateDebut)}}
             {{form_row(formAddSession.dateFin)}}
-        </div>
-        <div>
-            {{form_row(formAddSession.nombrePlaces)}}
         </div>
     </div>
     

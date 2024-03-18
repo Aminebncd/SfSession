@@ -23,36 +23,36 @@ class SessionType extends AbstractType
         $builder
             ->add('intitule_session', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control column'
                 ]
             ])
             ->add('dateDebut', DateType::class, [
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control column'
                 ]
             ])
             ->add('dateFin', DateType::class, [
                 'widget' => 'single_text',
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control column'
                 ]
             ])
             ->add('nombrePlaces', NumberType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control column'
                 ]
             ])
             ->add('formation', EntityType::class, [
                 'class' => Formation::class,
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control column'
                 ]
             ])
             ->add('formateur', EntityType::class, [
                 'class' => Formateur::class,
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control column'
                 ]
             ])
             ->add('valider', SubmitType::class, [

@@ -16,6 +16,15 @@
     --third-color: #ABA9BC;
 }
 
+
+
+
+
+
+
+
+/* NAVBAR */
+
 .navbar {
     position: fixed;
     top: 0;
@@ -44,7 +53,40 @@
 }
 
 .navbar a:hover {
-    background-color: #ABA9BC;
+   color: #ABA9BC;
+}
+
+
+
+
+
+/* BOUTONS */
+.btn {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.btn-primary {
+    color: rgb(255, 255, 255);
+    background-color: var(--first-color);
+    border-color: var(--first-color);
+    padding: 8px 18px;
+    margin-bottom: 10px;
+}
+
+.btn-warning {
+    color: rgb(0, 0, 0);
+    background-color: var(--second-color);
+    border-color: var(--second-color);
 }
 
 .btn-actions {
@@ -53,6 +95,24 @@
     margin-top: 20px;
     justify-content: space-evenly;
 }
+
+
+
+
+.action-links {
+    margin-top: 5px;
+}
+
+.action-links a {
+    margin-right: 10px;
+    color: var(--third-color);
+    text-decoration: none;
+}
+
+.action-links a:hover {
+    text-decoration: underline;
+}
+
 
 .category-actions {
     display: flex;
@@ -79,9 +139,6 @@
     padding: 20px; 
 }
 
-/* .form-group {
-    margin-bottom: 15px;
-} */
 .column {
     display: flex;
     flex-direction: column;
@@ -91,16 +148,18 @@
 }
 
 .form-control {
-    /* width: 80%; */
+    width: fit-content;
+    /* color: var(--second-color); */
     padding: 10px;
     font-size: 16px;
     border: 1px solid var(--third-color);
-    border-radius: 5px;
+    border-radius: 5px; 
     /* margin-bottom: 25px; */
 }
 
 .programm-form {
-    margin-top: 40px;
+    /* margin-top: 40px; */
+    color: var(--second-color);
     margin-bottom: 15px;
 }
 
@@ -120,6 +179,20 @@
     margin-bottom: 5px;
 }
 
+/* CARTES et LISTE */
+.card {
+    background-color: var( --first-color);
+    padding: 20px;
+    /* width: fit-content; */
+    border-radius: 15px;
+    margin-top: 35px;
+    margin-bottom: 20px;
+    h1,h2 {
+        color: #F0EDFF;
+    }
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
 .card a {
     color: var(--first-color);
 }
@@ -129,7 +202,8 @@
 }
 
 .card .action {
-    color: #333;
+    margin-left: 10px;
+    color: var(--second-color);
 }
 
 .card .action:hover {
@@ -140,6 +214,18 @@
     color: var(--second-color);
 } */
 
+.list {
+    background-color: var(--second-color);
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    a {
+        color: #333;
+    }
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+
 .session-list-title {
     margin-left: 10%;
     h1 {
@@ -147,12 +233,31 @@
         margin-bottom: 30px;
     }
 }
+
+.category-list {
+    display: flex;
+    width: fit-content;
+    padding: 25px;
+    background-color: var(--first-color);
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+
+
+
+/* TABLEAUX */
 .table {
     width: 100%;
     margin: 0 auto;
     border-collapse: collapse;
     border-radius: 10px;
     overflow: hidden;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 .table th,
@@ -178,60 +283,30 @@ tbody tr:nth-child(odd) {
     margin-bottom: -20px;
 }
 
-.btn {
-    display: inline-block;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-    border: 1px solid transparent;
-    border-radius: 10px;
-}
 
-.btn-primary {
-    color: rgb(255, 255, 255);
-    background-color: var(--first-color);
-    border-color: var(--first-color);
-    padding: 8px 18px;
-    margin-bottom: 10px;
-}
-
-.btn-warning {
-    color: rgb(0, 0, 0);
-    background-color: var(--second-color);
-    border-color: var(--second-color);
-}
-
-.category-list {
-    display: flex;
+.form-module {
     width: fit-content;
-    padding: 25px;
-    background-color: var(--first-color);
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
 }
 
-.list {
-    background-color: var(--second-color);
-    padding: 20px;
-    margin: 20px;
-    border-radius: 10px;
-    a {
-        color: #333;
-    }
+.form-session {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
 }
+
+label {
+    color: var(--second-color);
+}
+
 
 .category {
     background-color: var(--second-color);
     padding: 20px;
     margin: 20px;
     border-radius: 10px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
    
 }
 
@@ -246,19 +321,7 @@ tbody tr:nth-child(odd) {
     text-decoration: underline;
 }
 
-.action-links {
-    margin-top: 5px;
-}
 
-.action-links a {
-    margin-right: 10px;
-    color: var(--third-color);
-    text-decoration: none;
-}
-
-.action-links a:hover {
-    text-decoration: underline;
-}
 
 .module {
     display: flex;
@@ -268,17 +331,6 @@ tbody tr:nth-child(odd) {
     border-radius: 10px; 
 }
 
-.card {
-    background-color: var( --first-color);
-    padding: 20px;
-    width: fit-content;
-    border-radius: 15px;
-    margin-top: 35px;
-    margin-bottom: 20px;
-    h1,h2 {
-        color: #F0EDFF;
-    }
-}
 
 .modules {
     color: #333;
@@ -307,4 +359,9 @@ tbody tr:nth-child(odd) {
     background-color: var(--second-color);
     padding: 10px;
     border-radius: 10px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.stagiaires {
+    text-align: center;
 }
