@@ -29,7 +29,7 @@ class ProgrammeType extends AbstractType
         $builder
             ->add('duree', NumberType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control column'
                 ]
             ])
             ->add('module', EntityType::class, [
@@ -60,7 +60,7 @@ class ProgrammeType extends AbstractType
                    'choice_value' => 'id',
                    'choice_label' => 'intitule_module',
                    'attr' => [
-                        'class' => 'form-control'
+                        'class' => 'form-control column'
                     ]
                 ])
                 ->add('valider', SubmitType::class, [

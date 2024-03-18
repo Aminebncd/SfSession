@@ -47,6 +47,16 @@
     background-color: #ABA9BC;
 }
 
+.action {
+    margin-left: 5px;
+    color: var(--second-color);
+}
+
+.action:hover {
+    color: #6788FF;
+}
+
+
 .content {
     margin-top: 10%;
     margin-left: 250px; 
@@ -56,9 +66,12 @@
 /* .form-group {
     margin-bottom: 15px;
 } */
-.mb-3 {
+.column {
     display: flex;
     flex-direction: column;
+    width: 300px;
+    margin-top: 8px;
+    margin-bottom: 15px;
 }
 
 .form-control {
@@ -67,6 +80,12 @@
     font-size: 16px;
     border: 1px solid var(--third-color);
     border-radius: 5px;
+    /* margin-bottom: 25px; */
+}
+
+.programm-form {
+    margin-top: 40px;
+    margin-bottom: 15px;
 }
 
 
@@ -75,9 +94,6 @@
     margin-bottom: 20px;
 }
 
-.content div {
-    margin-bottom: 20px;
-}
 
 .content h2 {
     font-size: 25px;
@@ -88,14 +104,6 @@
     margin-bottom: 5px;
 }
 
-.content a {
-    /* color: var(--first-color); */
-}
-
-.content a:hover {
-    color: var(--third-color);
-}
-
 .card a {
     color: var(--second-color);
 }
@@ -103,6 +111,10 @@
 .card a:hover {
     color: var(--third-color);
 }
+
+/* .card p {
+    color: var(--second-color);
+} */
 
 .session-list-title {
     margin-left: 10%;
@@ -172,7 +184,7 @@ tbody tr:nth-child(odd) {
 .category-list {
     display: flex;
     width: fit-content;
-    padding: 50px;
+    padding: 25px;
     background-color: var(--first-color);
     flex-wrap: wrap;
     align-content: center;
@@ -214,16 +226,33 @@ tbody tr:nth-child(odd) {
     text-decoration: underline;
 }
 
+.module {
+    display: flex;
+    background-color: var(--second-color);
+    margin: 15px;
+    padding: 10px;
+    border-radius: 10px; 
+}
 
 .card {
+    background-color: var( --first-color);
+    padding: 20px;
+    width: fit-content;
+    border-radius: 15px;
+    margin-bottom: 20px;
     h1,h2 {
         color: #F0EDFF;
     }
-    
-    background-color: var( --first-color);
-    padding: 20px 20px 5px 20px ;
-    width: fit-content;
-    border-radius: 15px;
+}
+
+.modules {
+    color: #333;
+    .action {
+        color: #333;
+    }
+    .action:hover {
+        color: #6788FF;
+    }
 }
 
 .user-info {
