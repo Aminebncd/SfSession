@@ -64,22 +64,16 @@
     
 
       {% if is_granted('ROLE_ADMIN')  %}
+      {{ form_start(formAddProgramme) }}
       <div class="card form-module">
         <h2 class="programm-form">rajouter un module :</h2>
-          {{ form_start(formAddProgramme) }}
-      
           <div>
-              <div>
                   {{form_row(formAddProgramme.module)}}
-              
                   {{form_row(formAddProgramme.duree)}}
-              </div>
           </div>
-          
-            {{form_row(formAddProgramme.valider)}}
-      
-          {{ form_end(formAddProgramme) }}
       </div>
+      {{form_row(formAddProgramme.valider)}}
+      {{ form_end(formAddProgramme) }}
       {% endif %}
 
      
@@ -113,7 +107,7 @@
             {% for nonInscrit in nonInscrits %}
             <div class="stagiaires">
               <p>
-                {{nonInscrit}} <a class="action" href="{{ path('addUser_session', {'session' : session.id, 'user' : nonInscrit.id}) }}">| inscrire</a>
+                {{nonInscrit}}  |<a class="action" href="{{ path('addUser_session', {'session' : session.id, 'user' : nonInscrit.id}) }}">inscrire</a>
               </p>
             </div>
             {% endfor %}

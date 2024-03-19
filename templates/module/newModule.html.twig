@@ -13,16 +13,10 @@
     {{ form_start(formAddModule) }}
     
     <div class="card form-module">
-        <div>
-            {{form_row(formAddModule.intitule_module)}}          
-        </div>
-        <div>
-            {{form_row(formAddModule.categorie)}}
-        </div>
+        {{form_row(formAddModule.intitule_module)}}          
+        
+        {{ form_end(formAddModule) }}
     </div>
-        {{form_row(formAddModule.valider)}}
-
-    {{ form_end(formAddModule) }}
 </div>
 
 {% endblock %}
