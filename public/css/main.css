@@ -57,6 +57,23 @@
    color: #ABA9BC;
 }
 
+.navbar.active ul {
+    display: block;
+}
+
+.burger-menu {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .navbar ul {
+        display: none;
+    }
+
+    .burger-menu {
+        display: block;
+    }
+}
 
 
 
@@ -95,6 +112,10 @@
     padding: 8px 18px;
     margin-bottom: 10px;
 }
+/* .btn-secondary:hover {
+    color: #6788FF;
+   
+} */
 
 .btn-warning {
     color: rgb(0, 0, 0);
@@ -117,6 +138,9 @@ a:hover {
 
 .action-links {
     margin-top: 5px;
+}
+.action-links:hover {
+    color: #6788FF;
 }
 
 .action-links a {
@@ -228,17 +252,17 @@ a:hover {
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
-.card a {
+/* .card a {
     color: var(--first-color);
-}
+} */
 
 .card a:hover {
-    color: var(--third-color);
+    color: #6788FF;
 }
 
 .card .action {
     margin-left: 10px;
-    /* color: var(--second-color); */
+    color: var(--second-color);
 }
 
 .card .action:hover {
@@ -355,7 +379,7 @@ label {
 }
 
 .category-link:hover {
-    text-decoration: underline;
+    color: #6788FF;
 }
 
 

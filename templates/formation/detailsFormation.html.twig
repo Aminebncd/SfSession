@@ -23,8 +23,8 @@
         </div>
 
         <div class="card actions"> 
-          <a class="action btn btn-secondary" href="{{ path('edit_formation', {'id' : formation.id}) }}">Modifier la formation</a>
-          <a class="action btn btn-secondary" href="{{ path('delete_formation', {'id' : formation.id}) }}">Supprimer la formation</a>
+          <a class="btn btn-secondary" href="{{ path('edit_formation', {'id' : formation.id}) }}">Modifier la formation</a>
+          <a class="btn btn-secondary" href="{{ path('delete_formation', {'id' : formation.id}) }}">Supprimer la formation</a>
         </div>
      
       {% else %}

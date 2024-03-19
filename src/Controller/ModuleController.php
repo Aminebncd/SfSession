@@ -82,9 +82,9 @@ class ModuleController extends AbstractController
     // CREATION/MODIFICATION D'UN MODULE
     #[Route('/admin/newModule', name: 'new_module')]
     #[Route('/admin/{id}/editModule', name: 'edit_module')]
-    public function new_edit_module(Module $module = null, 
-                            Request $request, 
-                            EntityManagerInterface $entityManager): Response
+    public function new_edit_module(Module $module = null,
+                                    Request $request, 
+                                    EntityManagerInterface $entityManager): Response
     {
         // si module inexistante, crée un nouvel objet module
         if (!$module) {

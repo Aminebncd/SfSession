@@ -14,6 +14,9 @@
 
         {# liens vers mes differentes vues #}
         <nav class="navbar">
+            <button class="burger-menu">
+                <span class="navbar-toggler-icon">&#9776;</span>
+            </button>
             <ul>
                 {% if app.user %}
                 <li><a href="{{path ('details_user', {'id': app.user.id}) }}"><i class="fa-regular fa-user"></i> Mon profil</a></li>
@@ -44,7 +47,7 @@
         </main>
 
         {% block javascripts %}
-
+        <script src="{{asset('js/main.js')}}"></script>
         <script src="https://kit.fontawesome.com/a99d4df9ac.js" crossorigin="anonymous"></script>
         {% block importmap %}{{ importmap('app') }}{% endblock %}
     {% endblock %}

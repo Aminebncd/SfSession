@@ -49,10 +49,18 @@
                           {{ programme.module }} 
   
                           {% if is_granted('ROLE_ADMIN') %}
+                          
                           <a class="btn-warning" href="{{ path('removeProgramme_session', {'session' : session.id, 'programme' : programme.id}) }}"><i class="fa-solid fa-trash"></i></a>
                           {% endif %}
                       </td>
-                      <td>{{ programme.duree }} j</td>
+                      <td>
+                        {{ programme.duree }} j
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                        
+                          {# <a class="btn-warning" href="{{ path('modifProgramme_session', {'session' : session.id, 'programme' : programme.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a> #}
+                        {% endif %}
+                      </td>
                   </tr>
                 {% else %}
                   <tr>
