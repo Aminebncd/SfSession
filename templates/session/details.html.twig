@@ -22,7 +22,11 @@
           Formation : {{ session.formation }} <br>
           Formateur référent : {{ session.formateur }} <br>
           du {{ session.dateDebutFR }} au {{ session.dateFinFR }} ({{ session.dureeSession }} jours)<br>
-          {{ session.nombrePlaces }} place(s) <br>
+          {{ session.nombrePlaces }} place(s)
+        
+          ({% set places_restantes = session.nombrePlaces | trim | default(0) %}
+          {{ places_restantes - session.inscrits | length }} restantes)<br>
+          
         </div>
       </div>
 
@@ -71,8 +75,8 @@
                   {{form_row(formAddProgramme.module)}}
                   {{form_row(formAddProgramme.duree)}}
           </div>
+          {{form_row(formAddProgramme.valider)}}
       </div>
-      {{form_row(formAddProgramme.valider)}}
       {{ form_end(formAddProgramme) }}
       {% endif %}
 

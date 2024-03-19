@@ -24,8 +24,8 @@
       {% endfor %}
     </div>
     <div class="card actions"> 
-      <a class="action" href="{{ path('edit_formateur', {'id' : formateur.id}) }}">Modifier le formateur</a>
-      <a class="action" href="{{ path('delete_formateur', {'id' : formateur.id}) }}">Supprimer le formateur</a>
+      <a class="action btn btn-secondary" href="{{ path('edit_formateur', {'id' : formateur.id}) }}">Modifier le formateur</a>
+      <a class="action btn btn-secondary" href="{{ path('delete_formateur', {'id' : formateur.id}) }}">Supprimer le formateur</a>
     </div>
       
     {% else %}

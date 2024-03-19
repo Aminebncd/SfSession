@@ -5,11 +5,11 @@
 {% block body %}
 <div class="content">
     <div class="session-list">
-        <div class="session-list-title">
+        <div class="session-list-title card">
             <h1>Liste des sessions</h1>
-            <a class="btn btn-primary" href="{{ path('new_session') }}">Ajouter une session</a>
         </div>
-    
+        
+        <a class="btn btn-primary" href="{{ path('new_session') }}">Ajouter une session</a>
         {% if sessions %}
             <table class="table">
                 <thead>

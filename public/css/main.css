@@ -88,6 +88,14 @@
     margin-bottom: 10px;
 }
 
+.btn-secondary {
+    color: rgb(0, 0, 0);
+    background-color: var(--second-color);
+    border-color: var(--second-color);
+    padding: 8px 18px;
+    margin-bottom: 10px;
+}
+
 .btn-warning {
     color: rgb(0, 0, 0);
     background-color: var(--second-color);
@@ -149,6 +157,7 @@ a:hover {
     margin-top: 10%;
     margin-left: 250px; 
     padding: 20px; 
+    /* display: flex; */
 }
 
 .column {
@@ -229,7 +238,7 @@ a:hover {
 
 .card .action {
     margin-left: 10px;
-    color: var(--second-color);
+    /* color: var(--second-color); */
 }
 
 .card .action:hover {
@@ -285,8 +294,8 @@ a:hover {
 
 /* TABLEAUX */
 .table {
-    width: 100%;
-    margin: 0 auto;
+    width: 84%;
+    /* margin: 0 auto; */
     border-collapse: collapse;
     border-radius: 10px;
     overflow: hidden;
