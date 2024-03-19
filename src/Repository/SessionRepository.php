@@ -21,6 +21,35 @@ class SessionRepository extends ServiceEntityRepository
         parent::__construct($registry, Session::class);
     }
 
+    public function findSessionPassees()
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.dateFin < :currentDate')
+            ->setParameter('currentDate', new \DateTime())
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findSessionPresent()
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.dateFin > :currentDate')
+            ->andWhere('s.dateDebut < :currentDate')
+            ->setParameter('currentDate', new \DateTime())
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findSessionFutures()
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.dateDebut > :currentDate')
+            ->setParameter('currentDate', new \DateTime())
+            ->getQuery()
+            ->getResult();
+    }
+    
+
 
     // afficher les stagiaires non inscrits dans une session
     public function findNonInscrits($session_id)

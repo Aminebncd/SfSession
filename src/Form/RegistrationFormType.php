@@ -85,7 +85,7 @@ class RegistrationFormType extends AbstractType
                     'message' => 'Agree or consequences.',
                 ]),
             ],
-            'attr' => ['class' => 'form-control'],
+            'attr' => ['class' => 'checkbox mb-3'],
         ]);
     }
 

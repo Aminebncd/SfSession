@@ -1,12 +1,128 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Hello SessionController!{% endblock %}
 
 {% block body %}
-
-
 <div class="content">
-
+    <div class="session-list">
+        <div class="session-list-title card">
+            <h1>Mon Panneau Admin</h1>
+        </div>
     
+        {% if sessionFutur %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Session(s) à venir</th>
+                        <th>Date de début</th>
+                        <th>Date de fin</th>
+                        <th>Places</th>                      
+                        <th>places restantes</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sessionF in sessionFutur %}
+                    <tr>
+                        <td class="session-title">
+                            <a class="action-links" href="{{ path('details_session', {'id' : sessionF.id}) }}">{{ sessionF }}</a>
+    
+                            {% if is_granted('ROLE_ADMIN')  %}    
+                            <a class="action" href="{{ path('edit_session', {'id' : sessionF.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a class="action" href="{{ path('delete_session', {'session' : sessionF.id}) }}"><i class="fa-solid fa-trash"></i></a>
+                            {% endif %}
+    
+                        </td>
+                        <td>{{ sessionF.dateDebutFR }}</td>
+                        <td>{{ sessionF.dateFinFR }}</td>
+                        <td>{{ sessionF.nombrePlaces }}</td>
+                        <td>
+                            {% set places_restantes = sessionF.nombrePlaces | trim | default(0) %}
+                            {{ places_restantes - sessionF.inscrits | length }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        <br><br>
+
+        {% if sessionPresent %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Session(s) en cours</th>
+                        <th>Date de début</th>
+                        <th>Date de fin</th>
+                        <th>Places</th>                      
+                        <th>places restantes</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sessionP in sessionPresent %}
+                    <tr>
+                        <td class="session-title">
+                            <a class="action-links" href="{{ path('details_session', {'id' : sessionP.id}) }}">{{ sessionP }}</a>
+    
+                            {% if is_granted('ROLE_ADMIN')  %}    
+                            <a class="action" href="{{ path('edit_session', {'id' : sessionP.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a class="action" href="{{ path('delete_session', {'session' : sessionP.id}) }}"><i class="fa-solid fa-trash"></i></a>
+                            {% endif %}
+    
+                        </td>
+                        <td>{{ sessionP.dateDebutFR }}</td>
+                        <td>{{ sessionP.dateFinFR }}</td>
+                        <td>{{ sessionP.nombrePlaces }}</td>
+                        <td>
+                            {% set places_restantes = sessionP.nombrePlaces | trim | default(0) %}
+                            {{ places_restantes - sessionP.inscrits | length }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        <br><br>
+
+        {% if sessionPasse %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Session(s) passées</th>
+                        <th>Date de début</th>
+                        <th>Date de fin</th>
+                        <th>Places</th>                      
+                        <th>places restantes</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sessionPA in sessionPasse %}
+                    <tr>
+                        <td class="session-title">
+                            <a class="action-links" href="{{ path('details_session', {'id' : sessionPA.id}) }}">{{ sessionPA }}</a>
+    
+                            {% if is_granted('ROLE_ADMIN')  %}    
+                            <a class="action" href="{{ path('edit_session', {'id' : sessionPA.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a class="action" href="{{ path('delete_session', {'session' : sessionPA.id}) }}"><i class="fa-solid fa-trash"></i></a>
+                            {% endif %}
+    
+                        </td>
+                        <td>{{ sessionPA.dateDebutFR }}</td>
+                        <td>{{ sessionPA.dateFinFR }}</td>
+                        <td>{{ sessionPA.nombrePlaces }}</td>
+                        <td>
+                            {% set places_restantes = sessionPA.nombrePlaces | trim | default(0) %}
+                            {{ places_restantes - sessionPA.inscrits | length }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
 </div>
+
 {% endblock %}
+
