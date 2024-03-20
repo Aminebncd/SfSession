@@ -411,6 +411,9 @@ label {
     background-color: var(--second-color);
     padding: 10px;
     border-radius: 10px;
+    .action {
+        color: #333 ;
+    }
 }
 
 
@@ -428,6 +431,11 @@ label {
 }
 
 
+
+
+
+
+/* MEDIA QUERIES */
 @media only screen and (max-width: 768px) {
     .content {
         margin-left: 50px;
@@ -458,5 +466,19 @@ label {
        }
     }
 
+    @media only screen and (max-width: 640px) {
+        .session-date-debut {
+            display: none;
+        }
+        .session-date-fin {
+            display: none;
+        }
+        .session-places {
+            display: none;
+        }
 
-   
+        .session-title {
+            width: fit-content;
+        }
+
+    }
