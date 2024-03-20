@@ -61,6 +61,7 @@
 
 
 .burger-menu {
+    display: none;
     border: none;
     background: transparent;
     cursor: pointer;
@@ -175,7 +176,7 @@ a:hover {
 
 
 .content {
-    margin-top: 10%;
+    margin-top: 5%;
     margin-left: 200px; 
     padding: 20px; 
     /* display: flex; */
