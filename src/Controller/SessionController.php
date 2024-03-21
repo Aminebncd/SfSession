@@ -83,6 +83,7 @@ class SessionController extends AbstractController
 
 
     // AFFICHAGE DES DETAILS D'UNE SESSION
+    #[Route('/admin/{session}/{programme}/modifProgramme', name: 'modifProgramme_session')]
     #[Route('/session/{id}/details', name: 'details_session')]
     public function details(Session $session=null, 
                             Programme $programme=null,
@@ -132,6 +133,15 @@ class SessionController extends AbstractController
             'message' => ""
         ]);
     }
+
+
+    // MODIF D'UN MODULE DE SESSION 
+    // #[Route('/admin/{session}/{programme}/modifProgramme', name: 'modifProgramme_session')]
+    // public function modifProgramme()
+    // {
+
+    // }
+
 
 
 

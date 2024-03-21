@@ -13,11 +13,11 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Session(s) à venir</th>
-                        <th>Date de début</th>
-                        <th>Date de fin</th>
-                        <th>Places</th>                      
-                        <th>places restantes</th>
+                        <th class="session-title">Session(s) à venir</th>
+                        <th class="session-date-debut">Date de début</th>
+                        <th class="session-date-fin">Date de fin</th>
+                        <th class="session-places">Places</th>                      
+                        <th class="session-places-restantes">places restantes</th>
                         
                     </tr>
                 </thead>
@@ -33,10 +33,10 @@
                             {% endif %}
     
                         </td>
-                        <td>{{ sessionF.dateDebutFR }}</td>
-                        <td>{{ sessionF.dateFinFR }}</td>
-                        <td>{{ sessionF.nombrePlaces }}</td>
-                        <td>
+                        <td class="session-date-debut">{{ sessionF.dateDebutFR }}</td>
+                        <td class="session-date-fin">{{ sessionF.dateFinFR }}</td>
+                        <td class="session-places">{{ sessionF.nombrePlaces }}</td>
+                        <td class="session-places-restantes">
                             {% set places_restantes = sessionF.nombrePlaces | trim | default(0) %}
                             {{ places_restantes - sessionF.inscrits | length }}
                         </td>
@@ -51,12 +51,11 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Session(s) en cours</th>
-                        <th>Date de début</th>
-                        <th>Date de fin</th>
-                        <th>Places</th>                      
-                        <th>places restantes</th>
-                        
+                        <th class="session-title">Session(s) en cours</th>
+                        <th class="session-date-debut">Date de début</th>
+                        <th class="session-date-fin">Date de fin</th>
+                        <th class="session-places">Places</th>                      
+                        <th class="session-places-restantes">places restantes</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,10 +70,10 @@
                             {% endif %}
     
                         </td>
-                        <td>{{ sessionP.dateDebutFR }}</td>
-                        <td>{{ sessionP.dateFinFR }}</td>
-                        <td>{{ sessionP.nombrePlaces }}</td>
-                        <td>
+                        <td class="session-date-debut">{{ sessionP.dateDebutFR }}</td>
+                        <td class="session-date-fin">{{ sessionP.dateFinFR }}</td>
+                        <td class="session-places">{{ sessionP.nombrePlaces }}</td>
+                        <td class="session-places-restantes">
                             {% set places_restantes = sessionP.nombrePlaces | trim | default(0) %}
                             {{ places_restantes - sessionP.inscrits | length }}
                         </td>
@@ -89,12 +88,11 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Session(s) passées</th>
-                        <th>Date de début</th>
-                        <th>Date de fin</th>
-                        <th>Places</th>                      
-                        <th>places restantes</th>
-                        
+                        <th class="session-title">Session(s) passées</th>
+                        <th class="session-date-debut">Date de début</th>
+                        <th class="session-date-fin">Date de fin</th>
+                        <th class="session-places">Places</th>                      
+                        <th class="session-places-restantes">places restantes</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -109,10 +107,10 @@
                             {% endif %}
     
                         </td>
-                        <td>{{ sessionPA.dateDebutFR }}</td>
-                        <td>{{ sessionPA.dateFinFR }}</td>
-                        <td>{{ sessionPA.nombrePlaces }}</td>
-                        <td>
+                        <td class="session-date-debut">{{ sessionPA.dateDebutFR }}</td>
+                        <td class="session-date-fin">{{ sessionPA.dateFinFR }}</td>
+                        <td class="session-places">{{ sessionPA.nombrePlaces }}</td>
+                        <td class="session-places-restantes">
                             {% set places_restantes = sessionPA.nombrePlaces | trim | default(0) %}
                             {{ places_restantes - sessionPA.inscrits | length }}
                         </td>

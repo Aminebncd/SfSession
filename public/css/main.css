@@ -29,9 +29,10 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 250px; 
-    height: 100vh;
+    width: 200px; 
+    height: 100dvh;
     background-color: #45486A;
+    transition: left 0.5s ease;
     z-index: 1000; 
     border-radius: 0 50px 50px 0;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
@@ -57,23 +58,20 @@
    color: #ABA9BC;
 }
 
-.navbar.active ul {
-    display: block;
-}
 
-.burger-menu {
+
+.burger-toggler {
     display: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: none;
+    color: var(--second-color);
+    font-size: 35px;
+    margin: 10px;
 }
 
-@media screen and (max-width: 768px) {
-    .navbar ul {
-        display: none;
-    }
 
-    .burger-menu {
-        display: block;
-    }
-}
 
 
 
@@ -125,8 +123,8 @@
 
 .btn-actions {
     display: flex;
-    margin-left: 50px;
-    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
     justify-content: space-evenly;
 }
 
@@ -178,8 +176,8 @@ a:hover {
 
 
 .content {
-    margin-top: 10%;
-    margin-left: 250px; 
+    margin-top: 5%;
+    margin-left: 200px; 
     padding: 20px; 
     /* display: flex; */
 }
@@ -413,6 +411,9 @@ label {
     background-color: var(--second-color);
     padding: 10px;
     border-radius: 10px;
+    .action {
+        color: #333 ;
+    }
 }
 
 
@@ -428,3 +429,56 @@ label {
     color: var(--second-color);
     text-align: center;
 }
+
+
+
+
+
+
+/* MEDIA QUERIES */
+@media only screen and (max-width: 768px) {
+    .content {
+        margin-left: 50px;
+        
+    }
+
+    .navbar {
+        width: 50px;
+        /* transition: left 0.5s ease; */
+        ul {
+            display: none;
+        }
+    }
+
+    .active{
+            top: 0;
+            left: 0;
+            display: block;
+            /* transition: left 0.5s ease; */
+            width: 200px;
+            ul {
+                display: block;
+            }
+       } 
+
+       .burger-toggler {
+           display: block;
+       }
+    }
+
+    @media only screen and (max-width: 640px) {
+        .session-date-debut {
+            display: none;
+        }
+        .session-date-fin {
+            display: none;
+        }
+        .session-places {
+            display: none;
+        }
+
+        .session-title {
+            width: fit-content;
+        }
+
+    }
