@@ -39,7 +39,7 @@
 }
 
 .navbar ul {
-    margin-top: 20%;
+    margin-top: 30%;
     list-style-type: none;
     padding: 0;
 }
@@ -61,17 +61,16 @@
 
 
 .burger-toggler {
-    display: none;
+    position: fixed; 
+    top: 10px; 
+    left: 10px; 
     border: none;
     background: transparent;
     cursor: pointer;
-    display: none;
     color: var(--second-color);
     font-size: 35px;
-    margin: 10px;
+    z-index: 1001; 
 }
-
-
 
 
 
@@ -438,13 +437,12 @@ label {
 /* MEDIA QUERIES */
 @media only screen and (max-width: 768px) {
     .content {
-        margin-left: 50px;
+        margin-left: 100px;
         
     }
 
     .navbar {
-        width: 50px;
-        /* transition: left 0.5s ease; */
+        left: -100px;
         ul {
             display: none;
         }
@@ -464,6 +462,12 @@ label {
        .burger-toggler {
            display: block;
        }
+
+    .btn-actions {
+        display: flex;
+        flex-direction: column;
+    }
+
     }
 
     @media only screen and (max-width: 640px) {

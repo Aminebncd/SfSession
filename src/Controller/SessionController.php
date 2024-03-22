@@ -24,7 +24,7 @@ class SessionController extends AbstractController
     public function index(SessionRepository $sessionRepository): Response
     {
         // je recupere toutes les sessions en BDD
-        $sessions = $sessionRepository->findAll();
+        $sessions = $sessionRepository->findBy([], ['dateDebut' => 'DESC']);
 
         // je retourne la vue avec la fonction symfony render()
         return $this->render('session/index.html.twig', [
@@ -136,11 +136,11 @@ class SessionController extends AbstractController
 
 
     // MODIF D'UN MODULE DE SESSION 
-    // #[Route('/admin/{session}/{programme}/modifProgramme', name: 'modifProgramme_session')]
-    // public function modifProgramme()
-    // {
-
-    // }
+    #[Route('/admin/{programme}/modifProgramme', name: 'modifProgramme_session')]
+    public function modifProgramme(Programme $programme=null)
+    {   dd($programme);
+        return $this->redirectToRoute('details_session', ['id' => $session->getId()]);
+    }
 
 
 

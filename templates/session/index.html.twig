@@ -11,40 +11,39 @@
         
         <a class="btn btn-primary" href="{{ path('new_session') }}">Ajouter une session</a>
         {% if sessions %}
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Session</th>
-                        <th>Date de début</th>
-                        <th>Date de fin</th>
-                        <th>Places</th>                      
-                        <th>places restantes</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for session in sessions %}
-                    <tr>
-                        <td>
-                            <a class="action-links" href="{{ path('details_session', {'id' : session.id}) }}">{{ session }}</a>
-    
-                            {% if is_granted('ROLE_ADMIN')  %}    
-                            <a class="action" href="{{ path('edit_session', {'id' : session.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a class="action" href="{{ path('delete_session', {'session' : session.id}) }}"><i class="fa-solid fa-trash"></i></a>
-                            {% endif %}
-    
-                        </td>
-                        <td>{{ session.dateDebutFR }}</td>
-                        <td>{{ session.dateFinFR }}</td>
-                        <td>{{ session.nombrePlaces }}</td>
-                        <td>
-                            {% set places_restantes = session.nombrePlaces | trim | default(0) %}
-                            {{ places_restantes - session.inscrits | length }}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="session-title">Session(s) en cours</th>
+                    <th class="session-date-debut">Date de début</th>
+                    <th class="session-date-fin">Date de fin</th>
+                    <th class="session-places">Places</th>                      
+                    <th class="session-places-restantes">places restantes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for session in sessions %}
+                <tr>
+                    <td class="session-title">
+                        <a class="action-links" href="{{ path('details_session', {'id' : session.id}) }}">{{ session }}</a>
+
+                        {% if is_granted('ROLE_ADMIN')  %}    
+                        <a class="action" href="{{ path('edit_session', {'id' : session.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a class="action" href="{{ path('delete_session', {'session' : session.id}) }}"><i class="fa-solid fa-trash"></i></a>
+                        {% endif %}
+
+                    </td>
+                    <td class="session-date-debut">{{ session.dateDebutFR }}</td>
+                    <td class="session-date-fin">{{ session.dateFinFR }}</td>
+                    <td class="session-places">{{ session.nombrePlaces }}</td>
+                    <td class="session-places-restantes">
+                        {% set places_restantes = session.nombrePlaces | trim | default(0) %}
+                        {{ places_restantes - session.inscrits | length }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         {% else %}
             <p>Il semblerait qu'aucune session ne soit renseignée en base de données.</p>
         {% endif %}
