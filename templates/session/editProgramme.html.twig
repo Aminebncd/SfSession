@@ -1,4 +1,16 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajoutez un nouveau module{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>Editer un module existant</h1>
+    <div class="card form-module">
 {{ form_start(formAddProgramme) }}
     {{ form_row(formAddProgramme.duree) }}
-    <button type="submit">Modifier</button>
 {{ form_end(formAddProgramme) }}
+</div>
+</div>
+
+{% endblock %}

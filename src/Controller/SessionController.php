@@ -142,41 +142,40 @@ class SessionController extends AbstractController
                                 Request $request,
                                 EntityManagerInterface $entityManager,
                                 Environment $twig): Response
-{
-    
+        {
 
+    // dd('AJAX request');
     $form = $this->createForm(ProgrammeType::class, $programme, [
-        'session' => $programme->getSession(),
+        'session' => $programme->getSession()
+        // 'module' => $programme->getModule()
     ]);
 
     $form->handleRequest($request);
 
-    if ($request->isXmlHttpRequest()) {
-        dd('AJAX request');
+    // if ($request->isXmlHttpRequest()) {
        
-        $formView = $form->createView();
-        $formHtml = $twig->render('session/editProgramme.html.twig', [
-            'form' => $formView,
-        ]);
+    //     $formView = $form->createView();
+    //     $formHtml = $twig->render('session/editProgramme.html.twig', [
+    //         'form' => $formView,
+    //     ]);
 
-       
-        return new JsonResponse(['form' => $formHtml]);
-    }
+    //     return new JsonResponse(['form' => $formHtml]);
+    // }
 
-   
     if ($form->isSubmitted() && $form->isValid()) {
        
         $programme->setDuree($form->get('duree')->getData());
         $entityManager->persist($programme);
         $entityManager->flush();
 
-       
         return $this->redirectToRoute('details_session', ['id' => $programme->getSession()->getId()]);
     }
 
-    // Rendez la vue du formulaire avec les données actuelles du programme
-    return $this->redirectToRoute('details_session', ['id' => $programme->getSession()->getId()]);
-}
+    return $this->render('session/editProgramme.html.twig' , [
+        'formAddProgramme' => $form,
+        // 'edit' => $module->getId()
+    ]);
+    }
 
 
 
