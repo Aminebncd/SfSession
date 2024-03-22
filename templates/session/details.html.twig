@@ -53,14 +53,17 @@
                           <a class="btn-warning" href="{{ path('removeProgramme_session', {'session' : session.id, 'programme' : programme.id}) }}"><i class="fa-solid fa-trash"></i></a>
                           {% endif %}
                       </td>
-                      <td >
+                      <td>
                         {{ programme.duree }} j
-
+                    
                         {% if is_granted('ROLE_ADMIN') %}
-                        
-                          <a class="btn-warning" href="{{ path('modifProgramme_session', {'programme' : programme.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a class="btn-warning modifier-programme-btn" href="#" data-url="{{ path('modifProgramme_session', {'programme' : programme.id}) }}" data-programme-id="{{ programme.id }}"><i class="fa-solid fa-pen-to-square"></i></a>
+
                         {% endif %}
-                      </td>
+                    
+                        <div class="modifier-programme-container"></div>
+                    </td>
+                    
                   </tr>
                 {% else %}
                   <tr>

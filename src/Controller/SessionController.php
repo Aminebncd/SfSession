@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use Twig\Environment;
 use App\Entity\Module;
 use App\Entity\Session;
 use App\Entity\Programme;
@@ -137,10 +138,45 @@ class SessionController extends AbstractController
 
     // MODIF D'UN MODULE DE SESSION 
     #[Route('/admin/{programme}/modifProgramme', name: 'modifProgramme_session')]
-    public function modifProgramme(Programme $programme=null)
-    {   dd($programme);
-        return $this->redirectToRoute('details_session', ['id' => $session->getId()]);
+    public function modifProgramme(Programme $programme=null,
+                                Request $request,
+                                EntityManagerInterface $entityManager,
+                                Environment $twig): Response
+{
+    
+
+    $form = $this->createForm(ProgrammeType::class, $programme, [
+        'session' => $programme->getSession(),
+    ]);
+
+    $form->handleRequest($request);
+
+    if ($request->isXmlHttpRequest()) {
+        dd('AJAX request');
+       
+        $formView = $form->createView();
+        $formHtml = $twig->render('session/editProgramme.html.twig', [
+            'form' => $formView,
+        ]);
+
+       
+        return new JsonResponse(['form' => $formHtml]);
     }
+
+   
+    if ($form->isSubmitted() && $form->isValid()) {
+       
+        $programme->setDuree($form->get('duree')->getData());
+        $entityManager->persist($programme);
+        $entityManager->flush();
+
+       
+        return $this->redirectToRoute('details_session', ['id' => $programme->getSession()->getId()]);
+    }
+
+    // Rendez la vue du formulaire avec les données actuelles du programme
+    return $this->redirectToRoute('details_session', ['id' => $programme->getSession()->getId()]);
+}
 
 
 

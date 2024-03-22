@@ -49,6 +49,7 @@
         </main>
 
         {% block javascripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="{{asset('js/main.js')}}"></script>
         <script src="https://kit.fontawesome.com/a99d4df9ac.js" crossorigin="anonymous"></script>
         {% block importmap %}{{ importmap('app') }}{% endblock %}
