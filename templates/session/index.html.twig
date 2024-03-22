@@ -11,6 +11,11 @@
         
         <a class="btn btn-primary" href="{{ path('new_session') }}">Ajouter une session</a>
         {% if sessions %}
+        <div class="btn btn-primary">
+            {# <div class="pagination"> #}
+                {{ knp_pagination_render(sessions) }}
+            {# </div> #}
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -44,6 +49,7 @@
                 {% endfor %}
             </tbody>
         </table>
+        
         {% else %}
             <p>Il semblerait qu'aucune session ne soit renseignée en base de données.</p>
         {% endif %}

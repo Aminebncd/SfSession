@@ -10,6 +10,10 @@
         </div>
     
         {% if sessionFutur %}
+        <div class="btn btn-primary">
+            {{ knp_pagination_render(sessionFutur) }}
+
+        </div>
             <table class="table">
                 <thead>
                     <tr>
@@ -48,6 +52,10 @@
         <br><br>
 
         {% if sessionPresent %}
+        <div class="btn btn-primary">
+            {{ knp_pagination_render(sessionPresent) }}
+        </div>
+
             <table class="table">
                 <thead>
                     <tr>
@@ -85,6 +93,12 @@
         <br><br>
 
         {% if sessionPasse %}
+        <div class="btn btn-primary">
+
+            {{ knp_pagination_render(sessionPasse) }}
+
+        </div>
+
             <table class="table">
                 <thead>
                     <tr>

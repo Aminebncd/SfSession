@@ -31,7 +31,7 @@
             <h2>Inscrit à ces sessions :</h2>
             <div class="user-sessions">
                 {% for session in user.sessions %}
-                <a href="{{ path('details_session', {'id' : session.id}) }}">{{ session }} (du {{ session.dateDebutFR }} au {{ session.dateFinFR }})   |</a> 
+                <a class="action"  href="{{ path('details_session', {'id' : session.id}) }}">{{ session }} (du {{ session.dateDebutFR }} au {{ session.dateFinFR }})   |</a> 
                 {% if is_granted('ROLE_ADMIN')  %}
                 <a class="action" href="{{ path('removeUser_session', {'session' : session.id, 'user' : user.id}) }}">desinscrire</a>
                 {% endif %} <br>

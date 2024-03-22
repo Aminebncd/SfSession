@@ -14,6 +14,7 @@ use App\Repository\ModuleRepository;
 use App\Repository\SessionRepository;
 use App\Repository\ProgrammeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -22,15 +23,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SessionController extends AbstractController
 {
     #[Route('/session', name: 'app_session')]
-    public function index(SessionRepository $sessionRepository): Response
+    public function index(Request $request, SessionRepository $sessionRepository, PaginatorInterface $paginator): Response
     {
-        // je recupere toutes les sessions en BDD
-        $sessions = $sessionRepository->findBy([], ['dateDebut' => 'DESC']);
+        // Récupérer toutes les sessions en BDD, triées par date de début
+        $queryBuilder = $sessionRepository->createQueryBuilder('s')
+            ->orderBy('s.dateDebut', 'DESC');
 
-        // je retourne la vue avec la fonction symfony render()
+        // Paginer les résultats
+        $sessions = $paginator->paginate(
+            $queryBuilder, // QueryBuilder
+            $request->query->getInt('page', 1), // Numéro de page
+            10 // Nombre d'éléments par page
+        );
+
+        // Retourner la vue avec les résultats paginés
         return $this->render('session/index.html.twig', [
             'controller_name' => 'SessionController',
-            // je transmets les infos recupérées plus haut
             'sessions' => $sessions
         ]);
     }
@@ -173,6 +181,7 @@ class SessionController extends AbstractController
 
     return $this->render('session/editProgramme.html.twig' , [
         'formAddProgramme' => $form,
+        'session' => $programme->getSession()
         // 'edit' => $module->getId()
     ]);
     }
