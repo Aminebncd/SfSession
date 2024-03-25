@@ -10,11 +10,13 @@
     {% else %}
         <h1>Ajoutez une nouvelle formation</h1>
     {% endif %}
-    {{ form_start(formAddFormation) }}
-    <div class="card">
 
+    <div class="card">
+        {{ form_start(formAddFormation) }}
+
+        
+        {{ form_end(formAddFormation) }}
     </div>
-    {{ form_end(formAddFormation) }}
 </div>
 
 {% endblock %}

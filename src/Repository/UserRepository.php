@@ -62,4 +62,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    // afficher les stagiaires non inscrits dans une session
+    public function findAdmins()
+    {
+        $em = $this->getEntityManager();
+        $sub = $em->createQueryBuilder();
+        
+        
+        $qb = $sub;
+        
+        // selectionner tous les stagiaires d'une session dont l'id est passé en parametre
+        $qb->select('s')
+           ->from('App\Entity\User', 's')
+           ->where('s.roles = ["ROLE_ADMIN"]');
+    }
 }

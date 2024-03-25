@@ -130,8 +130,9 @@ class SessionController extends AbstractController
         // si validation, on persiste l'objet en base de donnée
         if ($form->isSubmitted() 
             && $form->isValid()
-                && (($tempsTotal + $form->getData()->getDuree()) <= $session->getDureeSession())
-                    && in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
+                && $form->getData()->getDuree() > 0
+                    && (($tempsTotal + $form->getData()->getDuree()) <= $session->getDureeSession())
+                        && in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
         
             $programme = $form->getData();
             // $tempsModules += ($form->getData()->getDuree());
@@ -183,8 +184,9 @@ class SessionController extends AbstractController
 
         if ($form->isSubmitted() 
             && $form->isValid()
-                && (($tempsTotal + $form->get('duree')->getData()) <= $session->getDureeSession())
-                    && in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
+                && $form->getData()->getDuree() > 0
+                    && (($tempsTotal + $form->get('duree')->getData()) <= $session->getDureeSession())
+                        && in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
         //    dd($tempsTotal + $form->get('duree')->getData());
             $programme->setDuree($form->get('duree')->getData());
             $entityManager->persist($programme);

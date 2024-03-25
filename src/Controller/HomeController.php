@@ -24,6 +24,7 @@ class HomeController extends AbstractController
 
         // APPARAMENT ON NE PEUT INTEGRER QU'UNE SEULE PAGINATION PAR VUE
         // DONC CA MARCHE PAS
+
         // Récupérer les sessions passées
         $sessionsPassees = $paginator->paginate(
             $sessionRepository->findSessionPassees(), // Query pour les sessions passées
@@ -35,14 +36,17 @@ class HomeController extends AbstractController
         $sessionsPresentes = $paginator->paginate(
             $sessionRepository->findSessionPresent(), 
             $request->query->getInt('page_present', 1),
-            10 
+            10,
+            // j'ai trouvé ça sur stackoverflow mais ça fonctionne pas :/
+            ['pageParameterName' => 'present']
         );
 
         
         $sessionsFutures = $paginator->paginate(
             $sessionRepository->findSessionFutures(),
             $request->query->getInt('page_futur', 1), 
-            10 
+            10,
+            ['pageParameterName' => 'passe']
         );
 
         // Retourner la vue avec les résultats paginés

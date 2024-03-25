@@ -9,7 +9,7 @@ use App\Entity\Formation;
 use App\Entity\Formateur;
 use App\Entity\User;
 
-class AppFixtures extends Fixture
+class SessionFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
@@ -17,7 +17,8 @@ class AppFixtures extends Fixture
 
             $formations = $manager->getRepository(Formation::class)->findAll();
             $formateurs = $manager->getRepository(Formateur::class)->findAll();
-            $createur = $this->getUser();
+            $createur = $manager->getRepository(User::class)->findBy();
+            // $createur = $this->getUser();
     
             $session = new Session();
             $session->setIntituleSession('Formation ' . ($i + 1));
