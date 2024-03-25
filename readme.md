@@ -39,10 +39,12 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
    - **Doctrine Fixtures Bundle :** Pour la génération de données de test. [Documentation](https://symfony.com/doc/current/bundles/DoctrineFixturesBundle/index.html).
    ```bash
    composer require --dev orm-fixtures
-
+    ```
+    
    - **KnpPaginatorBundle :**Pour la pagination des résultats. [Documentation](https://github.com/KnpLabs/KnpPaginatorBundle).
    ```bash
    composer require knplabs/knp-paginator-bundle
+    ```
 
 6. Deployer l'application sur un serveur web compatible avec symfony
 
