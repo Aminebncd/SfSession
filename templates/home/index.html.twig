@@ -29,7 +29,7 @@
                     {% for sessionF in sessionFutur %}
                     <tr>
                         <td class="session-title">
-                            <a class="action-links" href="{{ path('details_session', {'id' : sessionF.id}) }}">{{ sessionF }}</a>
+                            <a class="action" href="{{ path('details_session', {'id' : sessionF.id}) }}">{{ sessionF }}</a>
     
                             {% if is_granted('ROLE_ADMIN')  %}    
                             <a class="action" href="{{ path('edit_session', {'id' : sessionF.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
@@ -70,7 +70,7 @@
                     {% for sessionP in sessionPresent %}
                     <tr>
                         <td class="session-title">
-                            <a class="action-links" href="{{ path('details_session', {'id' : sessionP.id}) }}">{{ sessionP }}</a>
+                            <a class="action" href="{{ path('details_session', {'id' : sessionP.id}) }}">{{ sessionP }}</a>
     
                             {% if is_granted('ROLE_ADMIN')  %}    
                             <a class="action" href="{{ path('edit_session', {'id' : sessionP.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
@@ -113,7 +113,7 @@
                     {% for sessionPA in sessionPasse %}
                     <tr>
                         <td class="session-title">
-                            <a class="action-links" href="{{ path('details_session', {'id' : sessionPA.id}) }}">{{ sessionPA }}</a>
+                            <a class="action" href="{{ path('details_session', {'id' : sessionPA.id}) }}">{{ sessionPA }}</a>
     
                             {% if is_granted('ROLE_ADMIN')  %}    
                             <a class="action" href="{{ path('edit_session', {'id' : sessionPA.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>

@@ -25,7 +25,7 @@ class UserFixtures extends Fixture
            $user->setDateNaissance($dateNaissance);
            $user->setSexe($sexe[array_rand($sexe, 1)]);
            $user->setVille($ville[array_rand($ville, 1)]);
-           $user->setTelephone(0000000000);
+           $user->setTelephone('0000000000');
 
             // Enregistrer la session dans la base de données
             $manager->persist($user);

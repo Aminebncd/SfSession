@@ -422,9 +422,17 @@ label {
 }
 
 .user-sessions {
-    background-color: var(--second-color);
+    
     padding: 10px;
     border-radius: 10px;
+    background-color: var(--second-color);
+}
+
+.user-session {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
     .action {
         color: #333 ;
     }
@@ -438,10 +446,16 @@ label {
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
+.inscrits {
+    display: flex;
+    flex-direction: column;
+}
+
 .stagiaires {
-    /* width: 100%; */
+    display: flex;
     color: var(--second-color);
     text-align: center;
+    justify-content: space-between
 }
 
 

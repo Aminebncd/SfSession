@@ -98,7 +98,6 @@ class SessionController extends AbstractController
 
 
     // AFFICHAGE DES DETAILS D'UNE SESSION
-    #[Route('/admin/{session}/{programme}/modifProgramme', name: 'modifProgramme_session')]
     #[Route('/session/{id}/details', name: 'details_session')]
     public function details(Session $session=null, 
                             Programme $programme=null,
@@ -147,6 +146,7 @@ class SessionController extends AbstractController
             'controller_name' => 'SessionController', 
             'nonInscrits' => $nonInscrits,
             'session' => $session,
+            'tempsTotal' => $tempsTotal,
             'formAddProgramme' => $form,
             // 'nonProgrammes' => $nonProgrammes,
             'message' => ""

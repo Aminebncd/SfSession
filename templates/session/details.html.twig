@@ -6,12 +6,7 @@
 
 <div class="content">
     <h1>Details de la session</h1>
-    
 
-    
-    <div>
-
-    
     {% if session %}
 
       <div class="card">
@@ -19,9 +14,9 @@
           {{ session }}
         </h1>
         <div class="session-info">
-          Formation : {{ session.formation }} <br>
-          Formateur référent : {{ session.formateur }} <br>
-          du {{ session.dateDebutFR }} au {{ session.dateFinFR }} ({{ session.dureeSession }} jours)<br>
+          Formation : <b>{{ session.formation }}</b> <br>
+          Formateur référent : <b>{{ session.formateur }}</b> <br>
+          du <b>{{ session.dateDebutFR }}</b> au <b>{{ session.dateFinFR }}</b> ({{ session.dureeSession }} jours)<br>
           {{ session.nombrePlaces }} place(s)
         
           ({% set places_restantes = session.nombrePlaces | trim | default(0) %}
@@ -42,28 +37,21 @@
             </thead>
 
             <tbody>
+             
                 {% for programme in session.programmes %}
                   <tr>
-                      <td class="table-module">
-                        
+
+                      <td class="table-module">  
                           {{ programme.module }} 
-  
                           {% if is_granted('ROLE_ADMIN') %}
-                          
                           <a class="btn-warning" href="{{ path('removeProgramme_session', {'session' : session.id, 'programme' : programme.id}) }}"><i class="fa-solid fa-trash"></i></a>
                           {% endif %}
                       </td>
                       <td>
                         {{ programme.duree }} j
-                    
                         {% if is_granted('ROLE_ADMIN') %}
-
                         <a class="btn-warning" href="{{ path('modifProgramme_session', {'session' : session.id, 'programme' : programme.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
-
-                        {# <a class="btn-warning modifier-programme-btn" href="#" data-url="{{ path('modifProgramme_session', {'programme' : programme.id}) }}" data-programme-id="{{ programme.id }}"><i class="fa-solid fa-pen-to-square"></i></a> #}
-
                         {% endif %}
-                    
                         <div class="modifier-programme-container"></div>
                     </td>
                     
@@ -81,10 +69,10 @@
     
     
 
-      {% if is_granted('ROLE_ADMIN')  %}
+      {% if is_granted('ROLE_ADMIN') and session.dureeSession > tempsTotal %}
       {{ form_start(formAddProgramme) }}
       <div class="card form-module">
-        <h2 class="programm-form">rajouter un module :</h2>
+        <h2 class="programm-form">Rajouter un module :</h2>
           <div>
                   {{form_row(formAddProgramme.module)}}
                   {{form_row(formAddProgramme.duree)}}
@@ -100,15 +88,15 @@
       {% if session.inscrits| length > 0 %}
       <div class="card">
         <h2>Inscrits à cette session : </h2>
-          <div>
+          <div class="inscrits">
             {% for inscrit in session.inscrits %}
             <div class="stagiaires">
               <p>
-                {{ inscrit}}   |
-                {% if is_granted('ROLE_ADMIN')  %}
-                <a class="action" href="{{ path('removeUser_session', {'session' : session.id, 'user' : inscrit.id}) }}">desinscrire</a>
-                {% endif %}
+                <a class="action" href="{{ path('details_user', {'id': inscrit.id}) }}">{{ inscrit}}</a>
               </p>
+              {% if is_granted('ROLE_ADMIN')  %}
+              <a class="action" href="{{ path('removeUser_session', {'session' : session.id, 'user' : inscrit.id}) }}">desinscrire</a>
+              {% endif %}
             </div>
             {% endfor %}
           </div>
@@ -116,17 +104,18 @@
       {% endif %}
 
 
+   
 
-
-      {% if nonInscrits and is_granted('ROLE_ADMIN')  %} 
+      {% if nonInscrits and is_granted('ROLE_ADMIN') and places_restantes - session.inscrits | length  > 0 %} 
       <div class="card">
-        <h2>stagiaires non inscrits :</h2>
+        <h2>Stagiaires non inscrits :</h2>
           <div>
             {% for nonInscrit in nonInscrits %}
             <div class="stagiaires">
               <p>
-                {{nonInscrit}}  |<a class="action" href="{{ path('addUser_session', {'session' : session.id, 'user' : nonInscrit.id}) }}">inscrire</a>
+                <a class="action" href="{{ path('details_user', {'id': nonInscrit.id}) }}">{{nonInscrit}} </a>
               </p>
+              <a class="action" href="{{ path('addUser_session', {'session' : session.id, 'user' : nonInscrit.id}) }}">inscrire</a>
             </div>
             {% endfor %}
           </div>
