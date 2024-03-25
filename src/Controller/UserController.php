@@ -16,6 +16,9 @@ class UserController extends AbstractController
     #[Route('/user', name: 'app_user')]
     public function index(UserRepository $userRepository): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         // on verifie que le user dispose de droits admin
         if(in_array("ROLE_ADMIN", $this->getUser()->getRoles())){
             // trouve tous les users en BDD pour les afficher
@@ -35,6 +38,9 @@ class UserController extends AbstractController
     #[Route('/user/{id}/details', name: 'details_user')]
     public function details(User $user=null): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         // pas besoin de faire  $user = $userRepository->find($id); car symfony le fait tout seul
 
         // la fiche d'un stagiaire ne peut être consultée que par un admin ou le stagiaire lui même
@@ -53,6 +59,9 @@ class UserController extends AbstractController
     Request $request, 
     EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         // crée un nouveau formulaire associé $categorie
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -80,6 +89,9 @@ class UserController extends AbstractController
       #[Route('/admin/{id}/delete', name: 'delete_user')]
       public function delete(User $user = null, EntityManagerInterface $em)
       {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
           if ($user) {
              $em->remove($user);
              $em->flush();

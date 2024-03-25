@@ -27,6 +27,9 @@ class ModuleController extends AbstractController
     public function index(ModuleRepository $moduleRepository, 
                           CategorieRepository $categorieRepository): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         // je recupere toutes les Modules en BDD
         $modules = $moduleRepository->findBy([], ['categorie' => 'ASC']);
         $categories = $categorieRepository->findAll();
@@ -51,6 +54,9 @@ class ModuleController extends AbstractController
                             Request $request, 
                             EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         // si categorie inexistante, crée un nouvel objet categorie
         if (!$categorie) {
             $categorie = new Categorie();
@@ -86,6 +92,9 @@ class ModuleController extends AbstractController
                                     Request $request, 
                                     EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         // si module inexistante, crée un nouvel objet module
         if (!$module) {
             $module = new Module();
@@ -120,6 +129,9 @@ class ModuleController extends AbstractController
                             Request $request): Response
     {
         
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         $modules = $categorie->getModules();
         return $this->render('module/details.html.twig', [
             'controller_name' => 'moduleController', 
@@ -136,6 +148,9 @@ class ModuleController extends AbstractController
     public function deleteModule(Module $module = null, 
                                  EntityManagerInterface $em)
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         if ($module) {
            $em->remove($module);
            $em->flush();
@@ -150,6 +165,9 @@ class ModuleController extends AbstractController
     public function deleteCategorie(Categorie $categorie = null, 
                                     EntityManagerInterface $em)
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         if ($categorie) {
            $em->remove($categorie);
            $em->flush();

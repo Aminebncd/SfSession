@@ -63,14 +63,16 @@
 .burger-toggler {
     display: none;
     position: fixed; 
-    top: 10px; 
+    top: 30px; 
     left: 10px; 
     border: none;
     background: transparent;
     cursor: pointer;
     color: var(--second-color);
-    font-size: 35px;
     z-index: 1001; 
+    i {
+        font-size: 25px;
+    }
 }
 
 

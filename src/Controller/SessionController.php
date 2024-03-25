@@ -25,6 +25,9 @@ class SessionController extends AbstractController
     #[Route('/session', name: 'app_session')]
     public function index(Request $request, SessionRepository $sessionRepository, PaginatorInterface $paginator): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         // On recupere toutes les sessions en BDD, triées par date de début
         $queryBuilder = $sessionRepository->createQueryBuilder('s')
             ->orderBy('s.dateDebut', 'DESC');
@@ -54,6 +57,9 @@ class SessionController extends AbstractController
                             Request $request, 
                             EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         // si session inexistante, crée un nouvel objet session
         if (!$session) {
             $session = new Session();
@@ -102,6 +108,9 @@ class SessionController extends AbstractController
                             EntityManagerInterface $entityManager
                             ): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         // on affiche la liste des non-inscrits
         $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
         // on instancie un nouvel objet programme
@@ -144,6 +153,9 @@ class SessionController extends AbstractController
     }
 
 
+
+
+
     // MODIF D'UN MODULE DE SESSION 
     #[Route('/admin/{programme}/modifProgramme', name: 'modifProgramme_session')]
     public function modifProgramme(Programme $programme=null,
@@ -152,6 +164,16 @@ class SessionController extends AbstractController
                                 Environment $twig): Response
     {
 
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        $session = $programme->getSession();
+        $tempsTotal = -($programme->getDuree());
+        $programmes = $session->getProgrammes();
+        foreach ($programmes as $prog){
+            $tempsTotal += $prog->getDuree();
+        }
+        // dd($tempsTotal);
         $form = $this->createForm(ProgrammeType::class, $programme, [
             'session' => $programme,
             // 'module' => $programme,
@@ -159,13 +181,16 @@ class SessionController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-        //    dd($form->get('duree')->getData());
+        if ($form->isSubmitted() 
+            && $form->isValid()
+                && (($tempsTotal + $form->get('duree')->getData()) <= $session->getDureeSession())
+                    && in_array("ROLE_ADMIN", $this->getUser()->getRoles())) {
+        //    dd($tempsTotal + $form->get('duree')->getData());
             $programme->setDuree($form->get('duree')->getData());
             $entityManager->persist($programme);
             $entityManager->flush();
 
-            return $this->redirectToRoute('details_session', ['id' => $programme->getSession()->getId()]);
+            return $this->redirectToRoute('details_session', ['id' => $session->getId()]);
         }
 
         return $this->render('session/editProgramme.html.twig' , [
@@ -189,6 +214,9 @@ class SessionController extends AbstractController
                             EntityManagerInterface $entityManager,
                             Request $request) 
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         $nonInscrits = $sessionRepository->findNonInscrits($session->getId());
         $nonProgrammes = $sessionRepository->findNonProgrammes($session->getId());
 
@@ -228,6 +256,9 @@ class SessionController extends AbstractController
                             Request $request)
     {
   
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
           $session->removeInscrit($user);
           $entityManager->persist($session);
           $entityManager->flush();
@@ -245,6 +276,8 @@ class SessionController extends AbstractController
 
 
 
+
+
     // SUPPRESSION D'UN MODULE D'UNE SESSION
     #[Route('/admin/{session}/{programme}/deprogrammer', name: 'removeProgramme_session')]
     public function removeModule(Session $session=null, 
@@ -255,6 +288,9 @@ class SessionController extends AbstractController
                             Request $request)
     {
       
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         $session->removeProgramme($programme);
         $entityManager->persist($session);
         $entityManager->flush();
@@ -271,6 +307,8 @@ class SessionController extends AbstractController
 
 
 
+
+
     // SUPPRESSION D'UNE SESSION
     #[Route('/admin/{session}/supprimer', name: 'delete_session')]
     public function removeSession(Session $session=null, 
@@ -278,15 +316,14 @@ class SessionController extends AbstractController
                             Request $request)
     {
       
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         $entityManager->remove($session);
         $entityManager->flush();
 
         return $this->redirectToRoute('app_session');
     }
-
-
-
-
 
 
 

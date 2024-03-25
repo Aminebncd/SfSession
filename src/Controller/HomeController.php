@@ -20,6 +20,10 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+
+
+        // APPARAMENT ON NE PEUT INTEGRER QU'UNE SEULE PAGINATION PAR VUE
+        // DONC CA MARCHE PAS
         // Récupérer les sessions passées
         $sessionsPassees = $paginator->paginate(
             $sessionRepository->findSessionPassees(), // Query pour les sessions passées

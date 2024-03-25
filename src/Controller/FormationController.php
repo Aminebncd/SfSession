@@ -22,6 +22,9 @@ class FormationController extends AbstractController
                           FormateurRepository $formateurRepository): Response
     {
 
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         $formations = $formationRepository->findAll();
         $formateurs = $formateurRepository->findAll();
         
@@ -37,6 +40,9 @@ class FormationController extends AbstractController
                                      Session $session=null,
                                      Request $request): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         $sessions = $formation->getSession();
         return $this->render('formation/detailsFormation.html.twig', [
             'controller_name' => 'moduleController', 
@@ -51,6 +57,9 @@ class FormationController extends AbstractController
                                      Session $session=null,
                                      Request $request): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         $sessions = $formateur->getSessions();
         // dd($sessions);
         return $this->render('formation/detailsFormateur.html.twig', [
@@ -67,6 +76,9 @@ class FormationController extends AbstractController
                             Request $request, 
                             EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         // si formation inexistante, crée un nouvel objet formation
         if (!$formation) {
             $formation = new Formation();
@@ -101,6 +113,9 @@ class FormationController extends AbstractController
                             Request $request, 
                             EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         // si formateur inexistante, crée un nouvel objet formateur
         if (!$formateur) {
             $formateur = new Formateur();
@@ -129,6 +144,9 @@ class FormationController extends AbstractController
     public function deleteFormation(Formation $formation,
                                     EntityManagerInterface $em)
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         if ($formation) {
             $em->remove($formation);
             $em->flush();
@@ -142,6 +160,9 @@ class FormationController extends AbstractController
     public function deleteFormateur(Formateur $formateur,
                                     EntityManagerInterface $em)
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         if ($formateur) {
             $em->remove($formateur);
             $em->flush();
