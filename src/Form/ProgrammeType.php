@@ -24,7 +24,10 @@ class ProgrammeType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options = null): void
     {
-        $session = $options['session'];
+        
+        $session = $options['session']->getSession();
+        $module = $options['session']->getModule();
+        // dd($module);
         // dd($session);
         $builder
             ->add('duree', NumberType::class, [
@@ -57,8 +60,10 @@ class ProgrammeType extends AbstractType
 
                         return $sub;
                   },
+                   'data' => $module,
                    'choice_value' => 'id',
                    'choice_label' => 'intitule_module',
+
                    'attr' => [
                         'class' => 'form-control column'
                     ]

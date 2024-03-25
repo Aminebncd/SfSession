@@ -25,13 +25,13 @@ class SessionController extends AbstractController
     #[Route('/session', name: 'app_session')]
     public function index(Request $request, SessionRepository $sessionRepository, PaginatorInterface $paginator): Response
     {
-        // Récupérer toutes les sessions en BDD, triées par date de début
+        // On recupere toutes les sessions en BDD, triées par date de début
         $queryBuilder = $sessionRepository->createQueryBuilder('s')
             ->orderBy('s.dateDebut', 'DESC');
 
-        // Paginer les résultats
+        // Pagination des résultats
         $sessions = $paginator->paginate(
-            $queryBuilder, // QueryBuilder
+            $queryBuilder, 
             $request->query->getInt('page', 1), // Numéro de page
             10 // Nombre d'éléments par page
         );
@@ -150,40 +150,28 @@ class SessionController extends AbstractController
                                 Request $request,
                                 EntityManagerInterface $entityManager,
                                 Environment $twig): Response
-        {
+    {
 
-    // dd('AJAX request');
-    $form = $this->createForm(ProgrammeType::class, $programme, [
-        'session' => $programme->getSession()
-        // 'module' => $programme->getModule()
-    ]);
+        $form = $this->createForm(ProgrammeType::class, $programme, [
+            'session' => $programme,
+        ]);
 
-    $form->handleRequest($request);
+        $form->handleRequest($request);
 
-    // if ($request->isXmlHttpRequest()) {
-       
-    //     $formView = $form->createView();
-    //     $formHtml = $twig->render('session/editProgramme.html.twig', [
-    //         'form' => $formView,
-    //     ]);
+        if ($form->isSubmitted() && $form->isValid()) {
+        //    dd($form->get('duree')->getData());
+            $programme->setDuree($form->get('duree')->getData());
+            $entityManager->persist($programme);
+            $entityManager->flush();
 
-    //     return new JsonResponse(['form' => $formHtml]);
-    // }
+            return $this->redirectToRoute('details_session', ['id' => $programme->getSession()->getId()]);
+        }
 
-    if ($form->isSubmitted() && $form->isValid()) {
-       
-        $programme->setDuree($form->get('duree')->getData());
-        $entityManager->persist($programme);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('details_session', ['id' => $programme->getSession()->getId()]);
-    }
-
-    return $this->render('session/editProgramme.html.twig' , [
-        'formAddProgramme' => $form,
-        'session' => $programme->getSession()
-        // 'edit' => $module->getId()
-    ]);
+        return $this->render('session/editProgramme.html.twig' , [
+            'formAddProgramme' => $form,
+            'programme' => $programme,
+            'session' => $programme->getSession()
+        ]);
     }
 
 

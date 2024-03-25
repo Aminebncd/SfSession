@@ -27,18 +27,18 @@ class HomeController extends AbstractController
             10 // Nombre d'éléments par page pour les sessions passées
         );
 
-        // Récupérer les sessions présentes
+        
         $sessionsPresentes = $paginator->paginate(
-            $sessionRepository->findSessionPresent(), // Query pour les sessions présentes
-            $request->query->getInt('page_present', 1), // Numéro de page pour les sessions présentes
-            10 // Nombre d'éléments par page pour les sessions présentes
+            $sessionRepository->findSessionPresent(), 
+            $request->query->getInt('page_present', 1),
+            10 
         );
 
-        // Récupérer les sessions futures
+        
         $sessionsFutures = $paginator->paginate(
-            $sessionRepository->findSessionFutures(), // Query pour les sessions futures
-            $request->query->getInt('page_futur', 1), // Numéro de page pour les sessions futures
-            10 // Nombre d'éléments par page pour les sessions futures
+            $sessionRepository->findSessionFutures(),
+            $request->query->getInt('page_futur', 1), 
+            10 
         );
 
         // Retourner la vue avec les résultats paginés
