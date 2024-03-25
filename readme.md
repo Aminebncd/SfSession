@@ -41,7 +41,7 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
    composer require --dev orm-fixtures
     ```
     
-   - **KnpPaginatorBundle :**Pour la pagination des résultats. [Documentation](https://github.com/KnpLabs/KnpPaginatorBundle).
+   - **KnpPaginatorBundle :** Pour la pagination des résultats. [Documentation](https://github.com/KnpLabs/KnpPaginatorBundle).
    ```bash
    composer require knplabs/knp-paginator-bundle
     ```
