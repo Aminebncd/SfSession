@@ -20,15 +20,15 @@ class UserFixtures extends Fixture
            $user = new User();
            $user->setEmail('user'.$i.'@hotmail.com');
            $user->setPassword('ABC');
-           $user->setNom('nom'.$i);
-           $user->setPrenom('prenom'.$i);
+           $user->setNom('Fixture'.$i);
+           $user->setPrenom('Data');
            $user->setDateNaissance($dateNaissance);
-           $user->setSexe([array_rand($sexe, 1)]);
-           $user->setVille([array_rand($ville, 1)]);
+           $user->setSexe($sexe[array_rand($sexe, 1)]);
+           $user->setVille($ville[array_rand($ville, 1)]);
            $user->setTelephone(0000000000);
 
             // Enregistrer la session dans la base de données
-            $manager->persist($session);
+            $manager->persist($user);
         }
 
         $manager->flush();

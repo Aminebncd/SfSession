@@ -17,7 +17,7 @@ class SessionFixtures extends Fixture
 
             $formations = $manager->getRepository(Formation::class)->findAll();
             $formateurs = $manager->getRepository(Formateur::class)->findAll();
-            $createur = $manager->getRepository(User::class)->findBy();
+            $admins = $manager->getRepository(User::class)->findAdmins();
             // $createur = $this->getUser();
     
             $session = new Session();
@@ -42,7 +42,8 @@ class SessionFixtures extends Fixture
             $session->setFormateur($formateur);
 
             // Liaison avec le créateur de session
-            $session->setCreateur($createur);
+            $admin = $admins[array_rand($admins)];
+            $session->setCreateur($admin);
 
             // Enregistrer la session dans la base de données
             $manager->persist($session);
