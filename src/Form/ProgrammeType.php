@@ -25,8 +25,8 @@ class ProgrammeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options = null): void
     {
         
-        $session = $options['session']->getSession();
-        $module = $options['session']->getModule();
+        $session = $options['session'];
+        // $module = $options['module'];
         // dd($module);
         // dd($session);
         $builder
@@ -60,7 +60,7 @@ class ProgrammeType extends AbstractType
 
                         return $sub;
                   },
-                   'data' => $module,
+                //    'data' => $module,
                    'choice_value' => 'id',
                    'choice_label' => 'intitule_module',
 

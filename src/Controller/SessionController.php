@@ -154,6 +154,7 @@ class SessionController extends AbstractController
 
         $form = $this->createForm(ProgrammeType::class, $programme, [
             'session' => $programme,
+            // 'module' => $programme,
         ]);
 
         $form->handleRequest($request);
