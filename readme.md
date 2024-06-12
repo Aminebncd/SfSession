@@ -55,5 +55,5 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
 3. Explorez les différentes fonctionnalités disponibles :
     - Créez de nouvelles sessions de formation.
     - Modifiez les détails des sessions existantes.
-    - Inscrivez et désinscrivez des stagiaires à/from une session.
+    - Inscrivez et désinscrivez des stagiaires à une/d'une session.
     - Consultez les détails des sessions, y compris les programmes associés et les stagiaires inscrits.
